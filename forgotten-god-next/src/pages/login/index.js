@@ -58,14 +58,13 @@ const LoginPage = () => {
             const data = await fetch("http://localhost:5000/auth/login", {
                 method: 'POST',
                 body : JSON.stringify(loginInfo),
-                mode: 'cors',
                 credentials: "include",
                 headers:{
                     "Content-Type": "application/json; charset=UTF-8",
                 }
                 
             }).catch(() => errorMessageAnimation("Такого пользователя не существует"))
-            
+            console.log(data)
             const json = await data.json() 
            
             json.access_token ? 

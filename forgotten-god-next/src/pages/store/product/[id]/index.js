@@ -10,7 +10,7 @@ const ProductPage = ({product}) => {
     const router = useRouter()
 
     const addToCartHandle = async () => {
-        const refreshResponse = await fetch("/auth/refresh", {method: "POST"})
+        const refreshResponse = await fetch("/auth/refresh", {method: "POST", credentials: "include"})
         const response = await fetch("/store/addToCart", {method: "POST", body: JSON.stringify({productId: product.id})})
     }
 
@@ -22,7 +22,7 @@ const ProductPage = ({product}) => {
     const validatedPublishedDate = new Date(product?.publishDate)
 
     return (
-        <BasePageLayout>
+        <BasePageLayout title={product.title}>
             <StoreNavigation/>
             <MainInfoWrapper>
                 <MainInfo>
