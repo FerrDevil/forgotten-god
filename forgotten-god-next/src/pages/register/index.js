@@ -84,12 +84,13 @@ const RegisterPage = () => {
             method: 'POST',
             body: JSON.stringify(registerInfo),
             mode: 'cors',
-                headers:{
-                    "Content-Type": "application/json; charset=UTF-8",
-                    'Access-Control-Allow-Credentials' : 'true'
-                }
+            credentials: "include",
+            headers:{
+                "Content-Type": "application/json; charset=UTF-8",
+                'Access-Control-Allow-Credentials' : 'true'
+            }
         } 
-        const response = await fetch('/auth/register', fetchParams)
+        const response = await fetch('https://forgotten-god.onrender.com/auth/register', fetchParams)
         const json = await response.json()
         if (!json.msg && !json.error){
             router.push("/")

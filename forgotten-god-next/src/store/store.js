@@ -5,8 +5,8 @@ export const fetchUser = createAsyncThunk(
   'getUser',
   async (_, {rejectWithValue}) => {
     try {
-      await fetch('http://localhost:5000/auth/refresh', {method: "POST", credentials: "include"})
-      const response = await fetch('http://localhost:5000/auth/getUser', { credentials: "include"})
+      await fetch('https://forgotten-god.onrender.com/auth/refresh', {method: "POST", credentials: "include"})
+      const response = await fetch('https://forgotten-god.onrender.com/auth/getUser', { credentials: "include"})
       
       if (!response.ok){
         rejectWithValue({user: "Unauthorized"})

@@ -41,7 +41,7 @@ const SearchByTitle = () => {
         }
 
         const setFilteredProducts = async () => {
-            const response = await fetch(`/store/searchProductsByTitle/${title}`)
+            const response = await fetch(`https://forgotten-god.onrender.com/store/searchProductsByTitle/${title}`)
             const filteredProducts = await response.json()
             setProducts(filteredProducts)
         }

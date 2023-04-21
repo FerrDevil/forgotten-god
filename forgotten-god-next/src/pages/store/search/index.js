@@ -68,7 +68,7 @@ const SearchPage = () => {
      useEffect(() => {
         if(!debouncedSearchParams) return
         const updateProducts = async () => {
-            const response = await fetch('http://localhost:5000/store/getProducts', {method: "POST", body: JSON.stringify(searchParams)})
+            const response = await fetch('https://forgotten-god.onrender.com/store/getProducts', {method: "POST", body: JSON.stringify(searchParams)})
             const filteredProducts = await response.json()
             filteredProducts && setProducts(filteredProducts)
         }

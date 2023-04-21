@@ -8,8 +8,8 @@ const UserTable = () => {
 
     useEffect(() => {
         const getUsersInfo = async () => {
-            await fetch('http://localhost:5000/auth/refresh', {method: "POST", credentials: "include"})
-            const response = await fetch('http://localhost:5000/admin/getUsersInfo', { credentials: "include"})
+            await fetch('https://forgotten-god.onrender.com/auth/refresh', {method: "POST", credentials: "include"})
+            const response = await fetch('https://forgotten-god.onrender.com/admin/getUsersInfo', { credentials: "include"})
             const users = await response.json()
             console.log(users)
             setUsersInfo(users)

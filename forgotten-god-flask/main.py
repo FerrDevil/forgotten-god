@@ -12,7 +12,7 @@ from admin import admin
 
 app = Flask(__name__)
 app.config.from_object(ApplicationConfig)
-CORS(auth, resources={r"/*": {"origins": "https://forgotten-god-pmay.vercel.app"}}, allow_headers="*",  support_credentials=True)
+
 
 
 @app.after_request
@@ -20,12 +20,11 @@ def after_request(response):
 
     if not response.headers.get("Access-Control-Allow-Origin"):
         response.headers.add('Access-Control-Allow-Origin', 'https://forgotten-god-pmay.vercel.app')
-    print(response.headers)
+
     response.headers.add('Access-Control-Allow-Headers',
-                        'Origin,X-Requested-With,Content-Type,Accept,Authorization,Access-Control-Allow-Credentials,Cookie,Set-Cookie')
+                        'Content-Type,Access-Control-Allow-Credentials,Cookie,Set-Cookie')
     response.headers.add('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE,OPTIONS')
     response.headers.add('Access-Control-Allow-Credentials', 'true')
-    print(response.headers)
     return response
 
 

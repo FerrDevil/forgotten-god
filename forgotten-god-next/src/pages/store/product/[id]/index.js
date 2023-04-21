@@ -87,8 +87,7 @@ export default ProductPage
 
 
 export async function getServerSideProps({req, res, params}){
-    console.log(params)
-    const request = await fetch(`http://localhost:5000/store/getProductById/${params.id}`)
+    const request = await fetch(`https://forgotten-god.onrender.com/store/getProductById/${params.id}`)
     const response =  await request.json()
     return {props: {product: response}}
 }

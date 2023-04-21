@@ -13,8 +13,8 @@ const CartPage = () => {
 
     useEffect(() => {
         const getUserCart = async () => {
-            const refreshResponse = await fetch("http://localhost:5000/auth/refresh", {method: "POST", credentials: "include"})
-            const request = await fetch("http://localhost:5000/store/getCart", {credentials: "include"})
+            const refreshResponse = await fetch("https://forgotten-god.onrender.com/auth/refresh", {method: "POST", credentials: "include"})
+            const request = await fetch("https://forgotten-god.onrender.com/store/getCart", {credentials: "include"})
             const cartItems = await request.json()
             setCart(cartItems)
             console.log(cartItems)

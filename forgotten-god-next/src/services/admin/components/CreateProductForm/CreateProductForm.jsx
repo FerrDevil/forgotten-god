@@ -53,8 +53,8 @@ const CreateProductForm = () => {
 
     const createNewProduct = async (event) => {
         event.preventDefault()
-        const refreshResponse = await fetch('/auth/refresh', {method: "POST"})
-        const response = await fetch('/admin/createGame', {method: "POST", body: JSON.stringify(productInfo)})
+        const refreshResponse = await fetch('https://forgotten-god.onrender.com/auth/refresh', {method: "POST", credentials: "include"})
+        const response = await fetch('https://forgotten-god.onrender.com/admin/createGame', {method: "POST", credentials: "include", body: JSON.stringify(productInfo)})
         const productId = await response.json()
         const fileData = new FormData()
         fileData.append("file", productInfo.logo,  productInfo.logo.name)

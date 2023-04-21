@@ -10,10 +10,6 @@ from flask_cors import CORS
 auth = Blueprint("auth", __name__, )
 
 
-
-
-
-
 @auth.route('/register', methods=['POST'])
 def register():
     form_data = json.loads(request.data, strict=False)
