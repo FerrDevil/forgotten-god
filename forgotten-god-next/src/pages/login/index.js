@@ -64,7 +64,7 @@ const LoginPage = () => {
                 }
                 
             }).catch(() => errorMessageAnimation("Такого пользователя не существует"))
-            console.log(data)
+            console.log(data.headers)
             const json = await data.json() 
            
             json.access_token ? 
