@@ -74,7 +74,7 @@ const SearchPage = () => {
         }
         updateProducts()
         
-     }, [searchParams])
+     }, [searchParams, debouncedSearchParams])
 
     return(
         <BasePageLayout>

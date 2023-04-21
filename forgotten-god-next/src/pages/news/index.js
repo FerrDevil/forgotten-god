@@ -83,7 +83,7 @@ const NewsPage = () => {
           <UserFavouritesComponent/>
         </NewsFeedSidebar>
         <NewsFeed>
-          {posts.map(post => <FeedPost postInfo={post}/>)}
+          {posts.map(post => <FeedPost key={post.id} postInfo={post}/>)}
         </NewsFeed>
       </NewsMainContent>
     </BasePageLayout>
