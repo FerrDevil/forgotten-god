@@ -17,7 +17,7 @@ const Header = () => {
 
     const logout = async () => {
         await fetch('https://forgotten-god.onrender.com/auth/refresh', {method: "POST", credentials: "include"})
-        const response = await fetch('https://forgotten-god.onrender.com/auth/logout', { credentials: "include"})
+        const response = await fetch('https://forgotten-god.onrender.com/auth/logout', {method: "POST", credentials: "include"})
         const message = await response.json()
     } 
     
