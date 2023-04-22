@@ -1,4 +1,4 @@
-import {AdminPanelSVG, SupportLinkSVG, HeaderWrapper, HeaderNavigation, HeaderNavigationList, HeaderNavigationItem, HeaderNavigationItemTitle, LogoImage, LoginLinkSVG, HeaderNavigationLink, DownloadLinkSVG, ProfilePicture, HeaderMobileNavigation, HeaderMobileNavigationList, HeaderMobileNavigationLink, HeaderMobileNavigationItem, ShopLinkSVG, HeaderMobileNavigationLinkText, NewsLinkSVG } from "./header.js"
+import {AdminPanelSVG, SupportLinkSVG, LogoutButtonSVG, HeaderWrapper, HeaderNavigation, HeaderNavigationList, HeaderNavigationItem, HeaderNavigationItemTitle, LogoImage, LoginLinkSVG, HeaderNavigationLink, DownloadLinkSVG, ProfilePicture, HeaderMobileNavigation, HeaderMobileNavigationList, HeaderMobileNavigationLink, HeaderMobileNavigationItem, ShopLinkSVG, HeaderMobileNavigationLinkText, NewsLinkSVG } from "./header.js"
 import { memo } from "react"
 import { useRouter } from "next/router.js"
 import { useSelector } from "react-redux"
@@ -45,25 +45,35 @@ const Header = () => {
                 <HeaderNavigationList>
                     {
                     !userInfo?.userId ?
-                    <HeaderNavigationItem>
-                        <HeaderNavigationLink href="/login">
-                            <LoginLinkSVG/>
-                            <HeaderNavigationItemTitle>Войти</HeaderNavigationItemTitle>
-                        </HeaderNavigationLink>
-                    </HeaderNavigationItem> :
-                    userInfo?.userRole === "admin" ? 
-                    <HeaderNavigationItem>
-                        <HeaderNavigationLink href="/admin">
-                            <AdminPanelSVG/>
-                            <HeaderNavigationItemTitle>Панель администратора</HeaderNavigationItemTitle>
-                        </HeaderNavigationLink>
-                    </HeaderNavigationItem> :
-                    <HeaderNavigationItem>
-                        <HeaderNavigationLink href={`/user/`}>
-                            <ProfilePicture src="/image/thumbnail.jpg" alt="profile picture"/>
-                            <HeaderNavigationItemTitle>Профиль</HeaderNavigationItemTitle>
-                        </HeaderNavigationLink>
-                    </HeaderNavigationItem>
+                        <HeaderNavigationItem>
+                            <HeaderNavigationLink href="/login">
+                                <LoginLinkSVG/>
+                                <HeaderNavigationItemTitle>Войти</HeaderNavigationItemTitle>
+                            </HeaderNavigationLink>
+                        </HeaderNavigationItem> :
+                        <>
+                        <HeaderNavigationItem>
+                            <HeaderNavigationLink >
+                                <LogoutButtonSVG/>
+                                <HeaderNavigationItemTitle>Выйти</HeaderNavigationItemTitle>
+                            </HeaderNavigationLink>
+                        </HeaderNavigationItem>
+                        {
+                            userInfo?.userRole === "admin" ? 
+                            <HeaderNavigationItem>
+                                <HeaderNavigationLink href="/admin">
+                                    <AdminPanelSVG/>
+                                    <HeaderNavigationItemTitle>Панель администратора</HeaderNavigationItemTitle>
+                                </HeaderNavigationLink>
+                            </HeaderNavigationItem> :
+                            <HeaderNavigationItem>
+                                <HeaderNavigationLink href={`/user/`}>
+                                    <ProfilePicture src="/image/thumbnail.jpg" alt="profile picture"/>
+                                    <HeaderNavigationItemTitle>Профиль</HeaderNavigationItemTitle>
+                                </HeaderNavigationLink>
+                            </HeaderNavigationItem>
+                        }
+                        </>
                     }
                     
 

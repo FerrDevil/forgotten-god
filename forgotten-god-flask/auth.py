@@ -4,7 +4,6 @@ from flask_jwt_extended import create_access_token, create_refresh_token, set_ac
     get_jwt, get_jwt_identity, jwt_required, unset_jwt_cookies
 from datetime import datetime, timezone, timedelta
 import json
-from flask_cors import CORS
 
 
 auth = Blueprint("auth", __name__, )

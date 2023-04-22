@@ -8,6 +8,7 @@ import ShopSVG from "../../public/shop.svg"
 import NewsSVG from "../../public/news.svg"
 import AdminSVG from "../../public/admin-panel.svg"
 import SupportSVG from "../../public/support.svg"
+import LogoutSVG from "../../public/logout.svg"
 
 
 export const HeaderWrapper = styled.header`
@@ -154,6 +155,17 @@ export const DownloadLinkSVG = styled(DownloadSVG)`
         fill: #780c0c;
     }
 `
+export const LogoutButtonSVG = styled(LogoutSVG)`
+    fill: #ccc;
+    width: 30px;
+    height: 30px;
+    transition: fill 0.2s ease-in-out;
+    &:hover{
+        fill: #780c0c;
+    }
+`
+
+
 export const SupportLinkSVG = styled(SupportSVG)`
     fill: #ccc;
     width: 30px;

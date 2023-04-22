@@ -2,7 +2,6 @@ from flask import Blueprint, jsonify, request
 from models import db, User, Cart, Product
 from flask_jwt_extended import jwt_required, get_jwt_identity
 import json
-from flask_cors import CORS
 
 store = Blueprint("store", __name__, )
 

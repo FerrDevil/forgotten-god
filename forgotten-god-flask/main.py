@@ -14,7 +14,6 @@ app = Flask(__name__)
 app.config.from_object(ApplicationConfig)
 
 
-
 @app.after_request
 def after_request(response):
 

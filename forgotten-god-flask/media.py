@@ -1,7 +1,5 @@
 from flask import Blueprint, send_file
 
-from flask_cors import CORS
-
 
 media = Blueprint("media", __name__, )
 
