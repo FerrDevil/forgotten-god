@@ -111,6 +111,34 @@ export const HeaderNavigationLink = styled(Link)`
 
 `
 
+export const HeaderNavigationButton = styled.button`
+    all: unset;
+    display: grid;
+    align-items: center;
+    border: 1px solid transparent;
+    background-color: transparent;
+    cursor: pointer;
+    width: 100%;
+    grid-template-columns: 30px 1fr;
+    padding: 0 10px;
+    column-gap: 20px;
+    font-size: 16px;
+    color: #ccc;
+    transition: color 0.2s ease-in-out;
+    &:hover, &:focus-visible{
+        color: #fff;
+        outline: 1px solid transparent;
+    }
+    &:hover > svg, &:focus-visible > svg{
+        fill: #780c0c;
+    }
+    & > svg{
+        fill: ${props => props.$isActive? "#780c0c" : "#ccc"};
+        
+    }
+
+`
+
 export const LogoImage = styled(Image).attrs(props => (
     {
         width: 40,

@@ -1,12 +1,12 @@
-import {AdminPanelSVG, SupportLinkSVG, LogoutButtonSVG, HeaderWrapper, HeaderNavigation, HeaderNavigationList, HeaderNavigationItem, HeaderNavigationItemTitle, LogoImage, LoginLinkSVG, HeaderNavigationLink, DownloadLinkSVG, ProfilePicture, HeaderMobileNavigation, HeaderMobileNavigationList, HeaderMobileNavigationLink, HeaderMobileNavigationItem, ShopLinkSVG, HeaderMobileNavigationLinkText, NewsLinkSVG } from "./header.js"
+import {AdminPanelSVG, SupportLinkSVG, HeaderNavigationButton, LogoutButtonSVG, HeaderWrapper, HeaderNavigation, HeaderNavigationList, HeaderNavigationItem, HeaderNavigationItemTitle, LogoImage, LoginLinkSVG, HeaderNavigationLink, DownloadLinkSVG, ProfilePicture, HeaderMobileNavigation, HeaderMobileNavigationList, HeaderMobileNavigationLink, HeaderMobileNavigationItem, ShopLinkSVG, HeaderMobileNavigationLinkText, NewsLinkSVG } from "./header.js"
 import { memo } from "react"
 import { useRouter } from "next/router.js"
 import { useSelector } from "react-redux"
 
 const Header = () => {
     const router = useRouter()
-    const {userInfo, error, isLoading} = useSelector((state) => state.user)
-
+    /*  const {userInfo, error, isLoading} = useSelector((state) => state.user ) */
+    const userInfo = {userId: "da"}
     const activeLinks = {
         store: router.pathname === '/' || router.pathname === '/store' || router.pathname === '/store/browse' || router.pathname === '/store/cart' || router.pathname.includes( '/store/product'),
         news: router.pathname === '/news',
@@ -15,6 +15,12 @@ const Header = () => {
         profile: router.pathname === `/user/${userInfo?.userId}` 
 
     }
+
+    const logout = async () => {
+        await fetch('https://forgotten-god.onrender.com/auth/refresh', {method: "POST", credentials: "include"})
+        const response = await fetch('https://forgotten-god.onrender.com/auth/logout', { credentials: "include"})
+        const message = await response.json()
+    } 
     
 
     return (
@@ -52,27 +58,27 @@ const Header = () => {
                             </HeaderNavigationLink>
                         </HeaderNavigationItem> :
                         <>
-                        <HeaderNavigationItem>
-                            <HeaderNavigationLink >
-                                <LogoutButtonSVG/>
-                                <HeaderNavigationItemTitle>Выйти</HeaderNavigationItemTitle>
-                            </HeaderNavigationLink>
-                        </HeaderNavigationItem>
-                        {
-                            userInfo?.userRole === "admin" ? 
-                            <HeaderNavigationItem>
-                                <HeaderNavigationLink href="/admin">
-                                    <AdminPanelSVG/>
-                                    <HeaderNavigationItemTitle>Панель администратора</HeaderNavigationItemTitle>
-                                </HeaderNavigationLink>
-                            </HeaderNavigationItem> :
-                            <HeaderNavigationItem>
-                                <HeaderNavigationLink href={`/user/`}>
-                                    <ProfilePicture src="/image/thumbnail.jpg" alt="profile picture"/>
-                                    <HeaderNavigationItemTitle>Профиль</HeaderNavigationItemTitle>
-                                </HeaderNavigationLink>
+                            {
+                                userInfo?.userRole === "admin" ? 
+                                <HeaderNavigationItem>
+                                    <HeaderNavigationLink href="/admin">
+                                        <AdminPanelSVG/>
+                                        <HeaderNavigationItemTitle>Панель администратора</HeaderNavigationItemTitle>
+                                    </HeaderNavigationLink>
+                                </HeaderNavigationItem> :
+                                <HeaderNavigationItem>
+                                    <HeaderNavigationLink href={`/user/`}>
+                                        <ProfilePicture src="/image/thumbnail.jpg" alt="profile picture"/>
+                                        <HeaderNavigationItemTitle>Профиль</HeaderNavigationItemTitle>
+                                    </HeaderNavigationLink>
+                                </HeaderNavigationItem>
+                            }
+                             <HeaderNavigationItem>
+                                <HeaderNavigationButton onClick={logout}>
+                                    <LogoutButtonSVG/>
+                                    <HeaderNavigationItemTitle>Выйти</HeaderNavigationItemTitle>
+                                </HeaderNavigationButton>
                             </HeaderNavigationItem>
-                        }
                         </>
                     }
                     

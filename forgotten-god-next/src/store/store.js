@@ -31,12 +31,7 @@ const userStoreSlice = createSlice({
     }
     
   },
-  reducers: {
-    setUser: (state) => {
-        
-    },
-    
-  },
+  reducers: {},
   extraReducers: (builder) => {
     builder.addCase(fetchUser.pending, (state, action) => {
       state.user.userInfo = null
