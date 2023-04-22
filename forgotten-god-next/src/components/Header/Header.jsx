@@ -5,8 +5,7 @@ import { useSelector } from "react-redux"
 
 const Header = () => {
     const router = useRouter()
-    /*  const {userInfo, error, isLoading} = useSelector((state) => state.user ) */
-    const userInfo = {userId: "da"}
+    const {userInfo, error, isLoading} = useSelector((state) => state.user )
     const activeLinks = {
         store: router.pathname === '/' || router.pathname === '/store' || router.pathname === '/store/browse' || router.pathname === '/store/cart' || router.pathname.includes( '/store/product'),
         news: router.pathname === '/news',
