@@ -43,7 +43,7 @@ const RecommendationCarousel = () => {
         <Carousel>
             <CarouselTitle>Рекомендуемое</CarouselTitle>
             <CarouselWrapper>
-                <CarouselArrowWrapper onClick={moveBack} direction="left">
+                <CarouselArrowWrapper onClick={moveBack} $direction="left">
                     <CarouselLeftArrow/>
                 </CarouselArrowWrapper>
                 <CarouselContent index={currentImageIndex}>
@@ -54,7 +54,7 @@ const RecommendationCarousel = () => {
                         </CarouselBlock>
                     ))}
                 </CarouselContent>
-                <CarouselArrowWrapper onClick={moveForward} direction="right">
+                <CarouselArrowWrapper onClick={moveForward} $direction="right">
                     <CarouselRightArrow/>
                 </CarouselArrowWrapper>
                 <CarouselBottomButtons>

@@ -184,7 +184,6 @@ def get_product_by_id(id):
         }
         for product in Product.query.all()
     ]
-    print(Product.query.all(), products)
     result = [product for product in products if product['id'] == id]
     if len(result) == 0:
         return jsonify({"error": "Product was not found"}), 400
@@ -193,7 +192,7 @@ def get_product_by_id(id):
     return response
 
 
-@store.route('/searchProductsByTitle/<stringtitle>', methods=['GET', "POST"])
+@store.route('/searchProductsByTitle/<string:title>', methods=['GET', "POST"])
 def search_products_by_title(title):
     filtered_products = [
         product for product in Product.query.all()
@@ -243,8 +242,6 @@ def get_products():
         response = jsonify(products)
         response.headers.add('Content-Type', 'application/json')
         return response
-
-
 
     products = [
         product for product in products

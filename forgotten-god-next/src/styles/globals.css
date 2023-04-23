@@ -29,6 +29,8 @@ body{
 @media (max-width: 600px) {
   #__next{
     margin-left: 0;
+    display: grid;
+    grid-template-columns: 70px 1fr;
   }
 }
 
