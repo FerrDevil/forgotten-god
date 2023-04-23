@@ -1,10 +1,12 @@
 import {AdminPanelSVG, SupportLinkSVG, HeaderNavigationButton, LogoutButtonSVG, HeaderWrapper, HeaderNavigation, HeaderNavigationList, HeaderNavigationItem, HeaderNavigationItemTitle, LogoImage, LoginLinkSVG, HeaderNavigationLink, DownloadLinkSVG, ProfilePicture, HeaderMobileNavigation, HeaderMobileNavigationList, HeaderMobileNavigationLink, HeaderMobileNavigationItem, ShopLinkSVG, HeaderMobileNavigationLinkText, NewsLinkSVG } from "./header.js"
 import { memo } from "react"
 import { useRouter } from "next/router.js"
-import { useSelector } from "react-redux"
+import { useDispatch, useSelector } from "react-redux"
+import {deleteUser} from "@/store/store.js"
 
 const Header = () => {
     const router = useRouter()
+    const dispatch = useDispatch()
     const {userInfo, error, isLoading} = useSelector((state) => state.user )
     const activeLinks = {
         store: router.pathname === '/' || router.pathname === '/store' || router.pathname === '/store/browse' || router.pathname === '/store/cart' || router.pathname.includes( '/store/product'),
@@ -19,6 +21,7 @@ const Header = () => {
         await fetch('https://forgotten-god.onrender.com/auth/refresh', {method: "POST", credentials: "include"})
         const response = await fetch('https://forgotten-god.onrender.com/auth/logout', {method: "POST", credentials: "include"})
         const message = await response.json()
+        dispatch(deleteUser())
     } 
     
 

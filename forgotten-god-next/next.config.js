@@ -17,6 +17,9 @@ const nextConfig = {
     return config;
   },
   reactStrictMode: true,
+  compiler:{
+    styledComponents: true,
+  },
   images: {
     domains: ["http://localhost:5000"]
   },

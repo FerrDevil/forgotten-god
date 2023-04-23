@@ -31,7 +31,13 @@ const userStoreSlice = createSlice({
     }
     
   },
-  reducers: {},
+  reducers: {
+    deleteUser: (state) => {
+      state.user.userInfo = null
+      state.user.isLoading = false
+      state.user.error = null
+    }
+  },
   extraReducers: (builder) => {
     builder.addCase(fetchUser.pending, (state, action) => {
       state.user.userInfo = null
@@ -50,7 +56,7 @@ const userStoreSlice = createSlice({
     })
   },
 })
-
+export const {deleteUser} = userStoreSlice.actions
 
 const store = configureStore({
   reducer: userStoreSlice.reducer
