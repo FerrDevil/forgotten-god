@@ -81,7 +81,7 @@ export const CarouselRightArrow = styled(RightArrowSVG)`
 
 export const CarouselArrowWrapper = styled.div`
     position: absolute;
-    ${props => props.direction + ": 0;"}
+    ${props => props.$direction + ": 0;"}
     background: linear-gradient(${props => props.$direction === "left" ? "" : "-"}90deg, #000000dd, transparent);
     width: 10%;
     padding: 20px;
