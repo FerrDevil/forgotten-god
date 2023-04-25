@@ -3,13 +3,14 @@ import StoreNavigation from "@/services/store/components/StoreNavigation/StoreNa
 import {CartPageWrapper, CartWrapper, CartItem, CartItemTitle, CartItemImage, CartItemPrice, CartItemDeleteButton, OrderBlock, OrderButton, OrderPriceWrapper, OrderPriceTitle, OrderPriceSum, EmptyCartMessage, ExtendCartButton, ExtendCartButtonText, ExpandCartMoreSVG, ExpandCartLessSVG} from "@/services/store/styles/cartPage.js"
 import Link from "next/link"
 import BasePageLayout from "@/components/Layout/BasePageLayout.jsx"
-
+import OfferPopup from "@/services/store/components/OfferPopup/OfferPopup.jsx"
 
 /* export async function getServerSideProps(){
 } */
 
 const CartPage = () => {
     const [cart, setCart] = useState([])
+    const [isOfferPopupOpen, setOfferPopupOpen] = useState(false)
 
     useEffect(() => {
         const getUserCart = async () => {
@@ -44,6 +45,7 @@ const CartPage = () => {
                 <StoreNavigation/>
                 
                 <CartPageWrapper>
+                    <OfferPopup isVisible={isOfferPopupOpen} setVisible={setOfferPopupOpen}/>
                     <Cart cart={cart} setCart={setCart}/>
                     <OrderBlock>
                     {
@@ -53,7 +55,7 @@ const CartPage = () => {
                                 <OrderPriceTitle>Общая стоимость:</OrderPriceTitle>
                                 <OrderPriceSum>{cart.reduce((prev, cartItem) => prev + parseInt(cartItem.price), 0)} ₽</OrderPriceSum>
                             </OrderPriceWrapper>
-                            <OrderButton>Оформить</OrderButton>
+                            <OrderButton onClick={() => {setOfferPopupOpen(prev => !prev)}}>Оформить</OrderButton>
                             </>
                     }
                         
@@ -88,7 +90,7 @@ const Cart = ({cart, setCart}) => {
         cartItem => (
             <CartItem key={cartItem.productId}>
                 <Link href={`/store/product/${cartItem.productId}`}>
-                    <CartItemImage src={cartItem?.logo && `/image/${cartItem?.logo}`}/>
+                    <CartItemImage src={cartItem?.logo && `https://forgotten-god.onrender.com/image/${cartItem?.logo}`}/>
                 </Link>
                 <CartItemTitle>{cartItem.title}</CartItemTitle>
                 <CartItemPrice>{cartItem.price} ₽</CartItemPrice>

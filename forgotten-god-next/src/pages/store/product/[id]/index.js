@@ -11,7 +11,7 @@ const ProductPage = ({product}) => {
 
     const addToCartHandle = async () => {
         const refreshResponse = await fetch("/auth/refresh", {method: "POST", credentials: "include"})
-        const response = await fetch("/store/addToCart", {method: "POST", body: JSON.stringify({productId: product.id})})
+        const response = await fetch("/store/addToCart", {method: "POST", credentials: "include", body: JSON.stringify({productId: product.id})})
     }
 
     const orderProduct = async () => {
@@ -36,7 +36,7 @@ const ProductPage = ({product}) => {
                 <MainInfoSidebar>
                     <BriefGameInfo>
                         <GameTitle>{product?.title}</GameTitle>
-                        <GameLogo src={product?.logo ? `/image/${product.logo}` : ""}/>
+                        <GameLogo src={product?.logo ? `https://forgotten-god.onrender.com/image/${product.logo}` : ""}/>
                         <GameCost>{`${product?.price} ₽`}</GameCost>
                         <OrderButtonWrapper>
                             <OrderButton onClick={orderProduct}>Оформить</OrderButton>

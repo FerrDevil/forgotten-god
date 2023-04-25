@@ -1,13 +1,12 @@
 import BasePageLayout from '@/components/Layout/BasePageLayout'
 import {useEffect, useState } from 'react'
-import { SearchContainer, SearchPanel, SearchFilters, SearchFiltersContainer, SearchInputWrapper, SearchInputImage, SearchInput, SearchControls, SearchControlsHeader, SearchControlsHeaderTitle, SearchControlsClose, SearchControlsContent, SearchContent, SearchProduct, SearchProductImage, SearchProductInfo, SearchProductTitle, SearchProductPrice, SearchPrices, SearchPricesTitle, SearchPricesRangeWrapper, SearchPricesRange, SearchPricesRangeHint, SearchTags, SearchTagsTitle,SearchTagsWrapper, SearchTag, SearchTagName, SearchTagIncludeCheckboxWrapper, SearchTagIncludeCheckboxSVG, SearchTagIncludeCheckbox, SearchTagExcludeCheckboxWrapper, SearchTagExcludeCheckbox, SearchTagExcludeCheckboxSVG, SearchNoSuchProductsFound} from '@/services/store/styles/searchPage'
+import { SearchContainer, SearchPanel, SearchFilters, SearchFiltersContainer, SearchInputWrapper, SearchInputImage, SearchInput, SearchControls, SearchControlsHeader, SearchControlsHeaderTitle, SearchControlsClose, SearchControlsContent, SearchContent, SearchProduct, SearchProductImage, SearchProductInfo, SearchProductTitle, SearchProductPrice, SearchPrices, SearchPricesTitle, SearchPricesRangeWrapper, SearchPricesRange, SearchPricesRangeHint, SearchTags, SearchTagsTitle,SearchTagsWrapper, SearchTag, SearchTagName, SearchTagIncludeCheckboxWrapper, SearchTagIncludeCheckboxSVG, SearchTagIncludeCheckbox, SearchTagExcludeCheckboxWrapper, SearchTagExcludeCheckbox, SearchTagExcludeCheckboxSVG, SearchNoSuchProductsFound, AddToCartButton, AddToCartSVG} from '@/services/store/styles/searchPage'
 import useDebounce from '@/hooks/useDebounce'
 import { useRouter } from 'next/router'
 
 
 const SearchPage = () => {
     const router = useRouter()
-    
 
     const [searchParams, setSearchParams] = useState({
         price: 2200,
@@ -15,7 +14,6 @@ const SearchPage = () => {
         includedTags: [],
         excludedTags: [],
     })
-    console.log(searchParams)
 
     const [areFiltersOpen, setFiltersOpen] = useState(false)
     const [products, setProducts] = useState([])
@@ -75,6 +73,12 @@ const SearchPage = () => {
         updateProducts()
         
      }, [searchParams, debouncedSearchParams])
+
+
+     const addToCart = async (productIndex) => {
+        const refreshResponse = await fetch("/auth/refresh", {method: "POST", credentials: "include"})
+        const response = await fetch("/store/addToCart", {method: "POST", credentials: "include", body: JSON.stringify({productId: productIndex})})
+     }
 
     return(
         <BasePageLayout>
@@ -138,8 +142,11 @@ const SearchPage = () => {
                 </SearchPanel>
                     <SearchContent>
                         {products.map((product, productIndex) => 
-                            <SearchProduct key={productIndex} href={`/store/product/${product?.id}`}>
-                                <SearchProductImage src={product?.logo && `http://localhost:5000/image/${product?.logo}`}/>
+                            <SearchProduct key={productIndex} href={`/store/product/${product?.id}`} onClick={(event) => {event.stopPropagation()}}>
+                                <AddToCartButton onClick={(event) => {event.preventDefault();addToCart(productIndex)}}>
+                                    <AddToCartSVG></AddToCartSVG>
+                                </AddToCartButton>
+                                <SearchProductImage src={product?.logo && `https://forgotten-god.onrender.com/image/${product?.logo}`}/>
                                 <SearchProductInfo>
                                     <SearchProductTitle>{product?.title}</SearchProductTitle>
                                     <SearchProductPrice>{product?.price} ₽</SearchProductPrice>
