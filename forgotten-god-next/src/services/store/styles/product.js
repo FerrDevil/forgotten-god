@@ -65,21 +65,32 @@ export const GameTitle = styled.h1`
     max-width: 100%;
     overflow: hidden;
 `
-
-export const GameLogo = styled(Image).attrs(props => (
-    {
-        width: 200,
-        height: 100,
-        alt: "gameLogo"
-    }
-))`
+export const GameLogoWrapper = styled.div`
     color: #ccc;
     max-width: 100%;
     object-fit: cover;
     width: 100%;
+    min-width: 200px;
+    height: auto;
     @media (max-width: 600px) {
         margin-bottom: 20px;
-        max-height: auto;
+        
+    }
+`
+
+export const GameLogo = styled(Image).attrs(props => (
+    {
+        layout: "contain",
+        alt: "gameLogo"
+    }
+))`
+    max-width: 100%;
+    object-fit: cover;
+    width: 100%;
+    min-width: 200px;
+    height: auto;
+    @media (max-width: 600px) {
+        margin-bottom: 20px;
     }
 `
 export const GameCost = styled.p`

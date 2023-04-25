@@ -2,7 +2,7 @@ import BasePageLayout from "@/components/Layout/BasePageLayout"
 import { useRouter } from "next/router"
 import Media from "@/services/store/components/MediaSlider/Media.jsx"
 import StoreNavigation from "@/services/store/components/StoreNavigation/StoreNavigation.jsx"
-import { BriefGameInfo, GameTitle, GameLogo, GameCost, MainInfoWrapper, MainInfo, MainInfoSidebar, OrderButtonWrapper, OrderButton, CartButton, CartButtonWrapper, WishlistButton, GameDetails, GameDetail, GameDetailName, GameDetailValueWrapper, GameDetailValue, GameSynopsis, GameSynopsisHeader, GameSynopsisParagraph, ReviewsBlock, ReviewsBlockHeader, ReviewsBlockContent} from "@/services/store/styles/product.js"
+import { BriefGameInfo, GameTitle, GameLogo, GameCost, MainInfoWrapper, MainInfo, MainInfoSidebar, OrderButtonWrapper, OrderButton, CartButton, CartButtonWrapper, WishlistButton, GameDetails, GameDetail, GameDetailName, GameDetailValueWrapper, GameDetailValue, GameSynopsis, GameSynopsisHeader, GameSynopsisParagraph, ReviewsBlock, ReviewsBlockHeader, ReviewsBlockContent, GameLogoWrapper} from "@/services/store/styles/product.js"
 
 
 
@@ -36,7 +36,9 @@ const ProductPage = ({product}) => {
                 <MainInfoSidebar>
                     <BriefGameInfo>
                         <GameTitle>{product?.title}</GameTitle>
-                        <GameLogo src={product?.logo ? `https://forgotten-god.onrender.com/image/${product.logo}` : ""}/>
+                        <GameLogoWrapper>
+                            <GameLogo src={product?.logo ? `https://forgotten-god.onrender.com/image/${product.logo}` : ""}/>
+                        </GameLogoWrapper>
                         <GameCost>{`${product?.price} ₽`}</GameCost>
                         <OrderButtonWrapper>
                             <OrderButton onClick={orderProduct}>Оформить</OrderButton>
