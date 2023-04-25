@@ -68,7 +68,7 @@ export const GameTitle = styled.h1`
 
 export const GameLogo = styled(Image).attrs(props => (
     {
-        width: 280,
+        width: 200,
         height: 100,
         alt: "gameLogo"
     }
@@ -78,9 +78,8 @@ export const GameLogo = styled(Image).attrs(props => (
     object-fit: cover;
     width: 100%;
     @media (max-width: 600px) {
-        
         margin-bottom: 20px;
-        max-height: unset;
+        max-height: auto;
     }
 `
 export const GameCost = styled.p`

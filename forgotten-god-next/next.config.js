@@ -20,9 +20,9 @@ const nextConfig = {
   compiler:{
     styledComponents: true,
   },
-  /* images: {
-    domains: ["https://forgotten-god.onrender.com"]
-  }, */
+  images: {
+    domains: ["forgotten-god.onrender.com"]
+  },
 }
 
 module.exports = nextConfig
