@@ -25,6 +25,12 @@ const AdminPage = () => {
         )
     }
     const options = [
+        {
+            link: "userList",
+            image: '/images/thumbnail.jpg',
+            text: "Пользователи",
+            component: <UserTable/>
+        },
         {   
             link: "sales",
             image: '/images/thumbnail.jpg',
@@ -37,12 +43,7 @@ const AdminPage = () => {
             text: "Создание товара",
             component: <CreateProductForm/>
         },
-        {
-            link: "userList",
-            image: '/images/thumbnail.jpg',
-            text: "Пользователи",
-            component: <UserTable/>
-        }
+        
     ]
     
     const option = options.find(option => option.link === router.query.id)

@@ -26,7 +26,7 @@ const UserPage = () => {
             <UserPageWrapper>
                 <UserOptions>
                     {options?.map((option, optionIndex) => (
-                        <UserOption to={`/user/${option.link}`} key={optionIndex}>
+                        <UserOption href={`/user/${option.link}`} key={optionIndex}>
                             <UserOptionImage src={option.image} alt={option.image}/>
                             <UserOptionText>{option.text}</UserOptionText>
                         </UserOption>
