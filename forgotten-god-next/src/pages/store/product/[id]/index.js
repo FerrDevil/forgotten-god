@@ -10,8 +10,8 @@ const ProductPage = ({product}) => {
     const router = useRouter()
 
     const addToCartHandle = async () => {
-        const refreshResponse = await fetch("/auth/refresh", {method: "POST", credentials: "include"})
-        const response = await fetch("/store/addToCart", {method: "POST", credentials: "include", body: JSON.stringify({productId: product.id})})
+        const refreshResponse = await fetch("https://forgotten-god.onrender.com/auth/refresh", {method: "POST", credentials: "include"})
+        const response = await fetch("https://forgotten-god.onrender.com/store/addToCart", {method: "POST", credentials: "include", body: JSON.stringify({productId: product.id})})
     }
 
     const orderProduct = async () => {
