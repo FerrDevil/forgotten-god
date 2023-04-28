@@ -16,6 +16,7 @@ const OfferPopup = ({isVisible, setVisible}) => {
 
   const sendPaymentOffer = async (event) => {
     event.preventDefault()
+    const refreshResponse = await fetch("https://forgotten-god.onrender.com/auth/refresh", {method: "POST", credentials: "include"})
     const response = await fetch("https://forgotten-god.onrender.com/store/buyProductsFromCart", {
       method: "POST",
       body: JSON.stringify({paymentMethod: paymentMethods.find(method => method.id === paymentMethodId).value}),
