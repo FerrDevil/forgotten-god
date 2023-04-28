@@ -355,7 +355,7 @@ def buy_products_from_cart():
         ) for cart_item in cart
     ]
     db.session.add_all(sales)
-    db.session.remove_all(cart)
+    db.session.remove(cart)
     db.session.commit()
 
     return jsonify({"payment": "Successfull"}), 200
