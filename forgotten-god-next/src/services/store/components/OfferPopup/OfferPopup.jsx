@@ -1,8 +1,11 @@
 import { useState } from "react"
 import {OfferPopupForm, OfferPopupFormRadioButton, OfferPopupFormRadioTitle, OfferPopupFormRadioWrapper, OfferPopupFormSubmitButton, OfferPopupPaymentSelectHeader, OfferPopupWrapper} from "./offerPopup"
+import {useRouter} from "next/router"
+
 
 const OfferPopup = ({isVisible, setVisible}) => {
   const [paymentMethodId, setPaymentMethodId] = useState(1)
+  const router = useRouter()
 
   const paymentMethods = [
     {
@@ -24,6 +27,7 @@ const OfferPopup = ({isVisible, setVisible}) => {
     })
     console.log(await response.json())
     setVisible(false)
+    router.push("/")
   }
   return (
     <OfferPopupWrapper $isVisible={isVisible}>
