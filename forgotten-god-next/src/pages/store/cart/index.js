@@ -75,8 +75,8 @@ const Cart = ({cart, setCart}) => {
 
     const deleteCartItem = (cartItemId) => {
         return async () => {
-            const refreshResponse = await fetch("https://forgotten-god.onrender.com/auth/refresh", {method: "POST"})
-            const response = await fetch(`https://forgotten-god.onrender.com/store/removeCartItem/${cartItemId}`, {method: "DELETE"})
+            const refreshResponse = await fetch("https://forgotten-god.onrender.com/auth/refresh", {method: "POST", credentials: "include"})
+            const response = await fetch(`https://forgotten-god.onrender.com/store/removeCartItem/${cartItemId}`, {method: "DELETE", credentials: "include"})
             const message = await response.json()
             if (response.ok && !message.error && !message.msg){
                 setCart(prev => prev.filter(cartItem => cartItem.productId !== cartItemId))
