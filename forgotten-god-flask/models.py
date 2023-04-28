@@ -52,6 +52,8 @@ class Cart(db.Model):
 class Sales(db.Model):
     product_id = db.Column(db.Integer, db.ForeignKey(Product.id), primary_key=True)
     user_id = db.Column(db.String(32), db.ForeignKey(User.id), primary_key=True)
-    date = db.Column(db.DateTime, index=True, default=datetime.utcnow)
-    is_refunded = db.Column(db.Boolean, default=False)
+    payment_date = db.Column(db.DateTime, index=True, default=datetime.utcnow)
+    payment_price = db.Column(db.Integer, nullable=False)
+    payment_method = db.Column(db.Text, nullable=False)
+    payment_data = db.Column(db.Text)
 

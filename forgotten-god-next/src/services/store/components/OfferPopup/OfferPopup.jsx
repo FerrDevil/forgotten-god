@@ -9,12 +9,18 @@ const OfferPopup = ({isVisible, setVisible}) => {
       id: 1,
       img: "",
       title: "Qiwi",
+      value: "qiwi"
     }
   ]
 
 
-  const sendPaymentOffer = (event) => {
+  const sendPaymentOffer = async (event) => {
     event.preventDefault()
+    const response = await fetch("https://forgotten-god.onrender.com/store/buyProductsFromCart", {
+      method: "POST",
+      body: JSON.stringify({paymentMethod: paymentMethods.find(method => method.id === paymentMethodId).value}),
+      credentials: "include"
+    })
     setVisible(false)
   }
   return (

@@ -1,5 +1,5 @@
 from flask import Blueprint, jsonify, request
-from models import db, User, Cart, Product
+from models import db, User, Cart, Product, Sales
 from flask_jwt_extended import jwt_required, get_jwt_identity
 import json
 
@@ -329,4 +329,34 @@ def get_cart():
     ]
 
     return jsonify(cart_json), 200
+
+
+@store.route('/buyProductsFromCart', methods=["GET"])
+@jwt_required()
+def buy_products_from_cart():
+    username = get_jwt_identity()
+    user = User.query.filter_by(username=username).first()
+    if not user:
+        return jsonify({"error": "User is not logged in"}), 401
+
+    form_data = json.loads(request.data, strict=False)
+    payment_method = form_data.get("paymentMethod", None)
+    if not payment_method:
+        return jsonify({"error": "Payment method is not found"}), 400
+
+    cart = Cart.query.filter_by(user_id=user.id).all()
+
+    sales = [
+        Sales(
+            user_id=cart_item.user_id,
+            product_id=cart_item.product_id,
+            payment_price=Product.query.filter_by(id=cart_item.product_id).first().price,
+            payment_method=payment_method
+        ) for cart_item in cart
+    ]
+    db.session.add_all(sales)
+    db.session.remove_all(cart)
+    db.session.commit()
+
+    return jsonify({"payment": "Successfull"}), 200
 

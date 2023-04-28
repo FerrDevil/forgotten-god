@@ -18,7 +18,6 @@ const CartPage = () => {
             const request = await fetch("https://forgotten-god.onrender.com/store/getCart", {credentials: "include"})
             const cartItems = await request.json()
             setCart(cartItems)
-            console.log(cartItems)
         }
         getUserCart()
     }, [])
