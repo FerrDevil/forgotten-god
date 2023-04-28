@@ -16,7 +16,7 @@ export const UserTableContent = styled.div`
 `
 export const UserTableRow = styled.div`
     display: grid;
-    grid-template-columns: repeat(5, 1fr);
+    grid-template-columns: repeat(6, 1fr);
     
     background-color: #242424;
     
