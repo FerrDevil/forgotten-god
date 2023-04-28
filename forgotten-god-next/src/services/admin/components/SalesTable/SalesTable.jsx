@@ -15,7 +15,7 @@ const SalesTable = () => {
         }
         getSalesInfo()
     }, [])
-    const dateTime = Intl.DateTimeFormat()
+    const dateTime = new Intl.DateTimeFormat()
 
     return(
         <UserTableWrapper>
