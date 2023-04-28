@@ -331,7 +331,7 @@ def get_cart():
     return jsonify(cart_json), 200
 
 
-@store.route('/buyProductsFromCart', methods=["GET"])
+@store.route('/buyProductsFromCart', methods=["POST"])
 @jwt_required()
 def buy_products_from_cart():
     username = get_jwt_identity()
