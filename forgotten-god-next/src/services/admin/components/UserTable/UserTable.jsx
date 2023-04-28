@@ -11,7 +11,6 @@ const UserTable = () => {
             await fetch('https://forgotten-god.onrender.com/auth/refresh', {method: "POST", credentials: "include"})
             const response = await fetch('https://forgotten-god.onrender.com/admin/getUsersInfo', { credentials: "include"})
             const users = await response.json()
-            console.log(users)
             setUsersInfo(users)
         }
         getUsersInfo()

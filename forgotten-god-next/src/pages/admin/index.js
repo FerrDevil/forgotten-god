@@ -1,7 +1,7 @@
 
 import { AdminWrapper, AdminOptions, AdminOption, AdminOptionImage, AdminOptionText, AdminPanel} from "@/services/admin/styles/adminPage"
 import CreateProductForm from "@/services/admin/components/CreateProductForm/CreateProductForm.jsx"
-
+import SalesTable from "@/services/admin/components/SalesTable/SalesTable.jsx"
 import UserTable from "@/services/admin/components/UserTable/UserTable.jsx"
 import { useRouter } from "next/router"
 import BasePageLayout from "@/components/Layout/BasePageLayout.jsx"
@@ -35,7 +35,7 @@ const AdminPage = () => {
             link: "sales",
             image: '/images/thumbnail.jpg',
             text: "Продажи",
-            component: <div>da</div>
+            component: <SalesTable/>
         },
         {
             link: "createNewGame",

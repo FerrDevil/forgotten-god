@@ -124,7 +124,7 @@ def get_sales_info():
             "paymentDate": sales.payment_date,
             "paymentPrice": sales.payment_price,
             "paymentMethod": sales.payment_method,
-            "payment_data": sales.payment_data
+            "paymentData": sales.payment_data
         }
         for sales in Sales.query.all()
     ]
