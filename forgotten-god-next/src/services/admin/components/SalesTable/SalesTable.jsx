@@ -35,7 +35,7 @@ const SalesTable = () => {
                     <UserTableRow key={saleInfo.id}>
                         <UserTableElement>{saleInfo.productId}</UserTableElement>
                         <UserTableElement>{saleInfo.userId}</UserTableElement>
-                        <UserTableElement>{dateTime.format(saleInfo.paymentDate)}</UserTableElement>
+                        <UserTableElement>{dateTime.format(new Date(saleInfo.paymentDate))}</UserTableElement>
                         <UserTableElement>{saleInfo.paymentPrice}</UserTableElement>
                         <UserTableElement>{saleInfo.paymentMethod}</UserTableElement>
                         <UserTableElement>{saleInfo.paymentData}</UserTableElement>
