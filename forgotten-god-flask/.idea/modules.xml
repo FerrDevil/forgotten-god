@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/.idea/game-store-backend.iml" filepath="$PROJECT_DIR$/.idea/game-store-backend.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/forgotten-god-flask.iml" filepath="$PROJECT_DIR$/.idea/forgotten-god-flask.iml" />
     </modules>
   </component>
 </project>
