@@ -15,6 +15,7 @@ const SalesTable = () => {
         }
         getSalesInfo()
     }, [])
+    const dateTime = Intl.DateTimeFormat()
 
     return(
         <UserTableWrapper>
@@ -34,7 +35,7 @@ const SalesTable = () => {
                     <UserTableRow key={saleInfo.id}>
                         <UserTableElement>{saleInfo.productId}</UserTableElement>
                         <UserTableElement>{saleInfo.userId}</UserTableElement>
-                        <UserTableElement>{saleInfo.paymentDate}</UserTableElement>
+                        <UserTableElement>{dateTime.format(saleInfo.paymentDate)}</UserTableElement>
                         <UserTableElement>{saleInfo.paymentPrice}</UserTableElement>
                         <UserTableElement>{saleInfo.paymentMethod}</UserTableElement>
                         <UserTableElement>{saleInfo.paymentData}</UserTableElement>
