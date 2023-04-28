@@ -5,8 +5,7 @@ from flask import Blueprint, jsonify, request
 from flask_jwt_extended import get_jwt_identity, jwt_required
 from werkzeug.utils import secure_filename
 
-from models import db, User, Product
-
+from models import db, User, Product, Sales
 
 admin = Blueprint("admin", __name__)
 
@@ -112,3 +111,21 @@ def set_logo(game_id):
     product.logo = filename
     db.session.commit()
     return jsonify({"id": product.id}), 200
+
+
+@admin.route('/getSalesInfo', methods=['GET'])
+@jwt_required()
+@check_admin_role
+def get_sales_info():
+    sales_json = [
+        {
+            "productId": sales.product_id,
+            "userId": sales.user_id,
+            "paymentDate": sales.payment_date,
+            "paymentPrice": sales.payment_price,
+            "paymentMethod": sales.payment_method,
+            "payment_data": sales.payment_data
+        }
+        for sales in Sales.query.all()
+    ]
+    return jsonify(sales_json), 200

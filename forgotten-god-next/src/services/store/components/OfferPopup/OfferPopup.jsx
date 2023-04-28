@@ -21,6 +21,7 @@ const OfferPopup = ({isVisible, setVisible}) => {
       body: JSON.stringify({paymentMethod: paymentMethods.find(method => method.id === paymentMethodId).value}),
       credentials: "include"
     })
+    console.log(await response.json())
     setVisible(false)
   }
   return (
