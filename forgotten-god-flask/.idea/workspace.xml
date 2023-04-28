@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="a0fb916a-e9df-4660-b11e-6a27362ce634" name="Changes" comment="" />
+    <list default="true" id="a0fb916a-e9df-4660-b11e-6a27362ce634" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/store.py" beforeDir="false" afterPath="$PROJECT_DIR$/store.py" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />

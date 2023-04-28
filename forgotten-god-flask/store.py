@@ -354,7 +354,8 @@ def buy_products_from_cart():
             payment_method=payment_method
         ) for cart_item in cart
     ]
-    db.session.add_all(sales)
+    for sale in sales:
+        db.session.add(sale)
     for cart_item in cart:
         db.session.delete(cart_item)
     db.session.commit()
