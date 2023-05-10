@@ -1,3 +1,4 @@
+"use client"
 import { MediaWrapper, MediaContainer, MediaImage, MediaFiller} from "./media"
 import { useState} from "react"
 import VideoPlayer from "../../../../components/VideoPlayer/VideoPlayer.jsx"

@@ -8,6 +8,13 @@ export const RegisterWrapper = styled.div`
     row-gap: 24px;
     align-items: flex-start;
     padding-block: 20px;
+    
+    @media (min-width: 600px) {
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        transform: translate(-50%, -50%);
+    }
 `
 
 export const RegisterHeader = styled.h1`
@@ -33,7 +40,7 @@ export const RegisterForm = styled.form`
     padding: 40px 40px;
     border-radius: 20px;
     background-color: #222222;
-    width: clamp(260px, 200px + 20vw, 600px);
+    width: clamp(260px, 200px + 30vw, 600px);
 `
 
 export const RegisterFormHeader = styled.h2`
@@ -144,6 +151,7 @@ export const RegisterButton = styled.button`
     }
     &:disabled{
         color: #4e4e4e;
+        cursor: default;
     }
 `
 

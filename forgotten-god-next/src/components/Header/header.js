@@ -1,6 +1,8 @@
-import Link from "next/link";
-import Image from "next/image";
-import styled from "styled-components";
+'use client'
+
+import Link from "next/link"
+import Image from "next/image"
+import styled from "styled-components"
 
 import LoginSVG from "../../public/login.svg"
 import DownloadSVG from "../../public/downloads.svg"
@@ -141,10 +143,14 @@ export const HeaderNavigationButton = styled.button`
 
 export const LogoImage = styled(Image).attrs(props => (
     {
-        width: 40,
-        height: 50,
-        alt: "FG Logo",
-        src: "/images/logo.png"
+        width: 0,
+        height: 0,
+        sizes: "100vw",
+        alt: "FG-logo",
+        src: "/images/logo.png",
+        loading: "eager",
+        priority: "true"
+        
     }
 ))`
     width: clamp(30px, 3vw, 40px);

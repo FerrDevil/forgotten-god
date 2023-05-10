@@ -1,8 +1,10 @@
+"use client"
 import { useState } from "react"
 import { Carousel, CarouselTitle, CarouselWrapper, CarouselContent, CarouselBlock, CarouselImage, CarouselArrowWrapper, CarouselLeftArrow, CarouselRightArrow, CarouselBottomButtons, CarouselBottomButton } from "./carousel.js"
 
 
 const RecommendationCarousel = () => {
+
     const products = [
         {
             id: 1,

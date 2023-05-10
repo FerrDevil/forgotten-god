@@ -1,19 +1,22 @@
+"use client"
+
 import {AdminPanelSVG, SupportLinkSVG, HeaderNavigationButton, LogoutButtonSVG, HeaderWrapper, HeaderNavigation, HeaderNavigationList, HeaderNavigationItem, HeaderNavigationItemTitle, LogoImage, LoginLinkSVG, HeaderNavigationLink, DownloadLinkSVG, ProfilePicture, HeaderMobileNavigation, HeaderMobileNavigationList, HeaderMobileNavigationLink, HeaderMobileNavigationItem, ShopLinkSVG, HeaderMobileNavigationLinkText, NewsLinkSVG } from "./header.js"
 import { memo } from "react"
-import { useRouter } from "next/router.js"
+import { usePathname } from "next/navigation"
 import { useDispatch, useSelector } from "react-redux"
-import {deleteUser} from "@/store/store.js"
+import {deleteUser} from "@/store/store"
 
 const Header = () => {
-    const router = useRouter()
-    const dispatch = useDispatch()
-    const {userInfo, error, isLoading} = useSelector((state) => state.user )
+    const pathname = usePathname()
+    /* const dispatch = useDispatch()
+    const {userInfo, error, isLoading} = useSelector((state) => state.user ) */
+    const userInfo = null
     const activeLinks = {
-        store: router.pathname === '/' || router.pathname === '/store' || router.pathname === '/store/browse' || router.pathname === '/store/cart' || router.pathname.includes( '/store/product'),
-        news: router.pathname === '/news',
-        support: router.pathname === '/support',
-        login: router.pathname === '/login' || router.pathname === '/register',
-        profile: router.pathname === `/user/${userInfo?.userId}` 
+        store: pathname === '/' || pathname === '/store' || pathname === '/store/browse' || pathname === '/store/cart' || pathname.includes( '/store/product'),
+        news: pathname === '/news',
+        support: pathname === '/support',
+        login: pathname === '/login' || pathname === '/register',
+        profile: pathname === `/user/${userInfo?.userId}` 
 
     }
 

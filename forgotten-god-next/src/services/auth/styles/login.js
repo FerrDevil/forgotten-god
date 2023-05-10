@@ -5,9 +5,15 @@ export const LoginWrapper = styled.div`
     display: flex;
     flex-direction: column;
     row-gap: 24px;
-    position: relative;
+    position: absolute;
     align-items: flex-start;
     padding-block: 20px;
+    @media (min-width: 600px) {
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        transform: translate(-50%, -50%);
+    }
     
 `
 

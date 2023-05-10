@@ -221,7 +221,6 @@ def get_products():
             'title': product.title,
             'logo': product.logo,
 
-            'platforms': ['Windows'],
             'tags': [
                 {
                     "id": 1,
