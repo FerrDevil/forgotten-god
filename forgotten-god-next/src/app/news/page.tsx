@@ -73,7 +73,7 @@ const NewsPage = () => {
     ]
   )
   return (
-    <BasePageLayout title="Новости">
+    <>
       <NewsNavigation>
         <NewsNavigationOption>Главная</NewsNavigationOption>
         <NewsNavigationOption>Интересное</NewsNavigationOption>
@@ -86,7 +86,7 @@ const NewsPage = () => {
           {posts.map(post => <FeedPost key={post.id} postInfo={post}/>)}
         </NewsFeed>
       </NewsMainContent>
-    </BasePageLayout>
+    </>
   );
 };
 

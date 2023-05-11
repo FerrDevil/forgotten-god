@@ -3,13 +3,10 @@ import { AdminWrapper, AdminOptions, AdminOption, AdminOptionImage, AdminOptionT
 import CreateProductForm from "@/services/admin/components/CreateProductForm/CreateProductForm.jsx"
 import SalesTable from "@/services/admin/components/SalesTable/SalesTable.jsx"
 import UserTable from "@/services/admin/components/UserTable/UserTable.jsx"
-import { useRouter } from "next/router"
-import BasePageLayout from "@/components/Layout/BasePageLayout.jsx"
+import { useRouter } from "next/navigation"
+
 import { useSelector } from "react-redux"
-
-/* export async function getServerSideProps() {
-
-} */
+import { Head } from "next/document"
 
 
 const AdminPage = () => {
@@ -18,9 +15,9 @@ const AdminPage = () => {
     const {userInfo} = useSelector((state : any) => state.user)
     if (userInfo?.userRole !== "admin") {
         return (
-            <BasePageLayout>
+            <>
                 <div>user is not admin</div>
-            </BasePageLayout>
+            </>
             
         )
     }
@@ -51,7 +48,10 @@ const AdminPage = () => {
     
 
     return(
-        <BasePageLayout title="Панель администратора">
+        <>
+            <Head>
+                <title>Панель администратора</title>
+            </Head>
             <AdminWrapper>
                 <AdminOptions>
                     {options.map((option, optionIndex) => (
@@ -66,7 +66,7 @@ const AdminPage = () => {
                     {currentComponent}
                 </AdminPanel>
             </AdminWrapper>
-        </BasePageLayout>
+        </>
     )
 }
 

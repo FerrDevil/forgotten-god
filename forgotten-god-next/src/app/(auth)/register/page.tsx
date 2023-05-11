@@ -3,7 +3,8 @@ import { RegisterWrapper, RegisterMethods, RegisterForm, RegisterFormHeader, Reg
 import InputField from "@/services/auth/components/InputField/InputField"
 import { useState, useEffect } from "react"
 import { useRouter } from "next/navigation"
-import BasePageLayout from "@/components/Layout/BasePageLayout"
+import { Head } from "next/document"
+
 
 
 
@@ -83,7 +84,10 @@ const RegisterPage = () => {
 
 
     return(
-        <BasePageLayout>
+        <>
+            <Head>
+                <title>Регистрация</title>
+            </Head>
             <RegisterWrapper>
                 <RegisterMethods>
                     <RegisterForm method="POST">
@@ -131,7 +135,7 @@ const RegisterPage = () => {
                     </RegisterForm>
                 </RegisterMethods>
             </RegisterWrapper>
-        </BasePageLayout>
+        </>
     )
 }
 

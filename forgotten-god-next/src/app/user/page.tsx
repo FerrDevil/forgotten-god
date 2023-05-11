@@ -1,8 +1,7 @@
 import { useEffect} from "react"
 import { UserPageWrapper, UserOptions, UserOption, UserOptionImage, UserOptionText, UserPanel} from "@/services/auth/styles/userPage"
 
-import { useRouter } from "next/router"
-import BasePageLayout from "@/components/Layout/BasePageLayout"
+import { useRouter } from "next/navigation"
 
 
 
@@ -22,7 +21,7 @@ const UserPage = () => {
     
 
     return(
-        <BasePageLayout title="Профиль">
+        <>
             <UserPageWrapper>
                 <UserOptions>
                     {options?.map((option, optionIndex) => (
@@ -36,7 +35,7 @@ const UserPage = () => {
                     {currentComponent}
                 </UserPanel>
             </UserPageWrapper>
-        </BasePageLayout>
+        </>
     )
 }
 

@@ -1,9 +1,10 @@
 "use client"
 
 import {useEffect, useState } from 'react'
-import { SearchContainer, SearchPanel, SearchFilters, SearchFiltersContainer, SearchInputWrapper, SearchInputImage, SearchInput, SearchControls, SearchControlsHeader, SearchControlsHeaderTitle, SearchControlsClose, SearchControlsContent, SearchContent, SearchProduct, SearchProductImage, SearchProductInfo, SearchProductTitle, SearchProductPrice, SearchPrices, SearchPricesTitle, SearchPricesRangeWrapper, SearchPricesRange, SearchPricesRangeHint, SearchTags, SearchTagsTitle,SearchTagsWrapper, SearchTag, SearchTagName, SearchTagIncludeCheckboxWrapper, SearchTagIncludeCheckboxSVG, SearchTagIncludeCheckbox, SearchTagExcludeCheckboxWrapper, SearchTagExcludeCheckbox, SearchTagExcludeCheckboxSVG, SearchNoSuchProductsFound, AddToCartButton, AddToCartSVG} from '@/services/store/styles/searchPage'
+import { SearchContainer, SearchPanel, SearchFilters, SearchFiltersContainer, SearchInputWrapper, SearchInputImage, SearchInput, SearchControls, SearchControlsHeader, SearchControlsHeaderTitle, SearchControlsClose, SearchControlsContent, SearchPrices, SearchPricesTitle, SearchPricesRangeWrapper, SearchPricesRange, SearchPricesRangeHint, SearchTags, SearchTagsTitle,SearchTagsWrapper, SearchTag, SearchTagName, SearchTagIncludeCheckboxWrapper, SearchTagIncludeCheckboxSVG, SearchTagIncludeCheckbox, SearchTagExcludeCheckboxWrapper, SearchTagExcludeCheckbox, SearchTagExcludeCheckboxSVG, } from '@/services/store/styles/searchPage'
 import useDebounce from '@/hooks/useDebounce'
 import { useSearchParams } from 'next/navigation'
+import SearchProducts from '@/services/store/components/SearchPage/SearchProducts/SearchProducts'
 
 interface ISearchParams {
     price: number
@@ -72,9 +73,7 @@ const SearchPage = () => {
         }   
     }
 
-    const debouncedSearchParams = useDebounce(searchParams, 500);
      useEffect(() => {
-        if(!debouncedSearchParams) return
         const updateProducts = async () => {
             const response = await fetch('https://forgotten-god.onrender.com/store/getProducts', {method: "POST", body: JSON.stringify(searchParams)})
             const filteredProducts = await response.json()
@@ -82,13 +81,10 @@ const SearchPage = () => {
         }
         updateProducts()
         
-     }, [searchParams, debouncedSearchParams])
+     }, [searchParams])
 
 
-     const addToCart = async (productIndex: number) => {
-        const refreshResponse = await fetch("/auth/refresh", {method: "POST", credentials: "include"})
-        const response = await fetch("/store/addToCart", {method: "POST", credentials: "include", body: JSON.stringify({productId: productIndex})})
-     }
+     
 
     return(
         <>
@@ -125,7 +121,7 @@ const SearchPage = () => {
                                                             addIncludedTags(event, tag.id)
                                                         }
                                                         }
-                                                        type="checkbox"/>
+                                                        />
                                                     <SearchTagIncludeCheckboxSVG/>
                                                 </SearchTagIncludeCheckboxWrapper>
                                                 
@@ -134,7 +130,7 @@ const SearchPage = () => {
                                                         (event) => {
                                                             addExcludedTags(event, tag.id)
                                                         }}
-                                                        type="checkbox"/>
+                                                        />
                                                     <SearchTagExcludeCheckboxSVG/>
                                                 </SearchTagExcludeCheckboxWrapper>
                                             
@@ -150,23 +146,7 @@ const SearchPage = () => {
                     </SearchFiltersContainer>
                     
                 </SearchPanel>
-                    <SearchContent>
-                        {products.map((product, productIndex) => 
-                            <SearchProduct key={productIndex} href={`/store/product/${product?.id}`} onClick={(event) => {event.stopPropagation()}}>
-                                <AddToCartButton onClick={(event) => {event.preventDefault();addToCart(productIndex)}}>
-                                    <AddToCartSVG/>
-                                </AddToCartButton>
-                                <SearchProductImage src={product?.logo && `https://forgotten-god.onrender.com/image/${product?.logo}`}/>
-                                <SearchProductInfo>
-                                    <SearchProductTitle>{product?.title}</SearchProductTitle>
-                                    <SearchProductPrice>{product?.price} ₽</SearchProductPrice>
-                                </SearchProductInfo>
-                            </SearchProduct>
-                        )}
-                    
-                    </SearchContent>
-                
-                {products.length === 0 && <SearchNoSuchProductsFound>По вашему запросу ничего не найдено</SearchNoSuchProductsFound>}
+                <SearchProducts products={products}/>
             </SearchContainer>
         </>
     )

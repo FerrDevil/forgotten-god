@@ -1,6 +1,11 @@
+"use client"
 import styled from "styled-components";
 
-export const OfferPopupWrapper = styled.div`
+interface IVisible {
+  $isVisible: boolean
+}
+
+export const OfferPopupWrapper = styled.dialog<IVisible>`
   opacity: ${props => props.$isVisible? 1 : 0};
   pointer-events: ${props => props.$isVisible? "all" : "none"};
   user-select: ${props => props.$isVisible? "all" : "none"};

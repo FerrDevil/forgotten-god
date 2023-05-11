@@ -1,5 +1,5 @@
 import { useState } from "react"
-import {OfferPopupForm, OfferPopupFormRadioButton, OfferPopupFormRadioTitle, OfferPopupFormRadioWrapper, OfferPopupFormSubmitButton, OfferPopupPaymentSelectHeader, OfferPopupWrapper} from "./offerPopup"
+import {OfferPopupForm, OfferPopupFormRadioButton, OfferPopupFormRadioTitle, OfferPopupFormRadioWrapper, OfferPopupFormSubmitButton, OfferPopupPaymentSelectHeader, OfferPopupWrapper} from "./styles"
 import {useRouter} from "next/router"
 
 

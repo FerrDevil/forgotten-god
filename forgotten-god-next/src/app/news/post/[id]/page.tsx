@@ -1,8 +1,7 @@
-import BasePageLayout from "@/components/Layout/BasePageLayout";
 import { PostWrapper, CommentSection } from "@/services/news/styles/post";
 import FeedPost from "@/services/news/components/FeedPost/FeedPost";
 
-export async function getServerSideProps(){
+export async function getPost(){
     const post = {
             id: 1,
             userId: 1,
@@ -28,20 +27,22 @@ export async function getServerSideProps(){
                 }
             ]
         }
-    return {props: {post: post}}
+    return post
 }
 
-const PostPage = ({post}: any) => {
+const PostPage = async () => {
+
+  const post = await getPost()
 
     return (
-      <BasePageLayout>
+      <>
         <PostWrapper>
           <FeedPost postInfo={post}/>
           <CommentSection>
 
           </CommentSection>
         </PostWrapper>
-      </BasePageLayout>
+      </>
     );
   };
 

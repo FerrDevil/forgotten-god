@@ -2,18 +2,7 @@
 
 import { createSlice, configureStore, createAsyncThunk, PayloadAction } from '@reduxjs/toolkit'
 
-export type UserInfo = {
-  username: string,
-  userId: string,
-  userRole: string
-}
-
-interface IUserState {
-  user: {
-    error: string | null,
-    userInfo: UserInfo | null
-  }
-}
+import { IUserState, UserInfo } from "./types"
 
 
 export const fetchUser = createAsyncThunk(
@@ -40,16 +29,16 @@ const userStoreSlice = createSlice({
   name: 'userStore',
   initialState: {
     user:{
-      error: null,
+      error: false,
       userInfo: null,
     }
     
   },
   reducers: {
-    setUser: (state: IUserState, action: PayloadAction<UserInfo | null>) => {
+    setUser: (state: IUserState, action: PayloadAction< UserInfo | null>) => {
       if(!action.payload){
         state.user.userInfo = null
-        state.user.error = action.payload
+        state.user.error = true
         return
       }
       state.user.userInfo = action.payload

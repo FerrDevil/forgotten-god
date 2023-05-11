@@ -1,7 +1,7 @@
 
 import Header from "../Header/Header.jsx"
-import UserPreloader from "../UserPreloader/UserPreloader.tsx"
-import { ColoredAlignedFlexMain } from "./layout"
+import UserPreloader from "../UserPreloader/UserPreloader"
+import { ColoredAlignedFlexMain } from "./layout.js"
 import store from "@/store/store"
 
 
@@ -23,12 +23,13 @@ async function getUser() {
     }
 }
 
+
 const BasePageLayout = async ({ children }) => {
     
-    console.log("da", store.getState())
+    const userInfo = await getUser()
     return(
         <>
-            <UserPreloader userInfo={await getUser()}/>
+            <UserPreloader userInfo={userInfo}/>
             <Header/>
             <ColoredAlignedFlexMain>
                 {children}

@@ -1,17 +1,11 @@
 "use client"
 
 import { LoginWrapper, LoginHeader, LoginMethods, LoginForm, LoginFormHeader, LoginTextInputLabel, LoginTextInput, LoginTextInputLabelText, PasswordHiddenButton, LoginCheckbox, LoginCheckboxLabel, LoginCheckboxLabelText, LoginButton, LoginFormLinkWrapper, LoginFormLink, ErrorMessage } from "@/services/auth/styles/login.js"
-import {useEffect, useState } from "react"
+import { useEffect, useState } from "react"
 import { useRouter } from "next/navigation"
-import BasePageLayout from "@/components/Layout/BasePageLayout"
 import InputField from "@/services/auth/components/InputField/InputField"
+import { Head } from "next/document"
 
-import { Metadata } from "next"
-
-
-export const metadata: Metadata = {
-  title: "Вход"
-}
 
 const LoginPage = () => {
 
@@ -84,8 +78,11 @@ const LoginPage = () => {
 
 
     return(
-        <BasePageLayout>
+        <>
             <LoginWrapper>
+                <Head>
+                    <title>Логин</title>
+                </Head>
                 <LoginHeader>Авторизация</LoginHeader>
                 <LoginMethods>
                     <LoginForm method="POST" >
@@ -116,7 +113,7 @@ const LoginPage = () => {
                 </LoginMethods>
                 <ErrorMessage isVisible={errorMessageText}>{errorMessageText}</ErrorMessage>
             </LoginWrapper>
-        </BasePageLayout>
+        </>
     )
 }
 

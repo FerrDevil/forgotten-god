@@ -32,8 +32,10 @@ interface IProduct{
 
 
 async function getProductById(id: number){
-        
     const request = await fetch(`https://forgotten-god.onrender.com/store/getProductById/${id}`)
+    if (!request.ok){
+        throw new Error("No such product exists")
+    }
     const response = await request.json()
     return response
 }

@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { SupportWrapper, SupportTextInput, SupportAnswers, SupportAnswer, SupportContactUs } from "@/services/support/styles/supportPage";
-import BasePageLayout from "@/components/Layout/BasePageLayout";
+
 
 const SupportPage = () => {
 
@@ -37,7 +37,6 @@ const SupportPage = () => {
     }
 
     return (
-        <BasePageLayout title="Поддержка">
             <SupportWrapper>
                 <SupportTextInput onChange={onSearchAnswers} placeholder="Поиск по категориям"/>
                 <SupportAnswers>
@@ -56,7 +55,6 @@ const SupportPage = () => {
                     
                 </SupportAnswers>
             </SupportWrapper>
-        </BasePageLayout>
     )
 }
 
