@@ -1,5 +1,6 @@
+"use client"
 import { useEffect, useState } from "react"
-import { UserTableNavigation, UserTableRow, UserTableWrapper, UserTableElement, UserTableContent } from "./salesTable"
+import { UserTableNavigation, UserTableRow, UserTableWrapper, UserTableElement, UserTableContent } from "./styles"
 
 
 const SalesTable = () => {

@@ -1,3 +1,4 @@
+"use client"
 import styled from "styled-components";
 
 import ExpandSVG from "../../public/expand_more.svg";

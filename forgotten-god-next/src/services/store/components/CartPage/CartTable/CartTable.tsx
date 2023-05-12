@@ -1,13 +1,12 @@
 "use client"
 import Link from "next/link"
-import React from "react"
+/* import React from "react" */
 import { useState } from "react"
-import {CartWrapper, CartItem, CartItemTitle, CartItemImage, CartItemPrice, CartItemDeleteButton, EmptyCartMessage, ExtendCartButton, ExtendCartButtonText, ExpandCartMoreSVG, ExpandCartLessSVG} from "./styles"
-import { CartItemType } from "@/services/store/components/CartPage/types/types"
+import { CartWrapper, CartItem, CartItemTitle, CartItemImage, CartItemPrice, CartItemDeleteButton, EmptyCartMessage, ExtendCartButton, ExtendCartButtonText, ExpandCartMoreSVG, ExpandCartLessSVG} from "./styles"
+import { ICartTable } from "./types"
 
 
-const CartTable = ({cart} : {cart: CartItemType[]}) => {
-    const [cartItems, setCartItems] = useState(cart)
+const CartTable = ({cart, setCart} : ICartTable) => {
 
     const [isEntireCartVisible, setEntireCartVisible] = useState(false)
 
@@ -17,13 +16,13 @@ const CartTable = ({cart} : {cart: CartItemType[]}) => {
             const response = await fetch(`https://forgotten-god.onrender.com/store/removeCartItem/${cartItemId}`, {method: "DELETE", credentials: "include"})
             const message = await response.json()
             if (response.ok && !message.error && !message.msg){
-                setCartItems(prev => prev.filter(cartItem => cartItem.productId !== cartItemId))
+                setCart(prev => prev.filter(cartItem => cartItem.productId !== cartItemId))
             }
         }
 
     }
 
-    const cartElements = !!cartItems && cartItems?.map(
+    const cartElements = !!cart && cart?.map(
         cartItem => (
             <CartItem key={cartItem.productId}>
                 <Link href={`/store/product/${cartItem.productId}`}>

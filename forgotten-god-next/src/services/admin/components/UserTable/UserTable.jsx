@@ -1,3 +1,4 @@
+"use client"
 import { useEffect, useState } from "react"
 import { UserTableNavigation, UserTableRow, UserTableWrapper, UserTableElement, UserTableContent, UserPromote, UserPromoteExpandSVG, UserPromoteExpandLessSVG, UserRoleWrapper, UserPromoteOption } from "./userTable"
 

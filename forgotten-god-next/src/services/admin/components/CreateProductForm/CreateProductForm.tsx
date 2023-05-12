@@ -1,6 +1,8 @@
+"use client"
+
 import { useState, useEffect } from "react"
 
-import { ProductButton, ProductForm, ProductFormHeader, ProductTextInput, ProductTextInputLabel, ProductTextInputLabelText, ProductImageUploadInput, ProductTextarea, ProductImageUploadLabel, ProductImageUploadLabelText } from "./createProductForm"
+import { ProductButton, ProductForm, ProductFormHeader, ProductTextInput, ProductTextInputLabel, ProductTextInputLabelText, ProductImageUploadInput, ProductTextarea, ProductImageUploadLabel, ProductImageUploadLabelText } from "./styles"
 
 const CreateProductForm = () => {
     const [productInfo, setProductInfo] = useState({
@@ -69,7 +71,7 @@ const CreateProductForm = () => {
     return (
         <ProductForm method="POST" >
             <ProductFormHeader>Создание нового продукта</ProductFormHeader>
-            <ProductTextInputLabel isInvalid={!productInfo.title}>
+            <ProductTextInputLabel $isInvalid={!productInfo.title}>
                 <ProductTextInput id="title" name="title"  onChange={onChangeProductInfo('title')} placeholder=" " />
                 <ProductTextInputLabelText>Название</ProductTextInputLabelText>
             </ProductTextInputLabel>
@@ -82,11 +84,11 @@ const CreateProductForm = () => {
                 <ProductImageUploadLabelText>Выберите логотип</ProductImageUploadLabelText>
             </ProductImageUploadLabel>
             
-            <ProductTextInputLabel isInvalid={!productInfo.synopsis}>
+            <ProductTextInputLabel $isInvalid={!productInfo.synopsis}>
                 <ProductTextarea id="synopsis" name="synopsis"  onChange={onChangeProductInfo('synopsis')} placeholder=" " />
                 <ProductTextInputLabelText>Синопсис</ProductTextInputLabelText>
             </ProductTextInputLabel>
-            <ProductTextInputLabel isInvalid={!productInfo.price}>
+            <ProductTextInputLabel $isInvalid={!productInfo.price}>
                 <ProductTextInput value={productInfo.price} min={0} step={100} type={"number"} inputMode="numeric" pattern="[0-9]" id="price" name="price"  onChange={onChangeProductInfo('price')} placeholder=" " />
                 <ProductTextInputLabelText>Цена</ProductTextInputLabelText>
                 

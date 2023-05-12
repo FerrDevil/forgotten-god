@@ -2,8 +2,10 @@
 import React, { useState } from "react"
 import OfferPopup from "@/services/store/components/CartPage/OfferPopup/OfferPopup"
 import {OrderBlock, OrderButton, OrderPriceWrapper, OrderPriceTitle, OrderPriceSum} from "./styles"
+import { ICartOrder } from "./types"
 
-const CartOrder = ({cart}) => {
+
+const CartOrder = ({cart}: ICartOrder) => {
 
     const [isOfferPopupOpen, setOfferPopupOpen] = useState(false)
     return (

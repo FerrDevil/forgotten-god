@@ -4,7 +4,7 @@ import { LoginWrapper, LoginHeader, LoginMethods, LoginForm, LoginFormHeader, Lo
 import { useEffect, useState } from "react"
 import { useRouter } from "next/navigation"
 import InputField from "@/services/auth/components/InputField/InputField"
-import { Head } from "next/document"
+import Head from "next/head"
 
 
 const LoginPage = () => {

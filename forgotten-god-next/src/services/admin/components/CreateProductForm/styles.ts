@@ -1,3 +1,4 @@
+"use client"
 import styled from "styled-components"
 
 export const ProductForm = styled.form`
@@ -30,14 +31,18 @@ export const ProductTextInputLabelText = styled.span`
     
 `
 
-export const ProductTextInputLabel = styled.label`
+interface IIsInvalid{
+    $isInvalid: boolean
+}
+
+export const ProductTextInputLabel = styled.label<IIsInvalid>`
     position: relative;
     background-color: #2e2e2e;
     border-radius: 4px;
     color: #ccc;
     padding: 25px 20px 8px 20px;
     border: none;
-    outline: 1px solid ${props => ( props.isInvalid ? '#c52929' : 'transparent')};
+    outline: 1px solid ${props => ( props.$isInvalid ? '#c52929' : 'transparent')};
     
     &:has(input:focus), &:has(textarea:focus){
         outline: 1px solid #ccc;

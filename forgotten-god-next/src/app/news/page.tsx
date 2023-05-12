@@ -18,7 +18,7 @@ import {
   
 } from "@/services/news/styles/news";
 import FeedPost from "@/services/news/components/FeedPost/FeedPost";
-import BasePageLayout from "@/components/Layout/BasePageLayout";
+
 
 const NewsPage = () => {
 
