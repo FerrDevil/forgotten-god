@@ -2,9 +2,9 @@
 import styled from "styled-components";
 
 export const UserTableWrapper = styled.div`
-    display: grid;
+    display: flex;
     width: 100%;
-    grid-template-rows: 200px 1fr;
+    flex-direction: column;
 `
 export const UserTableNavigation = styled.nav`
     display: flex;
@@ -15,11 +15,15 @@ export const UserTableContent = styled.div`
     flex-direction: column;
     gap: 1px;
 `
-export const UserTableRow = styled.div`
+interface IIsHeader{
+    $isHeader: boolean
+}
+
+export const UserTableRow = styled.div<IIsHeader>`
     display: grid;
     grid-template-columns: repeat(6, 1fr);
     
-    background-color: #242424;
+    background-color: ${props => props.$isHeader? "#333" : "#242424"};
     
 `
 export const UserTableElement = styled.span`
@@ -31,7 +35,6 @@ export const UserTableElement = styled.span`
     text-overflow: ellipsis;
     white-space: nowrap;
     
-    position: relative;
 `
 
 export const UserRoleWrapper = styled.div`

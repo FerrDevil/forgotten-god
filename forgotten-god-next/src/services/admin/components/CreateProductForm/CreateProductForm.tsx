@@ -5,9 +5,16 @@ import { useState, useEffect } from "react"
 import { ProductButton, ProductForm, ProductFormHeader, ProductTextInput, ProductTextInputLabel, ProductTextInputLabelText, ProductImageUploadInput, ProductTextarea, ProductImageUploadLabel, ProductImageUploadLabelText } from "./styles"
 
 const CreateProductForm = () => {
-    const [productInfo, setProductInfo] = useState({
+    type IProductInfo = {
+        title: string,
+        logo: File | null,
+        price: string,
+        synopsis: string,
+    }
+
+    const [productInfo, setProductInfo] = useState<IProductInfo>({
         title: " ",
-        logo: "",
+        logo: null,
         price: "0",
         synopsis: " ",
     })
@@ -17,6 +24,8 @@ const CreateProductForm = () => {
             setProductInfo(prev => ({...prev, [inputName] : inputName === "price" ? (event.target.value? parseInt(event.target.value) : "") : event.target.value}))
         }
     }
+
+    console.log(productInfo)
 
     const [isSubmitButtonDisabled, setSubmitButtonDisabled] = useState(true)
 
@@ -42,30 +51,22 @@ const CreateProductForm = () => {
         }, [productInfo]
     )
 
-    const [errorMessageText, setErrorMessageText] = useState("")
 
 
-    const errorMessageAnimation = (text) => {
-        setErrorMessageText(text)
-        setTimeout(() => {
-            setErrorMessageText('')
-        }, 1100)
-    }
-
-
-    const createNewProduct = async (event) => {
+    const createNewProduct = async (event : React.MouseEvent<HTMLButtonElement>) => {
         event.preventDefault()
-        const refreshResponse = await fetch('https://forgotten-god.onrender.com/auth/refresh', {method: "POST", credentials: "include"})
-        const response = await fetch('https://forgotten-god.onrender.com/admin/createGame', {method: "POST", credentials: "include", body: JSON.stringify(productInfo)})
+        const refreshResponse = await fetch(`${process.env.PUBLIC_ENV_HOST_DOMAIN || "http://localhost:5000"}/auth/refresh`, {method: "POST", credentials: "include"})
+        const response = await fetch(`${process.env.PUBLIC_ENV_HOST_DOMAIN  || "http://localhost:5000"}/admin/createGame`, {method: "POST", credentials: "include", body: JSON.stringify(productInfo)})
         const productId = await response.json()
         const fileData = new FormData()
         fileData.append("file", productInfo.logo,  productInfo.logo.name)
-        const uploadLogoResponse = await fetch(`/admin/setGameLogo/${productId.id}`, {
+        const uploadLogoResponse = await fetch(`${process.env.PUBLIC_ENV_HOST_DOMAIN  || "http://localhost:5000"}/admin/setGameLogo/${productId.id}`, {
             method: "POST",
             body: fileData,
+            credentials: "include"
         })
 
-        console.log(await uploadLogoResponse.json())
+        console.log(uploadLogoResponse.ok)
         
     }
     return (
@@ -77,10 +78,11 @@ const CreateProductForm = () => {
             </ProductTextInputLabel>
             <ProductImageUploadLabel>
                 <ProductImageUploadInput type="file" onChange={
-                    (event) => {
+                        (event:  React.ChangeEvent<HTMLInputElement>) => {
                         setProductInfo(prev => ({...prev, logo : event.target.files[0]}))
+                        }
                     }
-        }/>
+                />
                 <ProductImageUploadLabelText>Выберите логотип</ProductImageUploadLabelText>
             </ProductImageUploadLabel>
             

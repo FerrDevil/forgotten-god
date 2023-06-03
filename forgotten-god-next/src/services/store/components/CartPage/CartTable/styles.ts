@@ -39,19 +39,19 @@ export const CartItemImage = styled.img.attrs(() => ({
         loading: "lazy"
 }))`
     max-width: 40px;
-    max-height: 40px;
-    object-fit: cover;
+    aspect-ratio: 1;
+    object-fit: contain;
     color: #ccc;
 `
 
 export const CartItemPrice = styled.span`
-    font-size: 14px;
+    font-size: clamp(12px, 1vw, 14px);
     color: #ccc;
     
 `
 
 export const CartItemDeleteButton = styled.button`
-    font-size: 14px;
+    font-size: clamp(12px, 1vw, 14px);
     color: #7e7b7b;
     justify-self: flex-end;
     background-color: transparent;

@@ -1,6 +1,6 @@
 import { useState } from "react"
 import {OfferPopupForm, OfferPopupFormRadioButton, OfferPopupFormRadioTitle, OfferPopupFormRadioWrapper, OfferPopupFormSubmitButton, OfferPopupPaymentSelectHeader, OfferPopupWrapper} from "./styles"
-import {useRouter} from "next/router"
+import {useRouter} from "next/navigation"
 
 
 const OfferPopup = ({isVisible, setVisible}) => {

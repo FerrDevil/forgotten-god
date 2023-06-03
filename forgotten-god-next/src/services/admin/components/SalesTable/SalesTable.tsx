@@ -8,8 +8,8 @@ const SalesTable = () => {
 
     useEffect(() => {
         const getSalesInfo = async () => {
-            await fetch('https://forgotten-god.onrender.com/auth/refresh', {method: "POST", credentials: "include"})
-            const response = await fetch('https://forgotten-god.onrender.com/admin/getSalesInfo', { credentials: "include"})
+            await fetch(`${process.env.NEXT_PUBLIC_HOST_DOMAIN || "http://localhost:5000"}/auth/refresh`, {method: "POST", credentials: "include"})
+            const response = await fetch(`${process.env.NEXT_PUBLIC_HOST_DOMAIN || "http://localhost:5000"}/admin/getSalesInfo`, { credentials: "include"})
             const sales = await response.json()
             console.log(sales)
             setSalesInfo(sales)
@@ -33,7 +33,7 @@ const SalesTable = () => {
                     <UserTableElement>ДАННЫЕ ОПЛАТЫ</UserTableElement>
                 </UserTableRow>
                 {salesInfo.map(saleInfo => (
-                    <UserTableRow key={saleInfo.id}>
+                    <UserTableRow key={saleInfo.id} $isHeader={false}>
                         <UserTableElement>{saleInfo.productId}</UserTableElement>
                         <UserTableElement>{saleInfo.userId}</UserTableElement>
                         <UserTableElement>{dateTime.format(new Date(saleInfo.paymentDate))}</UserTableElement>

@@ -1,10 +1,10 @@
 "use client"
 
-import { LoginWrapper, LoginHeader, LoginMethods, LoginForm, LoginFormHeader, LoginTextInputLabel, LoginTextInput, LoginTextInputLabelText, PasswordHiddenButton, LoginCheckbox, LoginCheckboxLabel, LoginCheckboxLabelText, LoginButton, LoginFormLinkWrapper, LoginFormLink, ErrorMessage } from "@/services/auth/styles/login.js"
+import { LoginWrapper, LoginHeader, LoginMethods, LoginForm, LoginFormHeader, LoginCheckbox, LoginCheckboxLabel, LoginCheckboxLabelText, LoginButton, LoginFormLinkWrapper, LoginFormLink,  } from "@/services/auth/styles/login.js"
 import { useEffect, useState } from "react"
 import { useRouter } from "next/navigation"
 import InputField from "@/services/auth/components/InputField/InputField"
-import Head from "next/head"
+import ErrorMessage from "@/services/auth/components/ErrorMessage/ErrorMessage"
 
 
 const LoginPage = () => {
@@ -40,37 +40,29 @@ const LoginPage = () => {
     const [errorMessageText, setErrorMessageText] = useState("")
 
 
-    const errorMessageAnimation = (text: string) => {
-        setErrorMessageText(text)
-        setTimeout(() => {
-            setErrorMessageText('')
-        }, 1100)
-    }
 
     
     
     const formSubmit = async (event : React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
         event.preventDefault()
-        try {
-            const data = await fetch("https://forgotten-god.onrender.com//auth/login", {
+        try {/*  https://forgotten-god.onrender.com */
+            const data = await fetch(`${process.env.NEXT_PUBLIC_HOST_DOMAIN}/auth/login`, {
                 method: 'POST',
                 body : JSON.stringify(loginInfo),
-                credentials: "include",
-                headers:{
-                    "Content-Type": "application/json; charset=UTF-8",
-                }
+                credentials: "include"
                 
-            }).catch(() => errorMessageAnimation("Такого пользователя не существует"))
+            })
     
             const json = await data.json() 
            
             json.access_token ? 
                 router.back() :
-                errorMessageAnimation("Такого пользователя не существует")
+                setErrorMessageText("Такого пользователя не существует")
         
         }
         catch (error) {
-            errorMessageAnimation("Что-то пошло не так, попробуйте снова")
+            console.error(error)
+            setErrorMessageText("Что-то пошло не так, попробуйте снова")
         }
         
 
@@ -80,17 +72,14 @@ const LoginPage = () => {
     return(
         <>
             <LoginWrapper>
-                <Head>
-                    <title>Логин</title>
-                </Head>
-                <LoginHeader>Авторизация</LoginHeader>
+                {/* <LoginHeader>Авторизация</LoginHeader> */}
                 <LoginMethods>
                     <LoginForm method="POST" >
                         <LoginFormHeader>Вход с помощью аккаунта</LoginFormHeader>
                         <InputField
                             name="login"
                             placeholder="Логин"
-                            onChange={onChangeLoginInfo("username")}
+                            onChange={onChangeLoginInfo("login")}
                             isValid={!!loginInfo.login}
                             errorMessage={!loginInfo.login && "Обязательное поле" || ""}
                         />
@@ -103,15 +92,11 @@ const LoginPage = () => {
                             errorMessage={!loginInfo.password && "Обязательное поле" || ""}
                         />
                 
-                        <LoginCheckboxLabel>
-                            <LoginCheckbox type='checkbox'/>
-                            <LoginCheckboxLabelText>Запомнить меня</LoginCheckboxLabelText>
-                        </LoginCheckboxLabel>
                         <LoginButton disabled={isSubmitButtonDisabled} onClick={formSubmit} type="submit">Войти</LoginButton>
                         <LoginFormLinkWrapper>У вас еще нет аккаунта? <LoginFormLink href='/register'>Зарегистрироваться</LoginFormLink></LoginFormLinkWrapper>
                     </LoginForm>
                 </LoginMethods>
-                <ErrorMessage isVisible={errorMessageText}>{errorMessageText}</ErrorMessage>
+                <ErrorMessage text={errorMessageText} setText={setErrorMessageText} delay={3000} />
             </LoginWrapper>
         </>
     )

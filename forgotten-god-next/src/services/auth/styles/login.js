@@ -5,15 +5,12 @@ export const LoginWrapper = styled.div`
     display: flex;
     flex-direction: column;
     row-gap: 24px;
-    position: absolute;
-    align-items: flex-start;
-    padding-block: 20px;
-    @media (min-width: 600px) {
-        position: absolute;
-        left: 50%;
-        top: 50%;
-        transform: translate(-50%, -50%);
-    }
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+    padding: 20px;
+    
     
 `
 
@@ -40,7 +37,12 @@ export const LoginForm = styled.form`
     padding: 40px 40px;
     border-radius: 20px;
     background-color: #222222;
-    width: clamp(260px, 200px + 20vw, 600px);
+    width: 500px;
+    @media (max-width: 600px) {
+  
+        width: 100%;
+  
+    }
 `
 
 export const LoginFormHeader = styled.h2`
@@ -150,26 +152,5 @@ export const LoginFormLink = styled(Link)`
     text-decoration: underline;
     &:hover{
         text-decoration: none;
-    }
-`
-
-export const ErrorMessage = styled.span`
-    font-size: 20px;
-    padding: 10px 20px;
-    background-color: #780c0c;
-    color: #ccc;
-    position: fixed;
-    bottom: 10px;
-    opacity: ${props => props.isVisible? 1: 0};
-    left: 10px;
-    &::after{
-        position: absolute;
-        content: "";
-        left: 0;
-        bottom: 0;
-        transition: width 1s linear;
-        width: ${props => props.isVisible? 100: 0}%;
-        height: 1px;
-        background-color: #ccc;
     }
 `

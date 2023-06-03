@@ -6,7 +6,6 @@ export const OrderBlock = styled.div`
     flex-direction: column;
     align-items: flex-start;
     row-gap: 20px;
-    flex: 0 0 calc(50%-20px);
 
 `
 

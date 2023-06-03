@@ -1,15 +1,30 @@
 
-import Header from "../Header/Header.jsx"
+import { cookies } from "next/dist/client/components/headers";
+import Header from "../Header/Header"
 import UserPreloader from "../UserPreloader/UserPreloader"
-import { ColoredAlignedFlexMain } from "./layout.js"
-import store from "@/store/store"
+
+import { ColoredAlignedFlexMain } from "./styles"
 
 
 
-async function getUser() {
+export async function getUser() {
     try {
-        await fetch('https://forgotten-god.onrender.com/auth/refresh', {method: "POST", credentials: "include"})
-        const response = await fetch('https://forgotten-god.onrender.com/auth/getUser', { credentials: "include"})
+        const refreshCookie = cookies().get("refresh-fg-cookie");
+        if(!refreshCookie?.value){
+            return null
+        }
+        const refreshAccess = await fetch(`${process.env.HOST_DOMAIN}/auth/refresh`, {method: "POST", credentials: "include", headers: {
+            Authorization: `Bearer ${refreshCookie.value}`
+        }})
+        console.log(new Headers(refreshAccess.headers) )
+        const response = await fetch(`${process.env.HOST_DOMAIN}/auth/getUser`, { credentials: "include", headers: {
+            cookie: refreshAccess.headers.get("set-cookie")
+        }})
+        /* const refreshCookie = cookies().get("refresh-fg-cookie")
+        const response = await fetch(`${process.env.CURRENT_DOMAIN}/api/getUser`, {method: "GET", credentials: "include", headers: {
+            cookie : `${refreshCookie.name}=${refreshCookie.value}`
+        }
+        }) */
         
         if (!response.ok){
           return null

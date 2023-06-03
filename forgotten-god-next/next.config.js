@@ -18,7 +18,7 @@ const nextConfig = {
 		styledComponents: true,
   	},
   	images: {
-		domains: ["forgotten-god.onrender.com"],
+		domains: ["forgotten-god.onrender.com", "localhost"],
   	},
   	experimental: {
 		serverActions: true,
