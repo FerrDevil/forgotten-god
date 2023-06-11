@@ -1,7 +1,7 @@
 import { PostWrapper, CommentSection } from "@/services/news/styles/post";
 import FeedPost from "@/services/news/components/FeedPost/FeedPost";
 
-async function getPost(){
+function getPost(){
     const post = {
             id: 1,
             userId: 1,
@@ -30,9 +30,9 @@ async function getPost(){
     return post
 }
 
-const PostPage = async () => {
+export default async function PostPage() {
 
-  const post = await getPost()
+  const post = getPost()
 
     return (
       <>
@@ -43,7 +43,5 @@ const PostPage = async () => {
           </CommentSection>
         </PostWrapper>
       </>
-    );
-  };
-
-export default PostPage;
+    )
+  }
