@@ -190,7 +190,7 @@ const UserFavouritesComponent = () => {
   return (
     <UserFavourites>
       <UserFavouritesHeader>Подписки</UserFavouritesHeader>
-      <UserFavouritesWrapper isExpanded={isFavouritesExpanded} >
+      <UserFavouritesWrapper $isExpanded={isFavouritesExpanded} >
         {userFavourites.map((favourite) => (
           <UserFavourite href={`/devs/${favourite.id}`} key={favourite.id}>
             <UserFavouriteImage src={favourite.src} alt={favourite.name}/>

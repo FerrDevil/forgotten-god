@@ -78,14 +78,15 @@ export const UserFavouritesHeader = styled.h2`
     margin-left: 10px;
 `
 
-export const UserFavouritesWrapper = styled.div`
+
+export const UserFavouritesWrapper = styled.div<{$isExpanded: boolean}>`
     display: flex;
     flex-direction: column;
     overflow-y: hidden;
-    height: ${props => props.isExpanded ? props.children.length*50 +"px": "400px"};
+    height:  400px;
     transition: height 0.3s ease-in-out;
     & > *{
-        flex-basis: ${props => props.isExpanded ? 100 : 12.5}%;
+        flex-basis: ${props => props.$isExpanded ? 100 : 12.5}%;
     }
 `
 
