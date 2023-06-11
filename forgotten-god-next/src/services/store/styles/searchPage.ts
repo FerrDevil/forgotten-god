@@ -238,9 +238,9 @@ export const SearchTagIncludeCheckboxSVG = styled(DoneSVG)`
     
 `
 
-export const SearchTagIncludeCheckbox = styled.input.attrs(() => ({
+export const SearchTagIncludeCheckbox = styled.input.attrs({
     type: "checkbox"
-}))`
+})`
     width: 16px;
     height: 16px;
     appearance: none;
@@ -258,9 +258,7 @@ export const SearchTagIncludeCheckbox = styled.input.attrs(() => ({
 
 
 
-export const SearchTagExcludeCheckboxWrapper = styled.label.attrs(() => ({
-    type: "checkbox"
-}))`
+export const SearchTagExcludeCheckboxWrapper = styled.label`
     position: relative;
     display: flex;
     flex-direction: row;
@@ -281,7 +279,9 @@ export const SearchTagExcludeCheckboxSVG = styled(CloseSVG)`
     
 `
 
-export const SearchTagExcludeCheckbox = styled.input`
+export const SearchTagExcludeCheckbox = styled.input.attrs({
+    type: "checkbox"
+})`
     width: 16px;
     height: 16px;
     appearance: none;
