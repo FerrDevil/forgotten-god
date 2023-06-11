@@ -37,35 +37,39 @@ body{
 }
 
 
-html::-webkit-scrollbar-track{
+*::-webkit-scrollbar-track{
   background-color: #222222;
-  width: 8px;
+  
+
   cursor: pointer;
   transition: width 0.3s ease-in-out;
 }
 
-html::-webkit-scrollbar-track:hover{
-  width: 16px;
+*::-webkit-scrollbar-track:hover{
+  
 }
 
-html::-webkit-scrollbar-thumb{
+*::-webkit-scrollbar-thumb{
   background-color: #2e2e2e;
-  border-radius: 15px;
-  width: 8px;
+  border-radius: 1000vw;
+}
+
+*::-webkit-scrollbar-thumb:hover{
+  
+}
+
+*::-webkit-scrollbar-corner{
+  display: none;
+}
+
+*::-webkit-scrollbar-button{
+  display: none;
+}
+
+*::-webkit-scrollbar{
+  appearance: none;
+  width: 10px;
   cursor: pointer;
-  transition: width 0.3s ease-in-out;
-}
-
-html::-webkit-scrollbar-thumb:hover{
-  width: 16px;
-}
-
-html::-webkit-scrollbar-corner{
-  display: none;
-}
-
-html::-webkit-scrollbar-button{
-  display: none;
 }
 
 

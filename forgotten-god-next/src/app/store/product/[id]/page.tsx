@@ -2,8 +2,9 @@
 import OrderButtons from "@/app/store/product/[id]/components/OrderButtons/OrderButtons"
 import Media from "@/app/store/product/[id]/components/MediaSlider/MediaSlider"
 import StoreNavigation from "@/services/store/components/StoreNavigation/StoreNavigation.jsx"
-import { ProductPageWrapper, BriefGameInfo, GameTitle, GameLogo, GameCost, MainInfoWrapper, MainInfo, MainInfoSidebar, WishlistButton, GameDetails, GameDetail, GameDetailName, GameDetailValueWrapper, GameDetailValue, GameSynopsis, GameSynopsisHeader, GameSynopsisParagraph, ReviewsBlock, ReviewsBlockHeader, ReviewsBlockContent, GameLogoWrapper} from "@/services/store/styles/product.js"
+import { ProductPageWrapper, BriefGameInfo, GameTitle, GameLogo, GameCost, MainInfoWrapper, MainInfo, MainInfoSidebar, WishlistButton, GameDetails, GameDetail, GameDetailName, GameDetailValueWrapper, GameDetailValue, GameSynopsis, GameSynopsisHeader, GameSynopsisParagraph, ReviewsBlock, ReviewsBlockHeader, ReviewsBlockContent, GameLogoWrapper, ProductFormGameTagsContainer, ProductFormGameTagsWrapper } from "@/services/store/styles/product.js"
 import { IProduct } from "./types"
+import { ProductFormGameTagName, ProductFormGameTagWrapper, ProductFormGameTagsHeader } from "@/app/admin/createProduct/components/CreateProductForm/styles"
 
 
 
@@ -39,7 +40,7 @@ const ProductPage = async ({params} : {params: {id: number}}) => {
                     <BriefGameInfo>
                         <GameTitle>{product?.title}</GameTitle>
                         <GameLogoWrapper>
-                            <GameLogo src={product?.logo ? `${process.env.NEXT_PUBLIC_HOST_DOMAIN}/image/${product.logo}` : ""} alt="gameLogo"/>
+                            <GameLogo src={product?.logo ? `${process.env.HOST_DOMAIN}/image/${product.logo}` : ""} alt="gameLogo"/>
                         </GameLogoWrapper>
                         <GameCost>{`${product?.price} ₽`}</GameCost>
                         <OrderButtons product={product}/>
@@ -67,6 +68,16 @@ const ProductPage = async ({params} : {params: {id: number}}) => {
                         </GameDetail>
                         
                     </GameDetails>
+                    <ProductFormGameTagsWrapper>
+                                <ProductFormGameTagsHeader>Тэги</ProductFormGameTagsHeader>
+                                <ProductFormGameTagsContainer>
+                                    {product.tags.map((tag) => (
+                                        <ProductFormGameTagWrapper key={tag.id}>
+                                            <ProductFormGameTagName>{tag.name}</ProductFormGameTagName>
+                                        </ProductFormGameTagWrapper>
+                                    ))}
+                                </ProductFormGameTagsContainer>
+                            </ProductFormGameTagsWrapper>
                 </MainInfoSidebar>
             </MainInfoWrapper>
             <ReviewsBlock>

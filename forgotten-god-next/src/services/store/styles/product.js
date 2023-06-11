@@ -198,6 +198,23 @@ export const GameSynopsisParagraph = styled.p`
     
 `
 
+export const ProductFormGameTagsWrapper = styled.div`
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+    width: 100%;
+`
+
+
+export const ProductFormGameTagsContainer = styled.div`
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 5px;
+    width: 100%;
+`
+
 export const ReviewsBlock = styled.div`
     display: flex;
     flex-direction: column;

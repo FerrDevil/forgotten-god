@@ -2,7 +2,6 @@
 
 import {useEffect, useState } from 'react'
 import { SearchContainer, SearchPanel, SearchFilters, SearchFiltersContainer, SearchInputWrapper, SearchInputImage, SearchInput, SearchControls, SearchControlsHeader, SearchControlsHeaderTitle, SearchControlsClose, SearchControlsContent, SearchPrices, SearchPricesTitle, SearchPricesRangeWrapper, SearchPricesRange, SearchPricesRangeHint, SearchTags, SearchTagsTitle,SearchTagsWrapper, SearchTag, SearchTagName, SearchTagIncludeCheckboxWrapper, SearchTagIncludeCheckboxSVG, SearchTagIncludeCheckbox, SearchTagExcludeCheckboxWrapper, SearchTagExcludeCheckbox, SearchTagExcludeCheckboxSVG, } from '@/services/store/styles/searchPage'
-import useDebounce from '@/hooks/useDebounce'
 import { useSearchParams } from 'next/navigation'
 import SearchProducts from '@/services/store/components/SearchPage/SearchProducts/SearchProducts'
 
@@ -74,8 +73,8 @@ const SearchPage = () => {
     }
 
      useEffect(() => {
-        const updateProducts = async () => {
-            const response = await fetch('https://forgotten-god.onrender.com/store/getProducts', {method: "POST", body: JSON.stringify(searchParams)})
+        const updateProducts = async () => { //https://forgotten-god.onrender.com
+            const response = await fetch(`${process.env.PUBLIC_NEXT_HOST_DOMAIN || "http://localhost:5000"}/store/getProducts`, {method: "POST", body: JSON.stringify(searchParams)})
             const filteredProducts = await response.json()
             filteredProducts && setProducts(filteredProducts)
         }

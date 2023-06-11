@@ -4,6 +4,9 @@ import styled from "styled-components"
 
 import CartSVG from "@/services/store/public/cart.svg";
 import ImagePlaceholderSVG from "@/app/admin/createProduct/public/image-placeholder.svg";
+import AddTagSVG from "@/app/admin/createProduct/public/add.svg";
+import DeleteTagSVG from "@/app/admin/createProduct/public/delete.svg";
+
 
 export const ProductForm = styled.form`
     display: flex;
@@ -177,15 +180,6 @@ export const ProductFormGameLogo = styled(Image).attrs(
 `
 
 
-export const ProductFormGamePrice = styled.p`
-    font-size: clamp(25px, 3vw,40px);
-    color: #ccc;
-    align-self: flex-end;
-    
-`
-
-
-
 export const ProductFormOrderButtonWrapper = styled.div`
     display: grid;
     grid-template-columns: 4fr 1fr;
@@ -210,9 +204,6 @@ export const ProductFormOrderButton = styled.div`
     
     
     transition: border-color, color, background-color 0.3s ease-in-out ;
-    
-
-
 `
 
 
@@ -306,6 +297,7 @@ export const ProductFormGameTagsWrapper = styled.div`
     display: flex;
     flex-direction: column;
     align-items: flex-start;
+    gap: 10px;
 `
 
 export const ProductFormGameTagsHeader = styled.h2`
@@ -317,6 +309,69 @@ export const ProductFormGameTagsContainer = styled.div`
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
+    gap: 5px;
+`
+
+export const ProductFormGameTagWrapper = styled.div`
+    display: flex;
+    flex-direction: row;
+    gap: 5px;
+    background-color: #333;
+    padding: 0 5px;
+    border-radius: 2px;
+`
+
+export const ProductFormGameTagName = styled.span`
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 5px;
+    color: #ccc;
+`
+
+export const ProductFormGameTagDeleteButton = styled.button`
+    display: block;
+    width: 25px;
+    aspect-ratio: 1;
+    border: 1px solid transparent;
+    background-color: transparent;
+    cursor: pointer;
+
+    &:focus-visible > svg, &:hover > svg, &:active > svg{
+        fill: #780c0c;
+    }
+`
+
+export const ProductFormGameTagsDeleteButtonSVG = styled(DeleteTagSVG)`
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    fill: #ccc;
+    transition: fill 0.3s;
+`
+
+export const ProductFormGameTagsAddButton = styled.button`
+    display: block;
+    width: 25px;
+    aspect-ratio: 1;
+    border: 1px solid transparent;
+    background-color: transparent;
+    cursor: pointer;
+
+    &:focus-visible > svg, &:hover > svg, &:active > svg{
+        fill: #780c0c;
+    }
+`
+
+
+export const ProductFormGameTagsAddButtonSVG = styled(AddTagSVG)`
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    fill: #ccc;
+    transition: fill 0.3s;
 `
 
 export const ProductFormGameSynopsis = styled.div`
@@ -335,98 +390,6 @@ export const ProductFormGameSynopsisHeader = styled.h2`
 
 
 
-export const ProductTextInputLabelText = styled.span`
-    position: absolute;
-    color: #ccc;
-    left: 20px;
-    top: 50%;
-    transform: translate(0, -50%);
-    transition: top 0.25s cubic-bezier(0.0, 0, 0.2, 1), font-size 0.2s cubic-bezier(0.0, 0, 0.2, 1) ;
-   
-    
-`
-
-interface IIsInvalid{
-    $isInvalid: boolean
-}
-
-export const ProductTextInputLabel = styled.label<IIsInvalid>`
-    position: relative;
-    background-color: #2e2e2e;
-    border-radius: 4px;
-    color: #ccc;
-    padding: 25px 20px 8px 20px;
-    border: none;
-    outline: 1px solid ${props => ( props.$isInvalid ? '#c52929' : 'transparent')};
-    
-    &:has(input:focus), &:has(textarea:focus){
-        outline: 1px solid #ccc;
-    }
-    
-    &:-webkit-autofill{
-        background-color: #2e2e2e;
-    }
-`
-
-
-
-
-export const ProductTextInput = styled.input`
-    font-size: 16px;
-    width: 400px;
-    background-color: #2e2e2e;
-    border-radius: 4px;
-    color: #ccc;
-    
-    border: none;
-    outline: none;
-    
-    &:focus ~ ${ProductTextInputLabelText}, &:not(:placeholder-shown)&:not(:focus) ~ ${ProductTextInputLabelText}{
-        top: 2px;
-        transform: none;
-        font-size: 14px;
-    }
-    &:-webkit-autofill{
-        background-color: #2e2e2e;
-    }
-`
-
-export const ProductTextarea = styled.textarea`
-    font-size: 16px;
-    width: 400px;
-    background-color: #2e2e2e;
-    border-radius: 4px;
-    color: #ccc;
-    border: none;
-    outline: none;
-    
-    height: 70px;
-    overflow: auto;
-
-    &::-webkit-scrollbar{
-        appearance: none;
-        width: 7px;
-    }
-
-    &::-webkit-scrollbar-track{
-        border-radius: 100vh;
-        background-color: #212121;
-    }
-    &::-webkit-scrollbar-thumb{
-        border-radius: 100vh;
-        background-color: #3f3f3f;
-    }
-   
-    &:focus ~ ${ProductTextInputLabelText}, &:not(:placeholder-shown)&:not(:focus) ~ ${ProductTextInputLabelText}{
-        top: 2px;
-        transform: none;
-        font-size: 14px;
-    }
-    &:-webkit-autofill{
-        background-color: #2e2e2e;
-    }
-    resize: none;
-`
 
 
 export const ProductButton = styled.button`
@@ -434,7 +397,8 @@ export const ProductButton = styled.button`
     color: #ccc;
     background-color: #282828;
     border: none;
-    width: 400px;
+    max-width: 400px;
+    width: 100%;
     padding: 10px 20px;
     border-radius: 10px;
     cursor: pointer;
@@ -445,35 +409,4 @@ export const ProductButton = styled.button`
         color: #4e4e4e;
         cursor: default;
     }
-`
-
-export const ProductImageUploadLabel = styled.label`
-    display: block;
-    position: relative;
-    border-radius: 10px;
-    width: 440px;
-    height: 50px;
-    padding: 10px 20px;
-    background-color: #282828;
-    border: none;
-    cursor: pointer;
-    transition: background-color 0.3s ease-in-out;
-    &:focus, &:hover{
-        background-color: #780c0c;
-    }
-`
-
-export const ProductImageUploadLabelText = styled.span`
-    position: absolute;
-    left: 50%;
-    top: 50%;
-    color: #ccc;
-    font-size: 18px;
-    transform: translate(-50%, -50%);
-    pointer-events: none;
-    user-select: none;
-`
-
-export const ProductImageUploadInput = styled.input`
-    display: none;
 `

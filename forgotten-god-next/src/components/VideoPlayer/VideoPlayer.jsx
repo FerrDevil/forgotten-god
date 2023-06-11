@@ -59,7 +59,7 @@ const VideoPlayer = ({src}) => {
 
     return (
         <VideoContainer>
-            <Video ref={video} onEnded={switchVideoStatus} onTimeUpdate={onVideoTimeUpdate}  onClick={switchVideoStatus}  autoPlay={true} muted playsInline src={src}/>
+            <Video ref={video} onEnded={switchVideoStatus} onTimeUpdate={onVideoTimeUpdate}  onClick={switchVideoStatus}  autoPlay={true} playsInline src={src}/>
             <VideoControls isPaused={!videoStatus.isPlaying}>
                 <VideoTimelineRangeWrapper time={time}>
                     <VideoTimelineRange onChange={onChangeVideoTime} type='range' min={0} max={time.duration} step={"any"} value={time.currentTime}/>

@@ -1,25 +1,16 @@
 /* "use client" */
 import CreateProductForm from "@/app/admin/createProduct/components/CreateProductForm/CreateProductForm"
+import { ITag } from "../tags/components/AdminTagsHandler/types"
 
 
-/* import { useSelector } from "react-redux"
- */
+async function getTags() {
+    const response = await fetch(`${process.env.HOST_DOMAIN}/admin/getTags`)
+    return await response.json()
+}
 
 
-export default function AdminCreateProductPage (){
-
-
-    /* const {userInfo} = useSelector(state  => state.user)
-    if (userInfo?.userRole !== "admin") {
-        return (
-            <>
-                <div>user is not admin</div>
-            </>
-            
-        )
-    } */
-
-    const tags = []
+export default async function AdminCreateProductPage (){
+    const tags: ITag[] = await getTags()  
 
     return(
         <CreateProductForm tags={tags}/>

@@ -2,39 +2,48 @@
 
 import { useState, useEffect } from "react"
 
-import { ProductButton, ProductForm, ProductFormHeader, ProductFormContent, ProductFormMainInfoWrapper, ProductFormMainInfo, ProductFormMainInfoSidebar, ProductFormBriefGameInfo, ProductFormGameLogoWrapper, ProductFormGameLogo, ProductFormGamePrice, ProductFormWishlistButton, ProductFormOrderButtonWrapper, ProductFormOrderButton, ProductFormCartButton, ProductFormCartSVG, ProductFormGameDetails, ProductFormGameDetail, ProductFormGameDetailName, ProductFormGameDetailValueWrapper, ProductFormGameDetailValue, ProductFormGameTagsWrapper, ProductFormGameTagsHeader, ProductFormGameTagsContainer, ProductFormGameSynopsis, ProductFormGameSynopsisHeader, ProductFormGameLogoFileInput, ProductFormGameLogoFileInputWrapper, ProductFormGameLogoFileInputDescriptionWrapper, ProductFormGameLogoFileInputDescription, ProductImagePlaceholderSVG } from "./styles"
+import { ProductButton, ProductForm, ProductFormHeader, ProductFormContent, ProductFormMainInfoWrapper, ProductFormMainInfo, ProductFormMainInfoSidebar, ProductFormBriefGameInfo, ProductFormGameLogoWrapper, ProductFormGameLogo, ProductFormWishlistButton, ProductFormOrderButtonWrapper, ProductFormOrderButton, ProductFormCartButton, ProductFormCartSVG, ProductFormGameDetails, ProductFormGameDetail, ProductFormGameDetailName, ProductFormGameDetailValueWrapper, ProductFormGameDetailValue, ProductFormGameTagsWrapper, ProductFormGameTagsHeader, ProductFormGameTagsContainer, ProductFormGameSynopsis, ProductFormGameSynopsisHeader, ProductFormGameLogoFileInput, ProductFormGameLogoFileInputWrapper, ProductFormGameLogoFileInputDescriptionWrapper, ProductFormGameLogoFileInputDescription, ProductImagePlaceholderSVG, ProductFormGameTagsAddButton, ProductFormGameTagsAddButtonSVG, ProductFormGameTagWrapper, ProductFormGameTagName, ProductFormGameTagDeleteButton, ProductFormGameTagsDeleteButtonSVG } from "./styles"
 import { useSelector } from "react-redux"
 import { ITag } from "@/app/admin/tags/components/AdminTagsHandler/types"
 import TitleField from "./TitleField/TitleField"
 import SynopsisField from "./SynopsisField/SynopsisField"
-import MediaSlider from "@/app/store/product/[id]/components/MediaSlider/MediaSlider"
+import MediaSlider from "@/app/admin/createProduct/components/CreateProductForm/MediaSlider/MediaSlider"
+import PriceField from "./PriceField/PriceField"
+import AddTagModal from "./AddTagModal/AddTagModal"
+
+export type IProductInfo = {
+    title: string,
+    logo: File | null,
+    price: string,
+    synopsis: string,
+    tags: ITag[]
+    media: File[]
+}
 
 const CreateProductForm = ({tags}) => {
-    type IProductInfo = {
-        title: string,
-        logo: File | null,
-        price: string,
-        synopsis: string,
-        tags: ITag[]
-    }
-
+   
     const [productInfo, setProductInfo] = useState<IProductInfo>({
         title: "Название",
         logo: null,
         price: "0",
         synopsis: "Описание",
-        tags: []
+        tags: [],
+        media: []
     })
-
-    const onChangeProductInfo = (inputName: string) => {
-        return (event: React.ChangeEvent<HTMLInputElement>) => {
-            setProductInfo(prev => ({...prev, [inputName] : inputName === "price" ? (event.target.value? parseInt(event.target.value) : "") : event.target.value}))
-        }
-    }
 
     const {userInfo} = useSelector(state => state.user)
 
     const [isSubmitButtonDisabled, setSubmitButtonDisabled] = useState(true)
+
+    const [isAddTagModalOpen, setAddTagModalOpen] = useState(false) 
+
+    const onChangeProductInfo = (inputName: string) => {
+        return (event: React.ChangeEvent<HTMLInputElement> | React.ChangeEvent<HTMLTextAreaElement>) => {
+            setProductInfo(prev => ({...prev, [inputName] : inputName === "price" ? (event.target.value? parseInt(event.target.value) : "") : event.target.value}))
+        }
+    }
+
+    
 
     useEffect(
         () => {
@@ -46,7 +55,7 @@ const CreateProductForm = ({tags}) => {
                 setSubmitButtonDisabled(true)
                 return
             }
-            if (!productInfo.price || productInfo.price === '0'){
+            if (!productInfo.price){
                 setSubmitButtonDisabled(true)
                 return
             }
@@ -54,24 +63,75 @@ const CreateProductForm = ({tags}) => {
                 setSubmitButtonDisabled(true)
                 return
             }
+            if (!productInfo.tags || productInfo.tags.length === 0){
+                setSubmitButtonDisabled(true)
+                return
+            }
+            if (!productInfo.media || productInfo.media.length === 0){
+                setSubmitButtonDisabled(true)
+                return
+            }
             setSubmitButtonDisabled(false) 
         }, [productInfo]
     )
 
+    const openTagsModal = (event: React.MouseEvent<HTMLButtonElement>) => {
+        event.preventDefault()
+        setAddTagModalOpen(true)
+    }
+
+
+    const setTags = async (id : number) => {
+        const setTagsResponse = await fetch(`${process.env.PUBLIC_ENV_HOST_DOMAIN  || "http://localhost:5000"}/admin/setGameTags/${id}`, {
+            method: "POST",
+            body: JSON.stringify(productInfo.tags),
+            credentials: "include"
+        })
+
+        return await setTagsResponse.json()
+    }   
+
+    const setLogo = async (id : number) => {
+        const fileData = new FormData()
+        fileData.append("file", productInfo.logo,  productInfo.logo.name)
+        const uploadLogoResponse = await fetch(`${process.env.PUBLIC_ENV_HOST_DOMAIN  || "http://localhost:5000"}/admin/setGameLogo/${id}`, {
+            method: "POST",
+            body: fileData,
+            credentials: "include"
+        })
+
+        return await uploadLogoResponse.json()
+    }    
+
+    const setMediaFiles = async (id : number) => {
+        const mediaData = new FormData()
+        productInfo.media.forEach((mediaItem, index) => {
+            mediaData.append(`file${index}`, mediaItem,  mediaItem.name)
+        })
+        
+        const uploadMediaResponse = await fetch(`${process.env.PUBLIC_ENV_HOST_DOMAIN  || "http://localhost:5000"}/admin/setGameMedia/${id}`, {
+            method: "POST",
+            body: mediaData,
+            credentials: "include"
+        })
+
+        return await uploadMediaResponse.json()
+    }
 
 
     const createNewProduct = async (event : React.MouseEvent<HTMLButtonElement>) => {
         event.preventDefault()
         const refreshResponse = await fetch(`${process.env.PUBLIC_ENV_HOST_DOMAIN || "http://localhost:5000"}/auth/refresh`, {method: "POST", credentials: "include"})
         const response = await fetch(`${process.env.PUBLIC_ENV_HOST_DOMAIN  || "http://localhost:5000"}/admin/createGame`, {method: "POST", credentials: "include", body: JSON.stringify(productInfo)})
-        const productId = await response.json()
-        const fileData = new FormData()
-        fileData.append("file", productInfo.logo,  productInfo.logo.name)
-        const uploadLogoResponse = await fetch(`${process.env.PUBLIC_ENV_HOST_DOMAIN  || "http://localhost:5000"}/admin/setGameLogo/${productId.id}`, {
-            method: "POST",
-            body: fileData,
-            credentials: "include"
-        })
+        const product = await response.json()
+        console.log(product)
+        
+        const logoResponse = await setLogo(product.id)
+        const tagsResponse = await setTags(product.id)
+        const mediaResponse = await setMediaFiles(product.id)
+        
+
+        
     }
     return (
         <ProductForm method="POST" >
@@ -79,13 +139,10 @@ const CreateProductForm = ({tags}) => {
             <ProductFormContent>
                 <ProductFormMainInfoWrapper>
                     <ProductFormMainInfo>
-                        <MediaSlider mediaElements={
-                            [
-                                {
-                                    'type': 'image',
-                                    'src': '/img1.jpg'
-                                },
-                            ]
+                        <MediaSlider setProductInfo={
+                           setProductInfo
+                        } mediaElements={
+                            productInfo.media
                         }/>
                         <ProductFormGameSynopsis>
                             <ProductFormGameSynopsisHeader>Описание</ProductFormGameSynopsisHeader>
@@ -106,9 +163,7 @@ const CreateProductForm = ({tags}) => {
                                 </ProductFormGameLogoFileInputWrapper>
                                 
                             </ProductFormGameLogoWrapper>
-                            <ProductFormGamePrice>
-                                {productInfo.price} ₽
-                            </ProductFormGamePrice>
+                            <PriceField price={productInfo.price} setPrice={onChangeProductInfo("price")}/>
 
                             <ProductFormOrderButtonWrapper>
                                 <ProductFormOrderButton>Оформить</ProductFormOrderButton>
@@ -142,19 +197,28 @@ const CreateProductForm = ({tags}) => {
                             <ProductFormGameTagsWrapper>
                                 <ProductFormGameTagsHeader>Тэги</ProductFormGameTagsHeader>
                                 <ProductFormGameTagsContainer>
-                                    {productInfo.tags.map(tag => (
-                                        <div key={tag.id}>
-                                            <span>{tag.name}</span>
-                                            <button>x</button>
-                                        </div>
+                                    {productInfo.tags.map((tag) => (
+                                        <ProductFormGameTagWrapper key={tag.id}>
+                                            <ProductFormGameTagName>{tag.name}</ProductFormGameTagName>
+                                            <ProductFormGameTagDeleteButton onClick={
+                                                (event: React.MouseEvent<HTMLButtonElement> ) => {
+                                                    setProductInfo(prev => ({...prev, tags : prev.tags.filter((curTag) => curTag.id !== tag.id)}))
+                                                }
+                                            }>
+                                                <ProductFormGameTagsDeleteButtonSVG/>
+                                            </ProductFormGameTagDeleteButton >
+                                        </ProductFormGameTagWrapper>
                                     ))}
+                                    <ProductFormGameTagsAddButton onClick={openTagsModal}><ProductFormGameTagsAddButtonSVG/></ProductFormGameTagsAddButton>
                                 </ProductFormGameTagsContainer>
+
+                                <AddTagModal isOpen={isAddTagModalOpen} setOpen={setAddTagModalOpen} tags={tags} setProductsInfo={setProductInfo}/>
                             </ProductFormGameTagsWrapper>
                         </ProductFormGameDetails>
                     </ProductFormMainInfoSidebar>
                 </ProductFormMainInfoWrapper>
             </ProductFormContent>
-            <ProductButton onClick={createNewProduct}>Создать</ProductButton>
+            <ProductButton disabled={isSubmitButtonDisabled} onClick={createNewProduct}>Создать</ProductButton>
         </ProductForm>
     )
 }

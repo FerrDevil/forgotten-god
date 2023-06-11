@@ -3,11 +3,9 @@ import { InputWrapper, TextInputLabel, TextInput, TextInputLabelText, InputError
 import { useState } from "react"
 
 const InputField = ({ name, onChange, type="text", placeholder="", isValid=true, errorMessage="" }) => {
-
+    const [inputType, setInputType] = useState(type)
     if (type === "password"){
-        const [inputType, setInputType] = useState(type)
-
-        const changeInputType =  (event) => {
+        const changeInputType =  (event : React.MouseEvent<HTMLButtonElement>) => {
             event.preventDefault()
             setInputType(prev => prev === "password" ? "text" : "password")
         }

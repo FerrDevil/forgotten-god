@@ -3,8 +3,6 @@ import { RegisterWrapper, RegisterMethods, RegisterForm, RegisterFormHeader, Reg
 import InputField from "@/services/auth/components/InputField/InputField"
 import { useState, useEffect } from "react"
 import { useRouter } from "next/navigation"
-import { Head } from "next/document"
-
 
 
 
@@ -65,17 +63,11 @@ const RegisterPage = () => {
 
     const formSubmit = async (event : React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
         event.preventDefault()
-        const fetchParams = {
+        const response = await fetch(`${process.env.PUBLIC_NEXT_HOST_DOMAIN || "http://localhost:5000"}/auth/register`, {
             method: 'POST',
             body: JSON.stringify(registerInfo),
-            mode: 'cors',
             credentials: "include",
-            headers:{
-                "Content-Type": "application/json; charset=UTF-8",
-                'Access-Control-Allow-Credentials' : 'true'
-            }
-        } 
-        const response = await fetch('https://forgotten-god.onrender.com/auth/register', fetchParams)
+        })
         const json = await response.json()
         if (!json.msg && !json.error){
             router.push("/")
@@ -85,9 +77,6 @@ const RegisterPage = () => {
 
     return(
         <>
-            <Head>
-                <title>Регистрация</title>
-            </Head>
             <RegisterWrapper>
                 <RegisterMethods>
                     <RegisterForm method="POST">

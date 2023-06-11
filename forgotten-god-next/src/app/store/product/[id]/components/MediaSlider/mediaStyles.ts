@@ -44,12 +44,11 @@ export const MediaImage = styled(Image).attrs(
 
 export const SliderWrapper = styled.div`
     display: grid;
-    grid-template-columns: 30px 1fr 30px;
     place-items: center;
     position: relative;
     padding: 15px clamp(5px, 2vw, 15px) ;
     column-gap: clamp(10px, 2vw, 25px);
-    
+    width: 100%;
     
 `
 
@@ -66,6 +65,7 @@ export const SliderContent = styled.div<{$currentGroupIndex : number}>`
     align-items: center;
     justify-content: flex-start;
     transition: transform 0.35s ease-in-out;
+    width: 100%;
     --_gap: 20px;
     gap: var(--_gap);
     --_one-element: calc((100% - (var(--_gap) * 3)) / 4 );

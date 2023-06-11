@@ -1,7 +1,7 @@
 "use client"
 
 import { useState } from "react";
-import { ProductFormGameSynopsisParagraph, TitleFieldEditButton, TitleFieldEditButtonSVG, TitleFieldInput, TitleFieldInputWrapper, TitleFieldSaveButtonSVG, TitleFieldWrapper } from "./style";
+import { ProductFormGameSynopsisParagraph, TitleFieldEditButton, TitleFieldEditButtonSVG, TitleFieldInput, TitleFieldInputWrapper, TitleFieldSaveButtonSVG, TitleFieldWrapper } from "./styles";
 import { ISynopsisField } from "./types";
 
 export default function SynopsisField({synopsis, setSynopsis} : ISynopsisField) {
