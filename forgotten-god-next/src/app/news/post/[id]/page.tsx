@@ -1,3 +1,4 @@
+"use client"
 import { PostWrapper, CommentSection } from "@/services/news/styles/post";
 import FeedPost from "@/services/news/components/FeedPost/FeedPost";
 
@@ -30,7 +31,7 @@ function getPost(){
     return post
 }
 
-export default async function PostPage() {
+export default function PostPage() {
 
   const post = getPost()
 
