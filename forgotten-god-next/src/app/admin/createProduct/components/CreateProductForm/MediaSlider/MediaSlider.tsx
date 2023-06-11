@@ -59,7 +59,7 @@ const ImageSlider = ({elements=[], sliderParams, setSliderParams, setProductInfo
                     <SliderContent $currentGroupIndex={sliderParams.pageIndex}>
                         {
                             elements.map((element, elementIndex ) => (
-                                    <ProductFormMediaWrapper key={elementIndex} onClick={() => {selectMedia(elementIndex)}} $isSelected={sliderParams.selectedMediaIndex === elementIndex} key={elementIndex}>
+                                    <ProductFormMediaWrapper key={elementIndex} onClick={() => {selectMedia(elementIndex)}} $isSelected={sliderParams.selectedMediaIndex === elementIndex}>
                                             {
                                                 element?.type.startsWith('video') ?
                                                 <>
