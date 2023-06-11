@@ -1,7 +1,7 @@
 import { PostWrapper, CommentSection } from "@/services/news/styles/post";
 import FeedPost from "@/services/news/components/FeedPost/FeedPost";
 
-export async function getPost(){
+async function getPost(){
     const post = {
             id: 1,
             userId: 1,
