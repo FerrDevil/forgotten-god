@@ -1,16 +1,13 @@
 "use client"
 
 import UserTable from "@/app/admin/users/components/UserTable/UserTable"
-
-
-import { useSelector } from "react-redux"
-
+import { useUserSelector } from "@/store/store"
 
 
 export default function AdminUsersPage()  {
 
 
-    const {userInfo} = useSelector(state  => state.user)
+    const {userInfo} = useUserSelector()
     if (userInfo?.userRole !== "admin") {
         return (
             <>

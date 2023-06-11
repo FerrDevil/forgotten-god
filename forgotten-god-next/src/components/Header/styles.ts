@@ -151,18 +151,19 @@ interface ILogoImage{
     alt: string,
     src: string,
     loading: string,
-    priority: string
+    priority: boolean
 }
 
-export const LogoImage = styled(Image).attrs<ILogoImage>({
+export const LogoImage = styled(Image).attrs({
     width: 0,
     height: 0,
     sizes: "100vw",
     alt: "FG-logo",
     src: "/images/logo.png",
     loading: "eager",
-    priority: "true"
-})`
+    priority: true
+})
+`
     width: clamp(30px, 3vw, 40px);
     height: clamp(40px, 3vw, 50px);
     object-fit: contain;

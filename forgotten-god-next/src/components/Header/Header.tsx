@@ -3,14 +3,13 @@
 import {AdminPanelSVG, SupportLinkSVG, HeaderNavigationButton, LogoutButtonSVG, HeaderWrapper, HeaderNavigation, HeaderNavigationList, HeaderNavigationItem, HeaderNavigationItemTitle, LogoImage, LoginLinkSVG, HeaderNavigationLink, DownloadLinkSVG, ProfilePicture, HeaderMobileNavigation, HeaderMobileNavigationList, HeaderMobileNavigationLink, HeaderMobileNavigationItem, ShopLinkSVG, HeaderMobileNavigationLinkText, NewsLinkSVG } from "./styles"
 import { memo, useContext } from "react"
 import { usePathname } from "next/navigation"
-import {deleteUser} from "@/store/store"
-import { useSelector } from "react-redux"
+import {deleteUser, useUserSelector} from "@/store/store"
 import { useDispatch } from "react-redux"
 
 const Header = () => {
     const pathname = usePathname()
     const dispatch = useDispatch()
-    const {userInfo} = useSelector((state) => state.user ) 
+    const {userInfo} = useUserSelector()
 
     console.log(userInfo)
     const activeLinks = {
@@ -32,7 +31,7 @@ const Header = () => {
 
     return (
         <HeaderWrapper>
-            <LogoImage />
+            <LogoImage/>
             <HeaderNavigation>
                 <HeaderNavigationList>
                     <HeaderNavigationItem>
