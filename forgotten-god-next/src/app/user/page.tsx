@@ -1,3 +1,5 @@
+"use client"
+
 import { UserPageWrapper, UserOptions, UserOption, UserOptionImage, UserOptionText, UserPanel} from "@/services/auth/styles/userPage"
 
 
