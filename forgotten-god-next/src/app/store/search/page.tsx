@@ -1,6 +1,6 @@
 "use client"
 
-import {useEffect, useState } from 'react'
+import React, {useEffect, useState } from 'react'
 import { SearchContainer, SearchPanel, SearchFilters, SearchFiltersContainer, SearchInputWrapper, SearchInputImage, SearchInput, SearchControls, SearchControlsHeader, SearchControlsHeaderTitle, SearchControlsClose, SearchControlsContent, SearchPrices, SearchPricesTitle, SearchPricesRangeWrapper, SearchPricesRange, SearchPricesRangeHint, SearchTags, SearchTagsTitle,SearchTagsWrapper, SearchTag, SearchTagName, SearchTagIncludeCheckboxWrapper, SearchTagIncludeCheckboxSVG, SearchTagIncludeCheckbox, SearchTagExcludeCheckboxWrapper, SearchTagExcludeCheckbox, SearchTagExcludeCheckboxSVG, } from '@/services/store/styles/searchPage'
 import { useSearchParams } from 'next/navigation'
 import SearchProducts from '@/services/store/components/SearchPage/SearchProducts/SearchProducts'
@@ -104,7 +104,7 @@ const SearchPage = () => {
                                 <SearchPrices>
                                     <SearchPricesTitle>Цены</SearchPricesTitle>
                                     <SearchPricesRangeWrapper>
-                                        <SearchPricesRange type="range" min={0} max={2200} step={200} value={searchParams.price} onInput={(event : React.FormEvent<HTMLInputElement>) => {setSearchParams(prev => ({...prev, price: parseInt(event.target.value)}))}} />
+                                        <SearchPricesRange type="range" min={0} max={2200} step={200} value={searchParams.price} onInput={(event: React.ChangeEvent<HTMLInputElement>) => {setSearchParams(prev => ({...prev, price: parseInt(event.target.value)}))}} />
                                         <SearchPricesRangeHint>{ searchParams.price === 0 ? "Бесплатно" : searchParams.price === 2200 ? "Любая цена" : `До ${searchParams.price}`}</SearchPricesRangeHint>
                                     </SearchPricesRangeWrapper>
                                 </SearchPrices>
@@ -116,7 +116,7 @@ const SearchPage = () => {
                                                 <SearchTagName>{tag.name}</SearchTagName>
                                                 <SearchTagIncludeCheckboxWrapper>
                                                     <SearchTagIncludeCheckbox onChange={
-                                                        (event) => {
+                                                        (event : React.ChangeEvent<HTMLInputElement>) => {
                                                             addIncludedTags(event, tag.id)
                                                         }
                                                         }
@@ -125,8 +125,8 @@ const SearchPage = () => {
                                                 </SearchTagIncludeCheckboxWrapper>
                                                 
                                                 <SearchTagExcludeCheckboxWrapper>
-                                                    <SearchTagExcludeCheckbox onClick={(e) => {return false}} onChange={
-                                                        (event) => {
+                                                    <SearchTagExcludeCheckbox onChange={
+                                                        (event : React.ChangeEvent<HTMLInputElement>) => {
                                                             addExcludedTags(event, tag.id)
                                                         }}
                                                         />

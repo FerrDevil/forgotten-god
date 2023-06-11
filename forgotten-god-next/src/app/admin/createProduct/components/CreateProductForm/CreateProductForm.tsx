@@ -10,6 +10,7 @@ import SynopsisField from "./SynopsisField/SynopsisField"
 import MediaSlider from "@/app/admin/createProduct/components/CreateProductForm/MediaSlider/MediaSlider"
 import PriceField from "./PriceField/PriceField"
 import AddTagModal from "./AddTagModal/AddTagModal"
+import { useUserSelector } from "@/store/store"
 
 export type IProductInfo = {
     title: string,
@@ -31,7 +32,7 @@ const CreateProductForm = ({tags}) => {
         media: []
     })
 
-    const {userInfo} = useSelector(state => state.user)
+    const {userInfo} = useUserSelector()
 
     const [isSubmitButtonDisabled, setSubmitButtonDisabled] = useState(true)
 

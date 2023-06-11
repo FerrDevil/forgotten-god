@@ -3,6 +3,7 @@
 import { createSlice, configureStore, createAsyncThunk, PayloadAction } from '@reduxjs/toolkit'
 
 import { IUserState, UserInfo } from "./types"
+import { useSelector } from 'react-redux'
 
 
 export const fetchUser = createAsyncThunk(
@@ -55,6 +56,8 @@ export const {setUser, deleteUser} = userStoreSlice.actions
 const store = configureStore({
   reducer: userStoreSlice.reducer
 })
+
+export const useUserSelector = () => (useSelector((state : IUserState) => state.user))
 
 
 export default store
