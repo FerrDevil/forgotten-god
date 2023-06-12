@@ -3,9 +3,7 @@ import { NextRequest, NextResponse } from 'next/server';
 export const dynamic = 'force-dynamic'
  
 export async function GET(request : NextRequest) {
-    const refreshUserCookies = await fetch(`${process.env.HOST_DOMAIN}/auth/refresh`, {method: "POST", credentials: "include", headers: {
-      cookie : new Headers(request.headers).get("cookie")
-    }})
+    const refreshUserCookies = await fetch(`${process.env.HOST_DOMAIN}/auth/refresh`, {method: "POST", credentials: "include", headers: request.headers})
     
     if (!refreshUserCookies.ok){
       return NextResponse.json({user: "UNAUTHORIZED"}, { status: 401})
@@ -15,12 +13,9 @@ export async function GET(request : NextRequest) {
         `${process.env.HOST_DOMAIN}/auth/getUser`,
         {
             credentials: "include",
-            headers: {
-              cookie : headers.get("set-cookie")
-            }
+            headers: headers
         }
     );
-    console.log(res)
     const userInfo = await res.json();
  
   return NextResponse.json(userInfo, { headers: res.headers})

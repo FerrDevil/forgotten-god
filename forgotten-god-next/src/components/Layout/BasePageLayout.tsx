@@ -9,7 +9,7 @@ import { ColoredAlignedFlexMain } from "./styles"
 
 export async function getUser() {
     try {
-        const refreshCookie = cookies().get("refresh-fg-cookie");
+        /* const refreshCookie = cookies().get("refresh-fg-cookie");
         if(!refreshCookie?.value){
             return null
         }
@@ -19,12 +19,12 @@ export async function getUser() {
         console.log(new Headers(refreshAccess.headers) )
         const response = await fetch(`${process.env.HOST_DOMAIN}/auth/getUser`, { credentials: "include", headers: {
             cookie: refreshAccess.headers.get("set-cookie")
-        }})
-        /* const refreshCookie = cookies().get("refresh-fg-cookie")
+        }}) */
+        const refreshCookie = cookies().get("refresh-fg-cookie")
         const response = await fetch(`${process.env.CURRENT_DOMAIN}/api/getUser`, {method: "GET", credentials: "include", headers: {
-            cookie : `${refreshCookie.name}=${refreshCookie.value}`
+            Authorization : `Bearer ${refreshCookie.value}`
         }
-        }) */
+        })
         
         if (!response.ok){
           return null
