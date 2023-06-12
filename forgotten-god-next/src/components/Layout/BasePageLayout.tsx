@@ -1,5 +1,5 @@
 
-import { cookies } from "next/dist/client/components/headers";
+import { headers } from "next/dist/client/components/headers";
 import Header from "../Header/Header"
 import UserPreloader from "../UserPreloader/UserPreloader"
 
@@ -20,11 +20,8 @@ export async function getUser() {
         const response = await fetch(`${process.env.HOST_DOMAIN}/auth/getUser`, { credentials: "include", headers: {
             cookie: refreshAccess.headers.get("set-cookie")
         }}) */
-        const refreshCookie = cookies().get("refresh-fg-cookie")
-        const response = await fetch(`${process.env.CURRENT_DOMAIN}/api/getUser`, {method: "GET", credentials: "include", headers: {
-            Authorization : `Bearer ${refreshCookie.value}`
-        }
-        })
+
+        const response = await fetch(`${process.env.CURRENT_DOMAIN}/api/getUser`, {method: "GET", credentials: "include", headers: headers()})
         
         if (!response.ok){
           return null
