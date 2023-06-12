@@ -21,7 +21,7 @@ export async function getUser() {
             cookie: refreshAccess.headers.get("set-cookie")
         }}) */
 
-        const response = await fetch(`${process.env.CURRENT_DOMAIN}/api/getUser`, {method: "GET", credentials: "include", headers: headers()})
+        const response = await fetch(`${"https://forgotten-god.vercel.app"}/api/getUser`, {method: "GET", credentials: "include", headers: headers()})
         
         if (!response.ok){
           return null
