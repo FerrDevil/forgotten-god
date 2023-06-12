@@ -2,8 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="a0fb916a-e9df-4660-b11e-6a27362ce634" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../forgotten-god-next/src/app/api/(auth)/register/route.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../forgotten-god-next/src/app/api/(auth)/register/route.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../forgotten-god-next/src/app/api/(auth)/signIn/route.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../forgotten-god-next/src/app/api/(auth)/signIn/route.ts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
