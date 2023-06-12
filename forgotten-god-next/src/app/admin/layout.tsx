@@ -9,14 +9,6 @@ export const metadata: Metadata = {
 
 
 export default async function Layout({children} : {children: React.ReactNode}){
-    const userInfo = await getUser()
-    if (!userInfo){
-        return (
-            <div>
-                User is not admin
-            </div>
-        )
-    }
     return (
         <AdminWrapper>
             <AdminLinks>
