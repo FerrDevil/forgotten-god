@@ -22,10 +22,11 @@ const Header = () => {
     }
 
     const logout = async () => {
-        await fetch(`${process.env.NEXT_PUBLIC_HOST_DOMAIN}/auth/refresh`, {method: "POST", credentials: "include"})
-        const response = await fetch(`${process.env.NEXT_PUBLIC_HOST_DOMAIN}/auth/logout`, {method: "POST", credentials: "include"})
+        await fetch(`${"https://forgotten-god.onrender.com"}/auth/refresh`, {method: "POST", credentials: "include"})
+        const response = await fetch(`${"https://forgotten-god.onrender.com"}/auth/logout`, {method: "POST", credentials: "include"})
+        response.ok && dispatch(deleteUser())
         const message = await response.json()
-        dispatch(deleteUser())
+        
     } 
     
 

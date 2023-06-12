@@ -1,7 +1,32 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="a0fb916a-e9df-4660-b11e-6a27362ce634" name="Changes" comment="" />
+    <list default="true" id="a0fb916a-e9df-4660-b11e-6a27362ce634" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/config.py" beforeDir="false" afterPath="$PROJECT_DIR$/config.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../forgotten-god-next/.env.production" beforeDir="false" afterPath="$PROJECT_DIR$/../forgotten-god-next/.env.production" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../forgotten-god-next/src/app/(auth)/login/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../forgotten-god-next/src/app/(auth)/login/page.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../forgotten-god-next/src/app/(auth)/register/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../forgotten-god-next/src/app/(auth)/register/page.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../forgotten-god-next/src/app/admin/createProduct/components/CreateProductForm/CreateProductForm.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../forgotten-god-next/src/app/admin/createProduct/components/CreateProductForm/CreateProductForm.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../forgotten-god-next/src/app/admin/products/components/AdminProductsHandler/AdminProducts/AdminProduct.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../forgotten-god-next/src/app/admin/products/components/AdminProductsHandler/AdminProducts/AdminProduct.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../forgotten-god-next/src/app/admin/products/components/AdminProductsHandler/DeleteProductModal/DeleteProductModal.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../forgotten-god-next/src/app/admin/products/components/AdminProductsHandler/DeleteProductModal/DeleteProductModal.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../forgotten-god-next/src/app/admin/tags/components/AdminTagsHandler/AddTagModal/AddTagModal.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../forgotten-god-next/src/app/admin/tags/components/AdminTagsHandler/AddTagModal/AddTagModal.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../forgotten-god-next/src/app/admin/tags/components/AdminTagsHandler/DeleteTagsModal/DeleteTagModal.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../forgotten-god-next/src/app/admin/tags/components/AdminTagsHandler/DeleteTagsModal/DeleteTagModal.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../forgotten-god-next/src/app/admin/users/components/UserTable/UserTable.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../forgotten-god-next/src/app/admin/users/components/UserTable/UserTable.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../forgotten-god-next/src/app/api/(auth)/signIn/route.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../forgotten-god-next/src/app/api/(auth)/signIn/route.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../forgotten-god-next/src/app/store/product/[id]/components/MediaSlider/MediaSlider.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../forgotten-god-next/src/app/store/product/[id]/components/MediaSlider/MediaSlider.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../forgotten-god-next/src/app/store/product/[id]/components/OrderButtons/OrderButtons.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../forgotten-god-next/src/app/store/product/[id]/components/OrderButtons/OrderButtons.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../forgotten-god-next/src/app/store/search/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../forgotten-god-next/src/app/store/search/page.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../forgotten-god-next/src/services/admin/components/CreateProductForm/CreateProductForm.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../forgotten-god-next/src/services/admin/components/CreateProductForm/CreateProductForm.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../forgotten-god-next/src/services/admin/components/SalesTable/SalesTable.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../forgotten-god-next/src/services/admin/components/SalesTable/SalesTable.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../forgotten-god-next/src/services/store/components/CartPage/CartTable/CartTable.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../forgotten-god-next/src/services/store/components/CartPage/CartTable/CartTable.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../forgotten-god-next/src/services/store/components/CartPage/OfferPopup/OfferPopup.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../forgotten-god-next/src/services/store/components/CartPage/OfferPopup/OfferPopup.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../forgotten-god-next/src/services/store/components/RecommendationCarousel/RecommendationCarousel.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../forgotten-god-next/src/services/store/components/RecommendationCarousel/RecommendationCarousel.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../forgotten-god-next/src/services/store/components/SearchByTitle/SearchByTitle.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/../forgotten-god-next/src/services/store/components/SearchByTitle/SearchByTitle.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../forgotten-god-next/src/services/store/components/SearchPage/SearchProducts/SearchProducts.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../forgotten-god-next/src/services/store/components/SearchPage/SearchProducts/SearchProducts.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../forgotten-god-next/src/store/store.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../forgotten-god-next/src/store/store.ts" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />

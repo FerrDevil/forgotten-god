@@ -4,7 +4,7 @@ export const dynamic = 'force-dynamic'
  
 export async function GET(request : NextRequest) {
     const refreshUserCookies = await fetch(`${process.env.HOST_DOMAIN}/auth/refresh`, {method: "POST", credentials: "include", headers: request.headers})
-    
+    console.log("da", request.headers)
     if (!refreshUserCookies.ok){
       return NextResponse.json({user: "UNAUTHORIZED"}, { status: 401})
     }
