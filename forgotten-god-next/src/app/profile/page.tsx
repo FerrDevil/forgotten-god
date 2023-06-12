@@ -45,11 +45,11 @@ export default async function UserPage () {
     useEffect(() => {
         const getUserLibrary = async () => {
             
-            const refreshResponse = await fetch(`${"http://forgotten-god.onrender.com"}/auth/refresh`, {method: "POST", credentials: "include"})
+            const refreshResponse = await fetch(`${"https://forgotten-god.onrender.com"}/auth/refresh`, {method: "POST", credentials: "include"})
             if (!refreshResponse.ok) {
                 throw new Error("Login to see this page")
             }
-            const request = await fetch(`${"http://forgotten-god.onrender.com"}/store/getLibrary`, {credentials: "include"})
+            const request = await fetch(`${"https://forgotten-god.onrender.com"}/store/getLibrary`, {credentials: "include"})
             setLibrary(await request.json())
         }
         getUserLibrary()
@@ -65,7 +65,7 @@ export default async function UserPage () {
                             library.map(product => (
                                 <UserPanelProduct key={product.id}>
                                     <UserPanelProductImageWrapper>
-                                        <UserPanelProductImage src={`${"http://forgotten-god.onrender.com"}/image/${product.logo}`}/>
+                                        <UserPanelProductImage src={`${"https://forgotten-god.onrender.com"}/image/${product.logo}`}/>
                                     </UserPanelProductImageWrapper>
                                     <span>{product.title}</span>
                                 </UserPanelProduct>
