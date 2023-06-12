@@ -56,7 +56,7 @@ const CartPage =  () => {
             <>
                 <StoreNavigation/>
                 <CartPageWrapper>
-                    <CartPageClientHandler cart={cart}/>
+                    <CartPageClientHandler cart={cart} setCart={setCart}/>
                 </CartPageWrapper>
             </>
     )
