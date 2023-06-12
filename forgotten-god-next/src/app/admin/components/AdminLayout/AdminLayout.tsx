@@ -4,7 +4,7 @@ import { AdminCreateProductSVG, AdminLinks, AdminPagesLink, AdminPagesLinkDescri
 
 export default function AdminLayout({children} : {children: React.ReactNode}){
     const {userInfo} = useUserSelector()
-    if (!userInfo){
+    if (userInfo.userRole !== "admin"){
         return <> User is not admin</>
     }
 
