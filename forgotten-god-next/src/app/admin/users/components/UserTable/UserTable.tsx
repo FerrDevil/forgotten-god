@@ -9,9 +9,8 @@ const UserTable = () => {
 
     useEffect(() => {
         const getUsersInfo = async () => {
-            await fetch(`${process.env.NEXT_PUBLIC_HOST_DOMAIN || "http://localhost:5000"}/auth/refresh`, {method: "POST", credentials: "include"})
-            console.log(process.env.PUBLIC_NEXT_HOST_DOMAIN)
-            const response = await fetch(`${process.env.PUBLIC_NEXT_HOST_DOMAIN || "http://localhost:5000"}/admin/getUsersInfo`, { credentials: "include"})
+            await fetch(`${process.env.NEXT_PUBLIC_HOST_DOMAIN || "https://forgotten-god.onrender.com"}/auth/refresh`, {method: "POST", credentials: "include"})
+            const response = await fetch(`${process.env.PUBLIC_NEXT_HOST_DOMAIN || "https://forgotten-god.onrender.com"}/admin/getUsersInfo`, { credentials: "include"})
             const users = await response.json()
             setUsersInfo(users)
         }
@@ -52,7 +51,6 @@ const UserRole = ({role, username}) => {
     const promoteUserToAdmin = async () => {
         const request = await fetch(`${process.env.PUBLIC_NEXT_HOST_DOMAIN}/admin/promoteToAdmin/${username}`, {method: "POST"})
         const response = await request.json()
-        console.log(response)
     }
     
     return(

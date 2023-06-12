@@ -12,7 +12,7 @@ export const SearchContainer = styled.div`
     display: flex;
     flex-direction: column;
     align-items: center;
-    
+
     width: 100%;
 `
 
@@ -52,12 +52,13 @@ export const SearchPanel = styled.div`
     column-gap: 20px;
 
     width: 100%;
-    
+    z-index: 1000;
     height: 70px;
    
     position: sticky;
     background-color: #111;
     top: 0;
+    
 `
 
 interface ISearchControls {
@@ -69,17 +70,23 @@ export const SearchControls = styled.aside<ISearchControls>`
     flex-direction: column;
     justify-content: center;
 
-    position: absolute;
-    left: 100%;
-    top: 0;
+    position: fixed;
+    left: 50px;
+    top: 70px;
     
     background-color: #111;
-    width: 35vw;
+    max-width: 600px;
+    width: 100%;
+    z-index: 1000;
 
     pointer-events: ${props => props.$isVisible ? "all": "none"};
     transform: translateY(${props => props.$isVisible ? "0": "-100%" });
     opacity: ${props => props.$isVisible ? "1": "0"};
     transition: transform 0.5s ease-in-out, opacity 0.2s ease-in-out;
+
+    @media (max-width: 600px) {
+        left: 0;
+    }
 
 `
 
@@ -89,7 +96,7 @@ export const SearchControlsHeader = styled.div`
     align-items: center;
     justify-content: space-between;
     height: 70px;
-    padding: 0 70px;
+    padding: 0 clamp(30px, 3vw, 70px);
     width: 100%;
     border-bottom: 1px solid #2c2c2c;
 `
@@ -120,16 +127,16 @@ export const SearchControlsContent = styled.div`
     justify-content: center;
     
     overflow-y: auto;
-    padding: 20px 70px;
+    padding: 20px clamp(30px, 3vw, 70px);
     width: 100%;
 `
 export const SearchFiltersContainer = styled.div`
-    position: relative;
     display: flex;
     flex-direction: row;
     align-items: center;
     height: 100%;
     padding-right: 10px;
+
 `
 
 export const SearchPrices = styled.div`

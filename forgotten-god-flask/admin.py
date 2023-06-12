@@ -5,7 +5,7 @@ from flask import Blueprint, jsonify, request
 from flask_jwt_extended import get_jwt_identity, jwt_required
 from werkzeug.utils import secure_filename
 
-from models import db, User, Product, Sales
+from models import db, User, Product, Sales, Tag, Media, ProductTag
 
 admin = Blueprint("admin", __name__)
 
@@ -85,6 +85,28 @@ def create_new_game():
     return jsonify({"id": product.id}), 200
 
 
+@admin.route('/setGameTags/<int:game_id>', methods=['POST'])
+@jwt_required()
+@check_admin_role
+def set_tags(game_id):
+    user = User.query.filter_by(username=get_jwt_identity()).first()
+
+    if not user:
+        return jsonify({"error": "No such user found"}), 403
+
+    tags = json.loads(request.data, strict=False)
+
+    if len(tags) == 0:
+        return jsonify({"error": "Tags must be set or are provided with an error"}), 400
+
+    for tag_info in tags:
+        tag = ProductTag(product_id=game_id, tag_id=tag_info["id"])
+        db.session.add(tag)
+        db.session.commit()
+    return jsonify({"id": game_id}), 200
+
+
+
 @admin.route('/setGameLogo/<int:game_id>', methods=['POST'])
 @jwt_required()
 @check_admin_role
@@ -98,7 +120,7 @@ def set_logo(game_id):
         return jsonify({"error": "No file is provided"}), 400
 
     file = request.files["file"]
-    if file.filename == "":
+    if not file.filename:
         return jsonify({"error": "Filename is empty"}), 400
 
     filename = secure_filename(file.filename)
@@ -111,6 +133,53 @@ def set_logo(game_id):
     product.logo = filename
     db.session.commit()
     return jsonify({"id": product.id}), 200
+
+
+@admin.route('/setGameMedia/<int:game_id>', methods=['POST'])
+@jwt_required()
+@check_admin_role
+def set_media(game_id):
+    user = User.query.filter_by(username=get_jwt_identity()).first()
+
+    if not user:
+        return jsonify({"error": "No such user found"}), 403
+
+    product = Product.query.filter_by(id=game_id).first()
+    if not product:
+        return jsonify({"error": "No such product found"}), 400
+
+    if len(request.files) == 0:
+        return jsonify({"error": "No file is provided"}), 400
+
+    for file in request.files.values():
+        if not file.filename:
+            return jsonify({"error": "Filename is empty"}), 400
+
+        filename = secure_filename(file.filename)
+        file.save(os.path.join("public/uploads/images/", filename))
+        media = Media(product_id=game_id, type=file.mimetype.split("/")[0], src=filename)
+        db.session.add(media)
+
+    db.session.commit()
+    return jsonify({"id": product.id}), 200
+
+
+@admin.route('/deleteGame/<int:game_id>', methods=['DELETE'])
+@jwt_required()
+@check_admin_role
+def delete_game(game_id):
+    user = User.query.filter_by(username=get_jwt_identity()).first()
+
+    if not user:
+        return jsonify({"error": "No such user found"}), 403
+
+    product = Product.query.filter_by(id=game_id).first()
+    if not product:
+        return jsonify({"error": "No such product found"}), 403
+
+    db.session.delete(product)
+    db.session.commit()
+    return jsonify({"success": "Product was deleted"}), 200
 
 
 @admin.route('/getSalesInfo', methods=['GET'])
@@ -129,3 +198,73 @@ def get_sales_info():
         for sales in Sales.query.all()
     ]
     return jsonify(sales_json), 200
+
+
+@admin.route('/createTag', methods=['POST'])
+@jwt_required()
+@check_admin_role
+def create_new_tag():
+    user = User.query.filter_by(username=get_jwt_identity()).first()
+
+    if not user:
+        return jsonify({"error": "No such user found"}), 403
+
+    form_data = json.loads(request.data, strict=False)
+    name = form_data.get('name', None)
+
+    if not name:
+        return jsonify({"error": "Title was not provided or provided with an error"}), 400
+
+    if Tag.query.filter_by(name=name).first():
+        return jsonify({"error": "Product already exists"}), 403
+
+    tag = Tag(name=name)
+    db.session.add(tag)
+    db.session.commit()
+    return jsonify({"id": tag.id, "name": name}), 200
+
+
+@admin.route('/deleteTag/<int:tag_id>', methods=['DELETE'])
+@jwt_required()
+@check_admin_role
+def delete_tag(tag_id):
+    user = User.query.filter_by(username=get_jwt_identity()).first()
+
+    if not user:
+        return jsonify({"error": "No such user found"}), 403
+
+    tag = Tag.query.filter_by(id=tag_id).first()
+    if not tag:
+        return jsonify({"error": "No such product found"}), 403
+
+    db.session.delete(tag)
+    db.session.commit()
+    return jsonify({"success": "Tag was deleted"}), 200
+
+
+@admin.route('/getTags', methods=['GET'])
+def get_tags():
+    sales_json = [
+        {
+            "id": tag.id,
+            "name": tag.name
+        }
+        for tag in Tag.query.all()
+    ]
+    return jsonify(sales_json), 200
+
+
+@admin.route('/getProducts', methods=['GET'])
+def get_products():
+    products = [
+        {
+            'id': product.id,
+            'title': product.title,
+            'image': product.logo,
+        }
+        for product in Product.query.all()
+    ]
+
+    response = jsonify(products)
+    return response
+

@@ -1,6 +1,5 @@
-import BasePageLayout from "@/components/Layout/BasePageLayout.jsx"
-import StoreNavigation from "@/services/store/components/StoreNavigation/StoreNavigation.jsx"
-import RecommendationCarousel from "@/services/store/components/RecommendationCarousel/RecommendationCarousel.jsx"
+import StoreNavigation from "@/services/store/components/StoreNavigation/StoreNavigation"
+import RecommendationCarousel from "@/services/store/components/RecommendationCarousel/RecommendationCarousel"
 import { Metadata } from "next"
 
 
@@ -8,11 +7,19 @@ export const metadata: Metadata = {
   title: "Forgotten God"
 }
 
-export default function StorePage() {
+async function getRecommendedProducts() {
+  const response = await fetch(`${process.env.HOST_DOMAIN}/store/getRecommendedProducts`) 
+  return response.json() 
+}
+
+export default async function StorePage() {
+
+  const recommendedProducts = await getRecommendedProducts()
+
   return (
     <>
       <StoreNavigation/>
-      <RecommendationCarousel/>
+      <RecommendationCarousel products={recommendedProducts}/>
     </>
   )
 }

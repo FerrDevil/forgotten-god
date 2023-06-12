@@ -63,7 +63,7 @@ const RegisterPage = () => {
 
     const formSubmit = async (event : React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
         event.preventDefault()
-        const response = await fetch(`${process.env.PUBLIC_NEXT_HOST_DOMAIN || "http://localhost:5000"}/auth/register`, {
+        const response = await fetch(`${process.env.PUBLIC_NEXT_HOST_DOMAIN || "https://forgotten-god.onrender.com"}/auth/register`, {
             method: 'POST',
             body: JSON.stringify(registerInfo),
             credentials: "include",

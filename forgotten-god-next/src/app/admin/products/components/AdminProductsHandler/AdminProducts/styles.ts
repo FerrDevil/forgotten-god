@@ -8,10 +8,10 @@ import MenuToggleSVG from "@/app/admin/products/public/menu-toggle.svg"
 
 export const AdminProductsContainerWrapper = styled.div`
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
     width: 100%;
     height: 100%;
-    padding: 10px 20px;
+
     gap: 10px;
 `
 

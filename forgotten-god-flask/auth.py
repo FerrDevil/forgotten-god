@@ -2,7 +2,6 @@ from flask import Blueprint, jsonify, request, make_response
 from models import db, User
 from flask_jwt_extended import create_access_token, create_refresh_token, set_access_cookies, set_refresh_cookies,\
     get_jwt, get_jwt_identity, jwt_required, unset_jwt_cookies
-from datetime import datetime, timezone, timedelta
 import json
 
 

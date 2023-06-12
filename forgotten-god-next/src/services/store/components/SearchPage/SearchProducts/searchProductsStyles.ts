@@ -9,6 +9,7 @@ export const SearchContent = styled.div`
     width: 100%;
     gap: 10px 20px;
     padding: 5px 40px;
+
 `
 
 
@@ -49,6 +50,8 @@ export const SearchProduct = styled(Link)`
     border-radius: 5px;
     outline: 1px solid transparent;
     overflow: hidden;
+    z-index: 1;
+    
     &:hover, &:focus-visible{
         
         outline-color: #323232;

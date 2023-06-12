@@ -11,8 +11,8 @@ export default function AddTagModal({isOpen, setOpen, setTags} : IAddTagModal) {
     const [name, setName ] = useState("")
 
     const createTag = async () => {
-        const refreshResponse = await fetch(`http://localhost:5000/auth/refresh`, {method: "POST", credentials: "include"})
-        const response = await fetch(`http://localhost:5000/admin/createTag`, {method: "POST", credentials: "include", body: JSON.stringify({name : name})})
+        const refreshResponse = await fetch(`https://forgotten-god.onrender.com/auth/refresh`, {method: "POST", credentials: "include"})
+        const response = await fetch(`https://forgotten-god.onrender.com/admin/createTag`, {method: "POST", credentials: "include", body: JSON.stringify({name : name})})
         if (response.ok){
             const tag = await response.json()
             setTags(prev => [...prev, tag])

@@ -8,8 +8,8 @@ import { SearchingProduct } from "./types"
 const SearchProducts = ({products} : {products: SearchingProduct[]}) => {
 
     const addToCart = async (productIndex : number) => {
-        const refreshResponse = await fetch("/auth/refresh", {method: "POST", credentials: "include"})
-        const response = await fetch("/store/addToCart", {method: "POST", credentials: "include", body: JSON.stringify({productId: productIndex})})
+        const refreshResponse = await fetch(`${"https://forgotten-god.onrender.com"}/auth/refresh`, {method: "POST", credentials: "include"})
+        const response = await fetch(`${"https://forgotten-god.onrender.com"}/store/addToCart`, {method: "POST", credentials: "include", body: JSON.stringify({productId: productIndex})})
     }
 
     return(
@@ -20,7 +20,7 @@ const SearchProducts = ({products} : {products: SearchingProduct[]}) => {
                         <AddToCartButton onClick={(event) => {event.preventDefault(); addToCart(productIndex)}}>
                             <AddToCartSVG/>
                         </AddToCartButton> {/* https://forgotten-god.onrender.com */}
-                        <SearchProductImage src={product?.logo && `${"http://localhost:5000"}/image/${product?.logo}`}/>
+                        <SearchProductImage src={product?.logo && `${"https://forgotten-god.onrender.com"}/image/${product?.logo}`}/>
                         <SearchProductInfo>
                             <SearchProductTitle>{product?.title}</SearchProductTitle>
                             <SearchProductPrice>{product?.price} ₽</SearchProductPrice>

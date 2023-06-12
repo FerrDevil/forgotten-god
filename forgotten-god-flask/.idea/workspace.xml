@@ -3,52 +3,25 @@
   <component name="ChangeListManager">
     <list default="true" id="a0fb916a-e9df-4660-b11e-6a27362ce634" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/admin.py" beforeDir="false" afterPath="$PROJECT_DIR$/admin.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/auth.py" beforeDir="false" afterPath="$PROJECT_DIR$/auth.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/config.py" beforeDir="false" afterPath="$PROJECT_DIR$/config.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/models.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/news.py" beforeDir="false" afterPath="$PROJECT_DIR$/news.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/store.py" beforeDir="false" afterPath="$PROJECT_DIR$/store.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../forgotten-god-next/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/../forgotten-god-next/.gitignore" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../forgotten-god-next/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/../forgotten-god-next/README.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../forgotten-god-next/jsconfig.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../forgotten-god-next/next.config.js" beforeDir="false" afterPath="$PROJECT_DIR$/../forgotten-god-next/next.config.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../forgotten-god-next/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/../forgotten-god-next/package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../forgotten-god-next/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/../forgotten-god-next/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../forgotten-god-next/public/images/logo copy.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../forgotten-god-next/public/images/password-hidden.svg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../forgotten-god-next/public/images/password-not-hidden.svg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../forgotten-god-next/src/components/Header/Header.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/../forgotten-god-next/src/components/Header/Header.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../forgotten-god-next/src/components/Header/header.js" beforeDir="false" afterPath="$PROJECT_DIR$/../forgotten-god-next/src/components/Header/header.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../forgotten-god-next/src/components/Layout/BasePageLayout.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/../forgotten-god-next/src/components/Layout/BasePageLayout.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../forgotten-god-next/src/components/Layout/layout.js" beforeDir="false" afterPath="$PROJECT_DIR$/../forgotten-god-next/src/components/Layout/layout.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../forgotten-god-next/src/pages/_app.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../forgotten-god-next/src/pages/_document.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../forgotten-god-next/src/pages/admin/[id]/index.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../forgotten-god-next/src/pages/admin/index.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../forgotten-god-next/src/pages/index.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../forgotten-god-next/src/pages/login/index.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../forgotten-god-next/src/pages/news/index.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../forgotten-god-next/src/pages/news/post/[id]/index.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../forgotten-god-next/src/pages/register/index.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../forgotten-god-next/src/pages/store/cart/index.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../forgotten-god-next/src/pages/store/index.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../forgotten-god-next/src/pages/store/product/[id]/index.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../forgotten-god-next/src/pages/store/search/index.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../forgotten-god-next/src/pages/support/downloads/index.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../forgotten-god-next/src/pages/support/index.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../forgotten-god-next/src/pages/user/[id]/index.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../forgotten-god-next/src/pages/user/index.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../forgotten-god-next/src/services/auth/styles/login.js" beforeDir="false" afterPath="$PROJECT_DIR$/../forgotten-god-next/src/services/auth/styles/login.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../forgotten-god-next/src/services/auth/styles/register.js" beforeDir="false" afterPath="$PROJECT_DIR$/../forgotten-god-next/src/services/auth/styles/register.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../forgotten-god-next/src/services/store/components/MediaSlider/Media.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/../forgotten-god-next/src/services/store/components/MediaSlider/Media.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../forgotten-god-next/src/services/store/components/RecommendationCarousel/RecommendationCarousel.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/../forgotten-god-next/src/services/store/components/RecommendationCarousel/RecommendationCarousel.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../forgotten-god-next/src/services/store/components/StoreNavigation/StoreNavigation.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/../forgotten-god-next/src/services/store/components/StoreNavigation/StoreNavigation.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../forgotten-god-next/src/services/store/components/StoreNavigation/storeNavigation.js" beforeDir="false" afterPath="$PROJECT_DIR$/../forgotten-god-next/src/services/store/components/StoreNavigation/storeNavigation.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../forgotten-god-next/src/services/store/styles/product.js" beforeDir="false" afterPath="$PROJECT_DIR$/../forgotten-god-next/src/services/store/styles/product.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../forgotten-god-next/src/services/store/styles/searchPage.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../forgotten-god-next/src/store/store.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../forgotten-god-next/src/styles/globals.css" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Python Script" />
+      </list>
+    </option>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
@@ -62,6 +35,7 @@
   <component name="PropertiesComponent">
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="settings.editor.selected.configurable" value="preferences.lookFeel" />
   </component>
   <component name="RunManager">
     <configuration name="main" type="PythonConfigurationType" factoryName="Python" nameIsGenerated="true">
@@ -96,5 +70,17 @@
       <updated>1682700036786</updated>
     </task>
     <servers />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+    <option name="oldMeFiltersMigrated" value="true" />
   </component>
 </project>

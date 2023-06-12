@@ -57,3 +57,10 @@ class Sales(db.Model):
     payment_method = db.Column(db.Text, nullable=False)
     payment_data = db.Column(db.Text)
 
+
+class Discounts(db.Model):
+    product_id = db.Column(db.Integer, db.ForeignKey(Product.id), primary_key=True)
+    discount_price = db.Column(db.Integer, nullable=False)
+    start_date = db.Column(db.DateTime, index=True, default=datetime.utcnow)
+    end_date = db.Column(db.DateTime, index=True, default=datetime.utcnow)
+

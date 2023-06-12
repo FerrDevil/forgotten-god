@@ -20,8 +20,8 @@ export default function DeleteTagModal({tagIndex, setTagIndex, tags, setTags} : 
 
 
     const deleteProduct = async () => {
-        const refreshResponse = await fetch(`http://localhost:5000/auth/refresh`, {method: "POST", credentials: "include"})
-        const response = await fetch(`http://localhost:5000/admin/deleteTag/${tags[tagIndex].id}`, {method: "DELETE", credentials: "include"})
+        const refreshResponse = await fetch(`https://forgotten-god.onrender.com/auth/refresh`, {method: "POST", credentials: "include"})
+        const response = await fetch(`https://forgotten-god.onrender.com/admin/deleteTag/${tags[tagIndex].id}`, {method: "DELETE", credentials: "include"})
         if (response.ok){
             setTags(prev => prev.filter((_, index) => index !== tagIndex))
             setTagIndex(-1) 

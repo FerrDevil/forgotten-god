@@ -28,20 +28,7 @@ const SearchPage = () => {
     const [areFiltersOpen, setFiltersOpen] = useState(false)
     const [products, setProducts] = useState([])
 
-    const tags = [
-        {
-            id: 1,
-            name: "2D"
-        },
-        {
-            id: 2,
-            name: "3D"
-        },
-        {
-            id: 3,
-            name: "Beat `em up"
-        },
-    ]
+    const [tags, setTags] = useState([])
 
     const addIncludedTags = (event : React.ChangeEvent<HTMLInputElement>, id : number) => {
         if (searchParams.excludedTags.includes(id)){
@@ -72,15 +59,25 @@ const SearchPage = () => {
         }   
     }
 
-     useEffect(() => {
+    useEffect(() => {
+        const getTags = async () => { //https://forgotten-god.onrender.com
+            const response = await fetch(`${process.env.PUBLIC_NEXT_HOST_DOMAIN || "https://forgotten-god.onrender.com"}/store/getTags`, {method: "GET"})
+            const allTags = await response.json()
+            allTags && setTags(allTags)
+        }
+        getTags()
+        
+    }, [])
+
+    useEffect(() => {
         const updateProducts = async () => { //https://forgotten-god.onrender.com
-            const response = await fetch(`${process.env.PUBLIC_NEXT_HOST_DOMAIN || "http://localhost:5000"}/store/getProducts`, {method: "POST", body: JSON.stringify(searchParams)})
+            const response = await fetch(`${process.env.PUBLIC_NEXT_HOST_DOMAIN || "https://forgotten-god.onrender.com"}/store/getProducts`, {method: "POST", body: JSON.stringify(searchParams)})
             const filteredProducts = await response.json()
             filteredProducts && setProducts(filteredProducts)
         }
         updateProducts()
         
-     }, [searchParams])
+    }, [searchParams])
 
 
      

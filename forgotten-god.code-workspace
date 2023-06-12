@@ -1,0 +1,11 @@
+{
+	"folders": [
+		{
+			"path": "."
+		},
+		{
+			"path": "../myline-docker/myline-next"
+		}
+	],
+	"settings": {}
+}

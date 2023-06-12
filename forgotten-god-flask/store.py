@@ -1,72 +1,23 @@
 from flask import Blueprint, jsonify, request
-from models import db, User, Cart, Product, Sales
+from models import db, User, Cart, Product, Sales, Media, ProductTag, Tag
 from flask_jwt_extended import jwt_required, get_jwt_identity
 import json
 
 store = Blueprint("store", __name__, )
 
 
-@store.route('/getNewProducts')
-def get_new_products():
+@store.route('/getRecommendedProducts')
+def get_recommended_products():
     products = [
         {
-            'id': 1,
-            'image': 'images/img.jpg',
-            'name': "Lovecraft's Untold Stories 1",
-            'price': '499 ₽'
-        },
-        {
-            'id': 1,
-            'image': 'images/img.jpg',
-            'name': "Lovecraft's Untold Stories 2",
-            'price': '499 ₽'
-        },
-        {
-            'id': 1,
-            'image': 'images/img.jpg',
-            'name': "Lovecraft's Untold Stories 3",
-            'price': '499 ₽'
-        },
-        {
-            'id': 1,
-            'image': 'images/img.jpg',
-            'name': "Lovecraft's Untold Stories 4",
-            'price': '499 ₽'
-        },
-        {
-            'id': 1,
-            'image': 'images/img.jpg',
-            'name': "Lovecraft's Untold Stories 5",
-            'price': '499 ₽'
-        },
-        {
-            'id': 1,
-            'image': 'images/img.jpg',
-            'name': "Lovecraft's Untold Stories 6",
-            'price': '499 ₽'
-        },
-        {
-            'id': 1,
-            'image': 'images/img.jpg',
-            'name': "Lovecraft's Untold Stories 7",
-            'price': '499 ₽'
-        },
-        {
-            'id': 1,
-            'image': 'images/img.jpg',
-            'name': "Lovecraft's Untold Stories 8",
-            'price': '499 ₽'
-        },
-        {
-            'id': 1,
-            'image': 'images/img.jpg',
-            'name': "Lovecraft's Untold Stories 9",
-            'price': '499 ₽'
+            'id': product.id,
+            'title': product.title,
+            'image': product.logo,
         }
+        for product in Product.query.all()
     ]
-    response = jsonify(products)
 
-    response.headers.add('Content-Type', 'application/json')
+    response = jsonify(products)
     return response
 
 
@@ -85,99 +36,15 @@ def get_product_by_id(id):
             'platforms': ['Windows'],
             'media': [
                 {
-                    'type': 'video',
-                    'src': 'videos/video.mkv'
-                },
-                {
-                    'type': 'image',
-                    'src': 'images/thumbnail.jpg'
-                },
-                {
-                    'type': 'image',
-                    'src': 'images/thumbnail.jpg'
-                },
-                {
-                    'type': 'image',
-                    'src': 'images/thumbnail.jpg'
-                },
-                {
-                    'type': 'image',
-                    'src': 'images/thumbnail.jpg'
-                },
-                {
-                    'type': 'image',
-                    'src': 'images/thumbnail.jpg'
-                },
-                {
-                    'type': 'image',
-                    'src': 'images/thumbnail.jpg'
-                },
-                {
-                    'type': 'image',
-                    'src': 'images/thumbnail.jpg'
-                },
-                {
-                    'type': 'image',
-                    'src': 'images/thumbnail.jpg'
-                },
-                {
-                    'type': 'image',
-                    'src': 'images/thumbnail.jpg'
-                },
-                {
-                    'type': 'image',
-                    'src': 'images/thumbnail.jpg'
-                },
-                {
-                    'type': 'image',
-                    'src': 'images/thumbnail.jpg'
-                },
-                {
-                    'type': 'image',
-                    'src': 'images/thumbnail.jpg'
-                },
-                {
-                    'type': 'image',
-                    'src': 'images/thumbnail.jpg'
-                },
-                {
-                    'type': 'image',
-                    'src': 'images/thumbnail.jpg'
-                },
-                {
-                    'type': 'image',
-                    'src': 'images/thumbnail.jpg'
-                },
-                {
-                    'type': 'image',
-                    'src': 'images/thumbnail.jpg'
-                },
-                {
-                    'type': 'image',
-                    'src': 'images/thumbnail.jpg'
-                },
-                {
-                    'type': 'image',
-                    'src': 'images/thumbnail.jpg'
-                },
-                {
-                    'type': 'image',
-                    'src': 'images/thumbnail.jpg'
-                },
-                {
-                    'type': 'image',
-                    'src': 'images/thumbnail.jpg'
-                }
+                    'type': media.type,
+                    'src': media.src
+                } for media in Media.query.filter_by(product_id=id).all()
             ],
             'tags': [
                 {
-                    "id": 1,
-                    "name": "2D"
-                },
-                {
-                    "id": 2,
-                    "name": "3D"
-                }
+                    "id": product_tag.tag_id,
+                    "name": Tag.query.filter_by(id=product_tag.tag_id).first().name
+                } for product_tag in ProductTag.query.filter_by(product_id=id).all()
             ],
             'synopsis': product.synopsis,
             'price': product.price
@@ -223,13 +90,9 @@ def get_products():
 
             'tags': [
                 {
-                    "id": 1,
-                    "name": "2D"
-                },
-                {
-                    "id": 2,
-                    "name": "3D"
-                }
+                    "id": product_tag.tag_id,
+                    "name": Tag.query.filter_by(id=product_tag.tag_id).first().name
+                } for product_tag in ProductTag.query.filter_by(product_id=product.id).all()
             ],
             'price': product.price
         }
@@ -322,7 +185,8 @@ def get_cart():
             "productId": cart_item.id,
             "logo": cart_item.logo,
             "title": cart_item.title,
-            "price": cart_item.price
+            "price": cart_item.price,
+
         }
         for cart_item in cart_products
     ]
@@ -360,4 +224,34 @@ def buy_products_from_cart():
     db.session.commit()
 
     return jsonify({"payment": "Successfull"}), 200
+
+
+@store.route('/getTags', methods=['GET'])
+def get_tags():
+    sales_json = [
+        {
+            "id": tag.id,
+            "name": tag.name
+        }
+        for tag in Tag.query.all()
+    ]
+    return jsonify(sales_json), 200
+
+
+@store.route('/getLibrary', methods=['GET'])
+@jwt_required()
+def get_library():
+    username = get_jwt_identity()
+    user = User.query.filter_by(username=username).first()
+    if not user:
+        return jsonify({"error": "User is not logged in"}), 401
+    sales_json = [
+        {
+            "id": sale.product_id,
+            "title": Product.query.filter_by(id=sale.product_id).first().title,
+            "logo": Product.query.filter_by(id=sale.product_id).first().logo
+        }
+        for sale in Sales.query.filter_by(user_id=user.id).all()
+    ]
+    return jsonify(sales_json), 200
 

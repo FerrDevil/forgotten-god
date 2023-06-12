@@ -5,9 +5,10 @@ export const SupportWrapper = styled.div`
     display: flex;
     flex-direction: column;
     align-items: center;
+    justify-content: center;
     row-gap: 20px;
-    padding: 20px 0;
-    width: 50%;
+    padding: 20px 20px;
+    margin: auto;
 `
 
 export const SupportTextInput = styled.input`

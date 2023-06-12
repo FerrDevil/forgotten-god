@@ -83,7 +83,7 @@ const CreateProductForm = ({tags}) => {
 
 
     const setTags = async (id : number) => {
-        const setTagsResponse = await fetch(`${process.env.PUBLIC_ENV_HOST_DOMAIN  || "http://localhost:5000"}/admin/setGameTags/${id}`, {
+        const setTagsResponse = await fetch(`${process.env.PUBLIC_ENV_HOST_DOMAIN  || "https://forgotten-god.onrender.com"}/admin/setGameTags/${id}`, {
             method: "POST",
             body: JSON.stringify(productInfo.tags),
             credentials: "include"
@@ -95,7 +95,7 @@ const CreateProductForm = ({tags}) => {
     const setLogo = async (id : number) => {
         const fileData = new FormData()
         fileData.append("file", productInfo.logo,  productInfo.logo.name)
-        const uploadLogoResponse = await fetch(`${process.env.PUBLIC_ENV_HOST_DOMAIN  || "http://localhost:5000"}/admin/setGameLogo/${id}`, {
+        const uploadLogoResponse = await fetch(`${process.env.PUBLIC_ENV_HOST_DOMAIN  || "https://forgotten-god.onrender.com"}/admin/setGameLogo/${id}`, {
             method: "POST",
             body: fileData,
             credentials: "include"
@@ -110,7 +110,7 @@ const CreateProductForm = ({tags}) => {
             mediaData.append(`file${index}`, mediaItem,  mediaItem.name)
         })
         
-        const uploadMediaResponse = await fetch(`${process.env.PUBLIC_ENV_HOST_DOMAIN  || "http://localhost:5000"}/admin/setGameMedia/${id}`, {
+        const uploadMediaResponse = await fetch(`${process.env.PUBLIC_ENV_HOST_DOMAIN  || "https://forgotten-god.onrender.com"}/admin/setGameMedia/${id}`, {
             method: "POST",
             body: mediaData,
             credentials: "include"
@@ -122,8 +122,8 @@ const CreateProductForm = ({tags}) => {
 
     const createNewProduct = async (event : React.MouseEvent<HTMLButtonElement>) => {
         event.preventDefault()
-        const refreshResponse = await fetch(`${process.env.PUBLIC_ENV_HOST_DOMAIN || "http://localhost:5000"}/auth/refresh`, {method: "POST", credentials: "include"})
-        const response = await fetch(`${process.env.PUBLIC_ENV_HOST_DOMAIN  || "http://localhost:5000"}/admin/createGame`, {method: "POST", credentials: "include", body: JSON.stringify(productInfo)})
+        const refreshResponse = await fetch(`${process.env.PUBLIC_ENV_HOST_DOMAIN || "https://forgotten-god.onrender.com"}/auth/refresh`, {method: "POST", credentials: "include"})
+        const response = await fetch(`${process.env.PUBLIC_ENV_HOST_DOMAIN  || "https://forgotten-god.onrender.com"}/admin/createGame`, {method: "POST", credentials: "include", body: JSON.stringify(productInfo)})
         const product = await response.json()
         console.log(product)
         

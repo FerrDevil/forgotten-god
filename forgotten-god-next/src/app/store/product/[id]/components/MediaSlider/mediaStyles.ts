@@ -43,7 +43,7 @@ export const MediaImage = styled(Image).attrs(
 `
 
 export const SliderWrapper = styled.div`
-    display: grid;
+    display: flex;
     place-items: center;
     position: relative;
     padding: 15px clamp(5px, 2vw, 15px) ;
@@ -66,7 +66,7 @@ export const SliderContent = styled.div<{$currentGroupIndex : number}>`
     justify-content: flex-start;
     transition: transform 0.35s ease-in-out;
     width: 100%;
-    --_gap: 20px;
+    --_gap: clamp(10px, 1vw, 20px);
     gap: var(--_gap);
     --_one-element: calc((100% - (var(--_gap) * 3)) / 4 );
 
@@ -84,6 +84,7 @@ export const SliderImageWrapper = styled.button<{$isSelected : boolean}>`
     overflow: hidden;
     width: 100%;
     aspect-ratio: 16 / 9;
+    background-color: #333;
     cursor: pointer;
 `
 

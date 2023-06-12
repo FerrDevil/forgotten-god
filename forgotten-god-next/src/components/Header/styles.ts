@@ -4,13 +4,14 @@ import Link from "next/link"
 import Image from "next/image"
 import styled from "styled-components"
 
-import LoginSVG from "../../public/login.svg"
-import DownloadSVG from "../../public/downloads.svg"
-import ShopSVG from "../../public/shop.svg"
-import NewsSVG from "../../public/news.svg"
-import AdminSVG from "../../public/admin-panel.svg"
-import SupportSVG from "../../public/support.svg"
-import LogoutSVG from "../../public/logout.svg"
+import LoginSVG from "@/public/login.svg"
+import DownloadSVG from "@/public/downloads.svg"
+import ShopSVG from "@/public/shop.svg"
+import NewsSVG from "@/public/news.svg"
+import AdminSVG from "@/public/admin-panel.svg"
+import SupportSVG from "@/public/support.svg"
+import LogoutSVG from "@/public/logout.svg"
+import AccountSVG from "@/public/account.svg"
 
 
 export const HeaderWrapper = styled.header`
@@ -223,7 +224,7 @@ export const SupportLinkSVG = styled(SupportSVG)`
 
 
 
-export const ProfilePicture = styled.img`
+export const AccountLinkSVG = styled(AccountSVG)`
     width: 30px;
     height: 30px;
     border-radius: 100vh;

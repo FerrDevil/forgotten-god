@@ -5,9 +5,9 @@ import { useRouter } from "next/navigation"
 const OrderButtons = ({product}) => {
     const router = useRouter()
 
-    const addToCartHandle = async () => {
-        const refreshResponse = await fetch("https://forgotten-god.onrender.com/auth/refresh", {method: "POST", credentials: "include"})
-        const response = await fetch("https://forgotten-god.onrender.com/store/addToCart", {method: "POST", credentials: "include", body: JSON.stringify({productId: product.id})})
+    const addToCartHandle = async () => { //https://forgotten-god.onrender.com
+        const refreshResponse = await fetch(`${process.env.PUBLIC_NEXT_HOST_DOMAIN || "https://forgotten-god.onrender.com"}/auth/refresh`, {method: "POST", credentials: "include"})
+        const response = await fetch(`${process.env.PUBLIC_NEXT_HOST_DOMAIN || "https://forgotten-god.onrender.com"}/store/addToCart`, {method: "POST", credentials: "include", body: JSON.stringify({productId: product.id})})
     }
 
     const orderProduct = async () => {

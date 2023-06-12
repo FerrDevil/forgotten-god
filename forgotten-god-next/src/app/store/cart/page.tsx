@@ -1,5 +1,5 @@
 
-import StoreNavigation from "@/services/store/components/StoreNavigation/StoreNavigation.jsx"
+import StoreNavigation from "@/services/store/components/StoreNavigation/StoreNavigation"
 import {CartPageWrapper} from "@/services/store/styles/cartPage"
 import { CartItemType } from "@/services/store/components/CartPage/types/types"
 import CartPageClientHandler from "@/services/store/components/CartPage/CartPageClientHandler/CartPageClientHandler"

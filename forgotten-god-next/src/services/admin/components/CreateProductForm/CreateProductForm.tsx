@@ -55,12 +55,12 @@ const CreateProductForm = () => {
 
     const createNewProduct = async (event : React.MouseEvent<HTMLButtonElement>) => {
         event.preventDefault()
-        const refreshResponse = await fetch(`${process.env.PUBLIC_ENV_HOST_DOMAIN || "http://localhost:5000"}/auth/refresh`, {method: "POST", credentials: "include"})
-        const response = await fetch(`${process.env.PUBLIC_ENV_HOST_DOMAIN  || "http://localhost:5000"}/admin/createGame`, {method: "POST", credentials: "include", body: JSON.stringify(productInfo)})
+        const refreshResponse = await fetch(`${process.env.PUBLIC_ENV_HOST_DOMAIN || "https://forgotten-god.onrender.com"}/auth/refresh`, {method: "POST", credentials: "include"})
+        const response = await fetch(`${process.env.PUBLIC_ENV_HOST_DOMAIN  || "https://forgotten-god.onrender.com"}/admin/createGame`, {method: "POST", credentials: "include", body: JSON.stringify(productInfo)})
         const productId = await response.json()
         const fileData = new FormData()
         fileData.append("file", productInfo.logo,  productInfo.logo.name)
-        const uploadLogoResponse = await fetch(`${process.env.PUBLIC_ENV_HOST_DOMAIN  || "http://localhost:5000"}/admin/setGameLogo/${productId.id}`, {
+        const uploadLogoResponse = await fetch(`${process.env.PUBLIC_ENV_HOST_DOMAIN  || "https://forgotten-god.onrender.com"}/admin/setGameLogo/${productId.id}`, {
             method: "POST",
             body: fileData,
             credentials: "include"

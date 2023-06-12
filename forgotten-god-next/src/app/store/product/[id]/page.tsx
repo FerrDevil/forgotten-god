@@ -1,7 +1,7 @@
 
 import OrderButtons from "@/app/store/product/[id]/components/OrderButtons/OrderButtons"
 import Media from "@/app/store/product/[id]/components/MediaSlider/MediaSlider"
-import StoreNavigation from "@/services/store/components/StoreNavigation/StoreNavigation.jsx"
+import StoreNavigation from "@/services/store/components/StoreNavigation/StoreNavigation"
 import { ProductPageWrapper, BriefGameInfo, GameTitle, GameLogo, GameCost, MainInfoWrapper, MainInfo, MainInfoSidebar, WishlistButton, GameDetails, GameDetail, GameDetailName, GameDetailValueWrapper, GameDetailValue, GameSynopsis, GameSynopsisHeader, GameSynopsisParagraph, ReviewsBlock, ReviewsBlockHeader, ReviewsBlockContent, GameLogoWrapper, ProductFormGameTagsContainer, ProductFormGameTagsWrapper } from "@/services/store/styles/product.js"
 import { IProduct } from "./types"
 import { ProductFormGameTagName, ProductFormGameTagWrapper, ProductFormGameTagsHeader } from "@/app/admin/createProduct/components/CreateProductForm/styles"
@@ -80,10 +80,10 @@ const ProductPage = async ({params} : {params: {id: number}}) => {
                             </ProductFormGameTagsWrapper>
                 </MainInfoSidebar>
             </MainInfoWrapper>
-            <ReviewsBlock>
+            {/* <ReviewsBlock>
                 <ReviewsBlockHeader>Отзывы</ReviewsBlockHeader>
                 <ReviewsBlockContent></ReviewsBlockContent>
-            </ReviewsBlock>
+            </ReviewsBlock> */}
             
             
         </ProductPageWrapper>

@@ -1,9 +1,9 @@
 "use client"
 
-import {AdminPanelSVG, SupportLinkSVG, HeaderNavigationButton, LogoutButtonSVG, HeaderWrapper, HeaderNavigation, HeaderNavigationList, HeaderNavigationItem, HeaderNavigationItemTitle, LogoImage, LoginLinkSVG, HeaderNavigationLink, DownloadLinkSVG, ProfilePicture, HeaderMobileNavigation, HeaderMobileNavigationList, HeaderMobileNavigationLink, HeaderMobileNavigationItem, ShopLinkSVG, HeaderMobileNavigationLinkText, NewsLinkSVG } from "./styles"
-import { memo, useContext } from "react"
+import {AdminPanelSVG, SupportLinkSVG, HeaderNavigationButton, LogoutButtonSVG, HeaderWrapper, HeaderNavigation, HeaderNavigationList, HeaderNavigationItem, HeaderNavigationItemTitle, LogoImage, LoginLinkSVG, HeaderNavigationLink, DownloadLinkSVG, HeaderMobileNavigation, HeaderMobileNavigationList, HeaderMobileNavigationLink, HeaderMobileNavigationItem, ShopLinkSVG, HeaderMobileNavigationLinkText, NewsLinkSVG, AccountLinkSVG } from "./styles"
+import { memo } from "react"
 import { usePathname } from "next/navigation"
-import {deleteUser, useUserSelector} from "@/store/store"
+import { deleteUser, useUserSelector } from "@/store/store"
 import { useDispatch } from "react-redux"
 
 const Header = () => {
@@ -11,7 +11,7 @@ const Header = () => {
     const dispatch = useDispatch()
     const {userInfo} = useUserSelector()
 
-    console.log(userInfo)
+    /* console.log(userInfo) */
     const activeLinks = {
         store: pathname === '/' || pathname === '/store' || pathname === '/store/browse' || pathname === '/store/cart' || pathname.includes( '/store/product'),
         news: pathname === '/news',
@@ -65,20 +65,21 @@ const Header = () => {
                         </HeaderNavigationItem> :
                         <>
                             {
-                                userInfo?.userRole === "admin" ? 
+                                userInfo?.userRole === "admin" && 
                                 <HeaderNavigationItem>
-                                    <HeaderNavigationLink $isActive={false} href="/admin">
+                                    <HeaderNavigationLink $isActive={false} href="/admin/users">
                                         <AdminPanelSVG/>
                                         <HeaderNavigationItemTitle>Панель администратора</HeaderNavigationItemTitle>
                                     </HeaderNavigationLink>
-                                </HeaderNavigationItem> :
-                                <HeaderNavigationItem>
-                                    <HeaderNavigationLink $isActive={false} href={`/user/`}>
-                                        <ProfilePicture src="/image/thumbnail.jpg" alt="profile picture"/>
-                                        <HeaderNavigationItemTitle>Профиль</HeaderNavigationItemTitle>
-                                    </HeaderNavigationLink>
                                 </HeaderNavigationItem>
+                               
                             }
+                             <HeaderNavigationItem>
+                                <HeaderNavigationLink $isActive={false} href={`/profile/`}>
+                                    <AccountLinkSVG/>
+                                    <HeaderNavigationItemTitle>Профиль</HeaderNavigationItemTitle>
+                                </HeaderNavigationLink>
+                            </HeaderNavigationItem>
                              <HeaderNavigationItem>
                                 <HeaderNavigationButton $isActive={false} onClick={logout}>
                                     <LogoutButtonSVG/>
@@ -124,7 +125,7 @@ const Header = () => {
                     </HeaderMobileNavigationItem> :
                     <HeaderMobileNavigationItem>
                         <HeaderMobileNavigationLink $isActive={activeLinks.profile} href={`/user/`}>
-                            <ProfilePicture src="/image/thumbnail.jpg" alt="profile picture"/>
+                            <AccountLinkSVG/>
                             <HeaderMobileNavigationLinkText>Профиль</HeaderMobileNavigationLinkText>
                         </HeaderMobileNavigationLink>
                     </HeaderMobileNavigationItem>

@@ -1,5 +1,6 @@
 "use client"
 
+import Link from "next/link"
 import { SearchInput, SearchInputSVG, SearchResults, SearchResult, SearchResultBlock, SearchResultPrice, SearchResultTitle, SearchResultImage, SearchInputWrapper } from "./searchByTitle"
 import { useRouter } from "next/navigation"
 import { useState, useEffect } from "react"
@@ -48,8 +49,10 @@ const SearchByTitle = () => {
                     </SearchResult>
                 ))}
             </SearchResults>
-            <SearchInput /* onFocus={() => {setResultsVisible(true)}} onBlur={(event) => {console.log(event);setResultsVisible(false)}} */  onChange={(event) => {setTitle(event.target.value)}} onKeyUp={onSearchInputKeyUp} placeholder='Поиск по названию' value={title}/>
-            <SearchInputSVG/>
+            <SearchInput onChange={(event) => {setTitle(event.target.value)}} onKeyUp={onSearchInputKeyUp} placeholder='Поиск по названию' value={title}/>
+            <Link href="/store/search">
+                <SearchInputSVG/>
+            </Link>
         </SearchInputWrapper>
     )
 }

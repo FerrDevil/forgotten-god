@@ -18,7 +18,7 @@ export default function AdminProduct({product, productIndex, setDeleteProductInd
     return (
         <AdminProductWrapper>
             <AdminProductImageWrapper>
-                {product.image && <AdminProductImage src={`http://localhost:5000/image/${product.image}`}/>}
+                {product.image && <AdminProductImage src={`https://forgotten-god.onrender.com/image/${product.image}`}/>}
             </AdminProductImageWrapper>
             <AdminProductInfoWrapper>
                 <AdminProductTitle>

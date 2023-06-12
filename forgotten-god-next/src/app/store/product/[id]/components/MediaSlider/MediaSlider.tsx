@@ -34,15 +34,13 @@ const MediaSlider = ({ mediaElements=[] }) => {
         })
     }
 
-    console.log(mediaElements)
-
     return(
         <MediaWrapper>
             <MediaContainer>
 
                 {mediaElements[sliderParams.selectedMediaIndex]?.type === 'video' ?
-                    <VideoPlayer src={`http://localhost:5000/image/${mediaElements[sliderParams.selectedMediaIndex]?.src}`}/> :
-                    <MediaImage src={`http://localhost:5000/image/${mediaElements[sliderParams.selectedMediaIndex]?.src}`}/>
+                    <VideoPlayer src={`https://forgotten-god.onrender.com/image/${mediaElements[sliderParams.selectedMediaIndex]?.src}`}/> :
+                    <MediaImage src={`https://forgotten-god.onrender.com/image/${mediaElements[sliderParams.selectedMediaIndex]?.src}`}/>
                 }
             </MediaContainer>
             <SliderWrapper>
@@ -65,7 +63,7 @@ const MediaSlider = ({ mediaElements=[] }) => {
                                         {
                                             element.type === 'video' ?
                                             <SliderVideoMark src="/images/video-mark.svg" alt="video-mark"/> :
-                                            <SliderImage src={`http://localhost:5000/image/${element.type === 'video' ? `/img1.jpg` : element.src}`}/>
+                                            <SliderImage src={`https://forgotten-god.onrender.com/image/${element.type === 'video' ? `/img1.jpg` : element.src}`}/>
                                         }
                                         
                                     </SliderImageWrapper>
