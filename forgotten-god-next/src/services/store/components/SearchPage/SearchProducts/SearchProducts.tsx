@@ -17,7 +17,7 @@ const SearchProducts = ({products} : {products: SearchingProduct[]}) => {
             <SearchContent>
                 {products.map((product, productIndex) => 
                     <SearchProduct key={productIndex} href={`/store/product/${product?.id}`} onClick={(event) => {event.stopPropagation()}}>
-                        <AddToCartButton onClick={(event) => {event.preventDefault(); addToCart(productIndex)}}>
+                        <AddToCartButton onClick={(event) => {event.preventDefault(); addToCart(product?.id)}}>
                             <AddToCartSVG/>
                         </AddToCartButton> {/* https://forgotten-god.onrender.com */}
                         <SearchProductImage src={product?.logo && `${"https://forgotten-god.onrender.com"}/image/${product?.logo}`}/>

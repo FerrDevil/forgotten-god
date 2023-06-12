@@ -8,7 +8,9 @@ export const metadata: Metadata = {
 }
 
 async function getRecommendedProducts() {
-  const response = await fetch(`${process.env.HOST_DOMAIN}/store/getRecommendedProducts`) 
+  const response = await fetch(`${process.env.HOST_DOMAIN}/store/getRecommendedProducts`, {
+    cache: 'no-store'
+  }) 
   return response.json() 
 }
 
