@@ -1,9 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="a0fb916a-e9df-4660-b11e-6a27362ce634" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/../forgotten-god-next/src/app/admin/createProduct/components/CreateProductForm/CreateProductForm.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../forgotten-god-next/src/app/admin/createProduct/components/CreateProductForm/CreateProductForm.tsx" afterDir="false" />
-    </list>
+    <list default="true" id="a0fb916a-e9df-4660-b11e-6a27362ce634" name="Changes" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />

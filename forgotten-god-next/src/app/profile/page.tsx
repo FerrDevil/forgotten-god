@@ -1,3 +1,6 @@
+"use client"
+
+import { useEffect, useState } from "react";
 import { UserPageWrapper, UserPanel, UserPanelLibrary, UserPanelProduct, UserPanelProductImage, UserPanelProductImageWrapper, UserPanelTitle} from "./styles"
 import { cookies } from "next/dist/client/components/headers";
 
@@ -8,7 +11,7 @@ type ILibrary = {
     logo: string
 }
 
-const getUserLibrary = async () => {
+/* const getUserLibrary = async () => {
     try{
         const refreshCookie = cookies().get("refresh-fg-cookie");
         if(!refreshCookie?.value){
@@ -31,12 +34,26 @@ const getUserLibrary = async () => {
     }
     
     
-}
+} */
 
 
 export default async function UserPage () {
    
-    const library : ILibrary[] = await getUserLibrary()
+    /* const library : ILibrary[] = await getUserLibrary() */
+    const [library, setLibrary] = useState([])
+
+    useEffect(() => {
+        const getUserLibrary = async () => {
+            
+            const refreshResponse = await fetch(`${"http://forgotten-god.onrender.com"}/auth/refresh`, {method: "POST", credentials: "include"})
+            if (!refreshResponse.ok) {
+                throw new Error("Login to see this page")
+            }
+            const request = await fetch(`${"http://forgotten-god.onrender.com"}/store/getLibrary`, {credentials: "include"})
+            setLibrary(await request.json())
+        }
+        getUserLibrary()
+    }, [])
 
     return(
         <>
@@ -48,7 +65,7 @@ export default async function UserPage () {
                             library.map(product => (
                                 <UserPanelProduct key={product.id}>
                                     <UserPanelProductImageWrapper>
-                                        <UserPanelProductImage src={`${process.env.HOST_DOMAIN}/image/${product.logo}`}/>
+                                        <UserPanelProductImage src={`${"http://forgotten-god.onrender.com"}/image/${product.logo}`}/>
                                     </UserPanelProductImageWrapper>
                                     <span>{product.title}</span>
                                 </UserPanelProduct>
