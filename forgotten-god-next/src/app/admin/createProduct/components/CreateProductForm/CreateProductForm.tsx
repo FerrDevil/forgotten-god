@@ -135,7 +135,7 @@ const CreateProductForm = ({tags}) => {
         
     }
     return (
-        <ProductForm method="POST" >
+        <ProductForm>
             <ProductFormHeader>Создание нового продукта</ProductFormHeader>
             <ProductFormContent>
                 <ProductFormMainInfoWrapper>

@@ -8,7 +8,7 @@ import AddTagSVG from "@/app/admin/createProduct/public/add.svg";
 import DeleteTagSVG from "@/app/admin/createProduct/public/delete.svg";
 
 
-export const ProductForm = styled.form`
+export const ProductForm = styled.div`
     display: flex;
     flex-direction: column;
     align-items: flex-start;
