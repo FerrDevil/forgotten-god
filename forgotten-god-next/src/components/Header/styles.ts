@@ -47,6 +47,12 @@ export const HeaderWrapper = styled.header`
             }
         }
     }
+
+    &:hover span {
+        transition: opacity 200ms 300ms, transform 200ms 300ms;
+        opacity: 1;
+        transform: translate(0);  
+    }
     
     @media (max-width: 600px) {
         padding: 10px 40px;
