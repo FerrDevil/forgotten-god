@@ -32,13 +32,17 @@ export const HeaderWrapper = styled.header`
     width: 50px;
     transition: width 300ms;
     padding: 20px 0;
-    
+    &:hover{
+        width: calc(50px + var(--_link-title-width) + 20px);
+        &:hover span {
+            transition: opacity 200ms 300ms, transform 200ms 300ms;
+            opacity: 1;
+            transform: translate(0);
+        }
+    }
 
     @media (min-width: 600px) {
-        &:hover{
-            width: calc(50px + var(--_link-title-width) + 20px);
-           
-        }
+        
         border-right: 0.5px solid #383838;
     }
     
@@ -77,12 +81,7 @@ export const HeaderNavigationItemTitle = styled.span`
     transform: translate(-50px);
     transition: opacity 0s, transform 200ms 250ms;
 
-    ${HeaderWrapper}:hover & {
-        transition: opacity 200ms 300ms, transform 200ms 300ms;
-        opacity: 1;
-        transform: translate(0);
-        
-    }
+    
 `
 
 export const HeaderNavigationItem = styled.li`
