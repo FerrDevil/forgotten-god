@@ -14,18 +14,6 @@ import LogoutSVG from "@/public/logout.svg"
 import AccountSVG from "@/public/account.svg"
 
 
-
-export const HeaderNavigationItemTitle = styled.span`
-    text-transform: capitalize;
-    white-space: nowrap;
-    display: block;
-    max-width: var(--_link-title-width);
-    overflow: hidden;
-    opacity: 0;
-    transform: translate(-50px);
-    transition: opacity 0s, transform 200ms 250ms;
-`
-
 export const HeaderWrapper = styled.header`
     --_link-title-width: 250px;
 
@@ -46,16 +34,18 @@ export const HeaderWrapper = styled.header`
     padding: 20px 0;
     
 
-    @media (min-width: 601px) {
-       
-        &:hover {
+    @media (min-width: 600px) {
+        &:hover{
             width: calc(50px + var(--_link-title-width) + 20px);
+            & span {
+                transition: opacity 200ms 300ms, transform 200ms 300ms;
+                opacity: 1;
+                transform: translate(0);
+                
+            }
         }
         border-right: 0.5px solid #383838;
-        
     }
-
-    
     
     @media (max-width: 600px) {
         padding: 10px 40px;
@@ -82,7 +72,16 @@ export const HeaderNavigationList = styled.ul`
     row-gap: 16px;
 `
 
-
+export const HeaderNavigationItemTitle = styled.span`
+    text-transform: capitalize;
+    white-space: nowrap;
+    display: block;
+    max-width: var(--_link-title-width);
+    overflow: hidden;
+    opacity: 0;
+    transform: translate(-50px);
+    transition: opacity 0s, transform 200ms 250ms;
+`
 
 export const HeaderNavigationItem = styled.li`
     
