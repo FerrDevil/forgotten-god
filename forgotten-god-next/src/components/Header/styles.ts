@@ -35,14 +35,15 @@ export const HeaderWrapper = styled.header`
     
 
     @media (min-width: 600px) {
-        &:hover{
-            width: calc(50px + var(--_link-title-width) + 20px);
-            & span {
+        &:hover span {
                 transition: opacity 200ms 300ms, transform 200ms 300ms;
                 opacity: 1;
                 transform: translate(0);
                 
             }
+        &:hover{
+            width: calc(50px + var(--_link-title-width) + 20px);
+            
         }
         border-right: 0.5px solid #383838;
     }
