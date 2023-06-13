@@ -48,11 +48,11 @@ export const HeaderWrapper = styled.header`
 
     @media (min-width: 600px) {
        
-        
-        border-right: 0.5px solid #383838;
-        &:hover{
+        &:hover {
             width: calc(50px + var(--_link-title-width) + 20px);
         }
+        border-right: 0.5px solid #383838;
+        
     }
 
     &:hover ${HeaderNavigationItemTitle} {
