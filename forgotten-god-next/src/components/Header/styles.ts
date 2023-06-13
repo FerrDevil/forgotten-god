@@ -46,7 +46,7 @@ export const HeaderWrapper = styled.header`
     padding: 20px 0;
     
 
-    @media (min-width: 600px) {
+    @media (min-width: 601px) {
        
         &:hover {
             width: calc(50px + var(--_link-title-width) + 20px);
@@ -55,11 +55,7 @@ export const HeaderWrapper = styled.header`
         
     }
 
-    &:hover ${HeaderNavigationItemTitle} {
-        transition: opacity 200ms 300ms, transform 200ms 300ms;
-        opacity: 1;
-        transform: translate(0);  
-    }
+    
     
     @media (max-width: 600px) {
         padding: 10px 40px;
