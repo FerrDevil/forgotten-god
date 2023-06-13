@@ -40,12 +40,11 @@ export const HeaderWrapper = styled.header`
         border-right: 0.5px solid #383838;
         &:hover{
             width: calc(50px + var(--_link-title-width) + 20px);
-            
-        }
-        &:hover span {
-            transition: opacity 200ms 300ms, transform 200ms 300ms;
-            opacity: 1;
-            transform: translate(0);  
+            span {
+                transition: opacity 200ms 300ms, transform 200ms 300ms;
+                opacity: 1;
+                transform: translate(0);  
+            }
         }
     }
     
