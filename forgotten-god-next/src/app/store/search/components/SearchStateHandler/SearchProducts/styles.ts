@@ -2,6 +2,7 @@
 import styled from "styled-components"
 import Link from "next/link"
 import CartSVG from "@/services/store/public/cart.svg";
+import Image from "next/image";
 
 export const SearchContent = styled.div`
     display: grid;
@@ -58,11 +59,20 @@ export const SearchProduct = styled(Link)`
     }
 `
 
-export const SearchProductImage = styled.img`
-    display: block;
-    aspect-ratio: 16/9;
-    max-width: 100%;
+export const SearchProductImageWrapper = styled.div`
     width: 100%;
+    height: 100%;
+`
+
+export const SearchProductImage = styled(Image).attrs({
+    alt:"productImage",
+    width: 0,
+    height: 0,
+    sizes: "100vw"
+})`
+    display: block;
+    width: 100%;
+    height: 100%;
     object-fit: cover;
 `
 

@@ -43,7 +43,6 @@ export const CarouselImage = styled(Image).attrs(props => (
        width: 760,
        height: 429,
        alt: "carouselImage",
-       placeholder: ""
     }
 ))`
     display: inline-block;

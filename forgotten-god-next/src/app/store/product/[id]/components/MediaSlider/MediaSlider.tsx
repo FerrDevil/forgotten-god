@@ -1,7 +1,8 @@
 "use client"
 import { MediaWrapper, MediaContainer, MediaImage, SliderWrapper, SliderLeftArrow, SliderContentWrapper, SliderContent, SliderRightArrow, SliderImageWrapper, SliderImage, SliderVideoMark, SliderArrowButton } from "./mediaStyles"
 import { useMemo, useState } from "react"
-import VideoPlayer from "@/components/VideoPlayer/VideoPlayer.jsx"
+import VideoPlayer from "@/components/VideoPlayer/VideoPlayer"
+import { imageLoader } from "@/imageHelper"
 
 const MediaSlider = ({ mediaElements=[] }) => {
 
@@ -39,8 +40,8 @@ const MediaSlider = ({ mediaElements=[] }) => {
             <MediaContainer>
 
                 {mediaElements[sliderParams.selectedMediaIndex]?.type === 'video' ?
-                    <VideoPlayer src={`https://forgotten-god.onrender.com/image/${mediaElements[sliderParams.selectedMediaIndex]?.src}`}/> :
-                    <MediaImage src={`https://forgotten-god.onrender.com/image/${mediaElements[sliderParams.selectedMediaIndex]?.src}`}/>
+                    <VideoPlayer src={`${process.env.NEXT_PUBLIC_HOST_DOMAIN}/image/${mediaElements[sliderParams.selectedMediaIndex]?.src}`}/> :
+                    <MediaImage loader={imageLoader} src={`${mediaElements[sliderParams.selectedMediaIndex]?.src}`}/>
                 }
             </MediaContainer>
             <SliderWrapper>
@@ -63,7 +64,7 @@ const MediaSlider = ({ mediaElements=[] }) => {
                                         {
                                             element.type === 'video' ?
                                             <SliderVideoMark src="/images/video-mark.svg" alt="video-mark"/> :
-                                            <SliderImage src={`https://forgotten-god.onrender.com/image/${element.type === 'video' ? `/img1.jpg` : element.src}`}/>
+                                            <SliderImage loader={imageLoader} src={`${element.type === 'video' ? `/img1.jpg` : element.src}`}/>
                                         }
                                         
                                     </SliderImageWrapper>

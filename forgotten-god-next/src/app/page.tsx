@@ -10,7 +10,10 @@ export const metadata: Metadata = {
 async function getRecommendedProducts() {
   const response = await fetch(`${process.env.HOST_DOMAIN}/store/getRecommendedProducts`, {
     cache: 'no-store'
-  }) 
+  })
+  if (!response.ok){
+    throw Error("Network error: could not access the given origin")
+  }
   return response.json() 
 }
 

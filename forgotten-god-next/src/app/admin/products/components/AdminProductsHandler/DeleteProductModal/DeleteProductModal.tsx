@@ -19,8 +19,8 @@ export default function DeleteProductModal({productIndex, setProductIndex, produ
 
 
     const deleteProduct = async () => {
-        const refreshResponse = await fetch(`https://forgotten-god.onrender.com/auth/refresh`, {method: "POST", credentials: "include"})
-        const response = await fetch(`https://forgotten-god.onrender.com/admin/deleteGame/${products[productIndex].id}`, {method: "DELETE", credentials: "include"})
+        const refreshResponse = await fetch(`${process.env.NEXT_PUBLIC_HOST_DOMAIN}/auth/refresh`, {method: "POST", credentials: "include"})
+        const response = await fetch(`${process.env.NEXT_PUBLIC_HOST_DOMAIN}/admin/deleteGame/${products[productIndex].id}`, {method: "DELETE", credentials: "include"})
         if (response.ok){
             setProducts(prev => prev.filter((_, index) => index !== productIndex))
             setProductIndex(-1) 

@@ -19,7 +19,7 @@ import {
   FeedPostCommentImage,
   FeedPostCommentButtonCount
 } from "./feedPostStyles.js"
-import VideoPlayer from "../../../../components/VideoPlayer/VideoPlayer.jsx"
+import VideoPlayer from "@/components/VideoPlayer/VideoPlayer"
 import { useState } from "react"
 
 const FeedPost = ({postInfo}) => {

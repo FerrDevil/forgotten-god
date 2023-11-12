@@ -28,7 +28,7 @@ export const HeaderWrapper = styled.header`
     z-index: 2000;
     font-size: 16px;
     
-    background-color: #111;
+    background-color: var(--main-color-black);
     width: 50px;
     transition: width 300ms;
     padding: 20px 0;
@@ -246,7 +246,7 @@ export const HeaderMobileNavigation = styled.nav`
     bottom: 0;
     left: 0;
    
-    background-color: #111;
+    background-color: var(--main-color-black);
     z-index: 2000;
 
     @media (min-width: 600px) {
@@ -304,7 +304,7 @@ export const HeaderMobileNavigationLink = styled(Link)<IIsActive>`
     height: 100%;
     padding: 5px 25px;
     transition: background-color, color 0.2s ease-in-out;
-    background-color: ${props => props.$isActive? "#ccc" : "#111"};
+    background-color: ${props => props.$isActive? "#ccc" : "var(--main-color-black)"};
     color: ${props => props.$isActive? "#780c0c" : "#ccc"};
     &:hover, &:focus{
         background-color: #ccc;

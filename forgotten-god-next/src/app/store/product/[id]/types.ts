@@ -8,6 +8,12 @@ export type Media = {
     src: string
 }
 
+export interface IProductPageProps{
+    params: {
+        id: number
+    }
+}
+
 
 export interface IProduct{
     id: number,

@@ -1,7 +1,7 @@
 "use client"
 import { MediaWrapper, MediaContainer, MediaImage, SliderWrapper, SliderLeftArrow, SliderContentWrapper, SliderContent, SliderRightArrow, SliderVideoMark, SliderArrowButton, ProductFormMediaWrapper, ProductFormMediaFileInputWrapper, ProductFormMediaFileInput, ProductFormMediaFileInputDescriptionWrapper, ProductFormMediaFileInputDescription, ProductFormMediaPlaceholderSVG, ProductFormMedia } from "./mediaStyles"
 import { Dispatch, SetStateAction, useMemo, useState } from "react"
-import VideoPlayer from "@/components/VideoPlayer/VideoPlayer.jsx"
+import VideoPlayer from "@/components/VideoPlayer/VideoPlayer"
 import { IProductInfo } from "../CreateProductForm"
 import MediaSliderCanvas from "./MediaSliderCanvas"
 import { IImageSlider, ISliderParams } from "./types"

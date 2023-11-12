@@ -12,7 +12,7 @@ export const StoreBrowsePanel = styled.div`
     width: 100%;
     
     position: sticky;
-    background-color: #111;
+    background-color: var(--main-color-black);
     z-index: 1999;
     top: 0;
     column-gap: 20px;

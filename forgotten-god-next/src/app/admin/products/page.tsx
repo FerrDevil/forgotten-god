@@ -2,7 +2,9 @@ import AdminProductsHandler from "./components/AdminProductsHandler/AdminProduct
 import { IProducts } from "./components/AdminProductsHandler/types"
 
 async function getProducts() {
-    const response = await fetch(`${process.env.HOST_DOMAIN}/admin/getProducts`)
+    const response = await fetch(`${process.env.HOST_DOMAIN}/admin/getProducts`, {
+        
+    })
     return await response.json()
 }
 

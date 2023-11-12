@@ -72,7 +72,7 @@ export const AdminTagButtonDescription = styled.span`
     pointer-events: none;
     user-select: none;
     transition: opacity 0.2s;
-    border: 1px solid #111;
+    border: 1px solid var(--main-color-black);
 
     &::after{
         content: "";

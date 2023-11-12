@@ -79,7 +79,7 @@ export const SliderItem = styled(Link)`
     transform: ${props => props.$isBackItem ? "rotateY(180deg) " : "none"};
     position: ${props => props.$isBackItem ? "absolute" : "static"};
     top: 0;
-    /* background-color: #111; */
+    /* background-color: var(--main-color-black); */
     backface-visibility: hidden;
     padding: 12%;
     margin-left: -20%;

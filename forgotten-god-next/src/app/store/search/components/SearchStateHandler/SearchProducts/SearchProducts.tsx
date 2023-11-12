@@ -1,15 +1,16 @@
 "use client"
 import React from "react"
-import {SearchContent, SearchProduct, SearchProductImage, SearchProductInfo, SearchProductTitle, SearchProductPrice, SearchNoSuchProductsFound, AddToCartButton, AddToCartSVG} from "./searchProductsStyles"
+import {SearchContent, SearchProduct, SearchProductImage, SearchProductInfo, SearchProductTitle, SearchProductPrice, SearchNoSuchProductsFound, AddToCartButton, AddToCartSVG, SearchProductImageWrapper} from "./styles"
 import { SearchingProduct } from "./types"
+import { imageLoader } from "@/imageHelper"
 
 
 
 const SearchProducts = ({products} : {products: SearchingProduct[]}) => {
 
     const addToCart = async (productIndex : number) => {
-        const refreshResponse = await fetch(`${"https://forgotten-god.onrender.com"}/auth/refresh`, {method: "POST", credentials: "include"})
-        const response = await fetch(`${"https://forgotten-god.onrender.com"}/store/addToCart`, {method: "POST", credentials: "include", body: JSON.stringify({productId: productIndex})})
+        const refreshResponse = await fetch(`${process.env.NEXT_PUBLIC_HOST_DOMAIN}/auth/refresh`, {method: "POST", credentials: "include"})
+        const response = await fetch(`${process.env.NEXT_PUBLIC_HOST_DOMAIN}/store/addToCart`, {method: "POST", credentials: "include", body: JSON.stringify({productId: productIndex})})
     }
 
     return(
@@ -19,11 +20,14 @@ const SearchProducts = ({products} : {products: SearchingProduct[]}) => {
                     <SearchProduct key={productIndex} href={`/store/product/${product?.id}`} onClick={(event) => {event.stopPropagation()}}>
                         <AddToCartButton onClick={(event) => {event.preventDefault(); addToCart(product?.id)}}>
                             <AddToCartSVG/>
-                        </AddToCartButton> {/* https://forgotten-god.onrender.com */}
-                        <SearchProductImage src={product?.logo && `${"https://forgotten-god.onrender.com"}/image/${product?.logo}`}/>
+                        </AddToCartButton>
+                        <SearchProductImageWrapper>
+                            <SearchProductImage loader={imageLoader} src={`${product.logo}`}/>
+                        </SearchProductImageWrapper>
+                        
                         <SearchProductInfo>
-                            <SearchProductTitle>{product?.title}</SearchProductTitle>
-                            <SearchProductPrice>{product?.price} ₽</SearchProductPrice>
+                            <SearchProductTitle>{product.title}</SearchProductTitle>
+                            <SearchProductPrice>{product.price} ₽</SearchProductPrice>
                         </SearchProductInfo>
                     </SearchProduct>
                 )}

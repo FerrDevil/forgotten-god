@@ -6,7 +6,7 @@ export const ColoredAlignedFlexMain = styled.main`
     width: 100%;
     height: 100%;
     position: relative;
-    background-color: #111111;
+    background-color: var(--main-color-black);
     row-gap: 24px;
     padding-left: 60px;
     @media (max-width: 600px) {

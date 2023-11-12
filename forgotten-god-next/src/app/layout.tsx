@@ -3,6 +3,7 @@ import BasePageLayout from '@/components/Layout/BasePageLayout'
 import './globals.css'
 import { Providers } from './providers'
 import StyledComponentsRegistry from './stylesheet'
+import ToastMessage from '@/components/ToastMessage/ToastMessage'
 
 export const metadata = {
   title: 'Forgotten God',
@@ -19,9 +20,11 @@ export default function RootLayout({children,}: {children: React.ReactNode}) {
             {/* @ts-expect-error Async Server Component */}
             <BasePageLayout>
               {children}
+              <ToastMessage/>
             </BasePageLayout>
           </StyledComponentsRegistry>
         </Providers>
+        
       </body>
     </html>
   )

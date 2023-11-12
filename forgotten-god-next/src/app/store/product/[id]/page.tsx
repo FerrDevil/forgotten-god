@@ -1,25 +1,37 @@
 
-import OrderButtons from "@/app/store/product/[id]/components/OrderButtons/OrderButtons"
-import Media from "@/app/store/product/[id]/components/MediaSlider/MediaSlider"
+import OrderButtons from "./components/OrderButtons/OrderButtons"
+import Media from "./components/MediaSlider/MediaSlider"
 import StoreNavigation from "@/services/store/components/StoreNavigation/StoreNavigation"
-import { ProductPageWrapper, BriefGameInfo, GameTitle, GameLogo, GameCost, MainInfoWrapper, MainInfo, MainInfoSidebar, WishlistButton, GameDetails, GameDetail, GameDetailName, GameDetailValueWrapper, GameDetailValue, GameSynopsis, GameSynopsisHeader, GameSynopsisParagraph, ReviewsBlock, ReviewsBlockHeader, ReviewsBlockContent, GameLogoWrapper, ProductFormGameTagsContainer, ProductFormGameTagsWrapper } from "@/services/store/styles/product.js"
-import { IProduct } from "./types"
+import { ProductPageWrapper, BriefGameInfo, GameTitle, GameLogo, GameCost, MainInfoWrapper, MainInfo, MainInfoSidebar, WishlistButton, GameDetails, GameDetail, GameDetailName, GameDetailValueWrapper, GameDetailValue, GameSynopsis, GameSynopsisHeader, GameSynopsisParagraph, ReviewsBlock, ReviewsBlockHeader, ReviewsBlockContent, GameLogoWrapper, ProductFormGameTagsContainer, ProductFormGameTagsWrapper } from "./style"
+import { IProduct, IProductPageProps } from "./types"
 import { ProductFormGameTagName, ProductFormGameTagWrapper, ProductFormGameTagsHeader } from "@/app/admin/createProduct/components/CreateProductForm/styles"
+import { notFound } from "next/navigation"
+import { Metadata } from "next"
 
 
+export async function generateMetadata ({params}: IProductPageProps) {
+    const request = await fetch(`${process.env.HOST_DOMAIN}/store/getProductById/${params.id}`)
+    if (!request.ok){
+        notFound()
+    }
+    const response = await request.json()
 
+    return {
+        title: `${response.title} | Forgotten God`
+    }
+}
 
 async function getProductById(id: number){
     const request = await fetch(`${process.env.HOST_DOMAIN}/store/getProductById/${id}`)
     if (!request.ok){
-        throw new Error("No such product exists")
+        notFound()
     }
     const response = await request.json()
     return response
 }
 
 
-const ProductPage = async ({params} : {params: {id: number}}) => {
+const ProductPage = async ({params} : IProductPageProps) => {
 
     const product: IProduct = await getProductById(params.id)
 
@@ -38,11 +50,11 @@ const ProductPage = async ({params} : {params: {id: number}}) => {
                 </MainInfo>
                 <MainInfoSidebar>
                     <BriefGameInfo>
-                        <GameTitle>{product?.title}</GameTitle>
+                        <GameTitle>{product.title}</GameTitle>
                         <GameLogoWrapper>
-                            <GameLogo src={product?.logo ? `${process.env.HOST_DOMAIN}/image/${product.logo}` : ""} alt="gameLogo"/>
+                            <GameLogo  src={`${process.env.HOST_DOMAIN}/image/${product.logo}`} />
                         </GameLogoWrapper>
-                        <GameCost>{`${product?.price} ₽`}</GameCost>
+                        <GameCost>{`${product.price} ₽`}</GameCost>
                         <OrderButtons product={product}/>
                         
                         <WishlistButton>В желаемое</WishlistButton>
@@ -51,13 +63,13 @@ const ProductPage = async ({params} : {params: {id: number}}) => {
                         <GameDetail>
                             <GameDetailName>Разработчик</GameDetailName>
                             <GameDetailValueWrapper>
-                                <GameDetailValue>{product?.developer}</GameDetailValue>
+                                <GameDetailValue>{product.developer}</GameDetailValue>
                             </GameDetailValueWrapper>
                         </GameDetail>
                         <GameDetail>
                             <GameDetailName>Издатель</GameDetailName>
                             <GameDetailValueWrapper>
-                                <GameDetailValue>{product?.publisher}</GameDetailValue>
+                                <GameDetailValue>{product.publisher}</GameDetailValue>
                             </GameDetailValueWrapper>
                         </GameDetail>
                         <GameDetail>
@@ -71,7 +83,7 @@ const ProductPage = async ({params} : {params: {id: number}}) => {
                     <ProductFormGameTagsWrapper>
                                 <ProductFormGameTagsHeader>Тэги</ProductFormGameTagsHeader>
                                 <ProductFormGameTagsContainer>
-                                    {product.tags.map((tag) => (
+                                    {product.tags.sort((a, b) => a.name.localeCompare(b.name)).map((tag) => (
                                         <ProductFormGameTagWrapper key={tag.id}>
                                             <ProductFormGameTagName>{tag.name}</ProductFormGameTagName>
                                         </ProductFormGameTagWrapper>

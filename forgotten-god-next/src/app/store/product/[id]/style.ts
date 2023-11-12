@@ -66,12 +66,12 @@ export const BriefGameInfo = styled.div`
 `
 
 export const GameTitle = styled.h1`
+    display: block;
     font-size: clamp(25px, 3vw, 40px);
     color: #ccc;
     align-self: flex-start;
-    white-space: nowrap;
-    max-width: 100%;
-    overflow: hidden;
+    max-width: 27ch;
+    
 `
 export const GameLogoWrapper = styled.div`
     display: grid;
@@ -117,14 +117,14 @@ export const WishlistButton = styled.button`
     height: 40px;
     text-align: center;
     text-transform: uppercase;
-    background-color: #111;
+    background-color: var(--main-color-black);
     cursor: pointer;
     border: 1px solid #ccc;
     transition: border-color, color, background-color 0.3s ease-in-out ;
 
     &:hover{
-        border-color: #111;
-        color: #111; 
+        border-color: var(--main-color-black);
+        color: var(--main-color-black); 
         background-color: #ccc;
     }
 `

@@ -1,21 +1,10 @@
 "use client"
 import styled from "styled-components";
 
-import SearchSVG from "../public/search.svg";
-import FilterSVG from "../public/filter.svg";
-import CloseSVG from "../public/close.svg";
-import DoneSVG from "../public/done.svg";
-
-
-
-export const SearchContainer = styled.div`
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-
-    width: 100%;
-`
-
+import SearchSVG from "./public/search.svg";
+import FilterSVG from "./public/filter.svg";
+import CloseSVG from "./public/close.svg";
+import DoneSVG from "./public/done.svg";
 
 
 export const SearchInputWrapper = styled.label`
@@ -44,7 +33,7 @@ export const SearchInput = styled.input`
     }
 `
 
-export const SearchPanel = styled.div`
+export const SearchPanelWrapper = styled.div`
     display: flex;
     flex-direction: row;
     align-items: center;
@@ -56,7 +45,7 @@ export const SearchPanel = styled.div`
     height: 70px;
    
     position: sticky;
-    background-color: #111;
+    background-color: var(--main-color-black);
     top: 0;
     
 `
@@ -74,14 +63,14 @@ export const SearchControls = styled.aside<ISearchControls>`
     left: 50px;
     top: 70px;
     
-    background-color: #111;
+    background-color: var(--main-color-black);
     max-width: 600px;
     width: 100%;
     z-index: 1000;
 
-    pointer-events: ${props => props.$isVisible ? "all": "none"};
-    transform: translateY(${props => props.$isVisible ? "0": "-100%" });
-    opacity: ${props => props.$isVisible ? "1": "0"};
+    pointer-events: ${props => !props.$isVisible ? "none" : "all"};
+    transform: translateY(${props => !props.$isVisible ? "-100%" : "0" });
+    opacity: ${props => !props.$isVisible ? "0" :  "1"};
     transition: transform 0.5s ease-in-out, opacity 0.2s ease-in-out;
 
     @media (max-width: 600px) {

@@ -14,7 +14,7 @@ export default function AdminProductsHandler({products} : {products: IProducts[]
 
     useEffect(() => {
         async function getProducts() {
-            const response = await fetch(`${"https://forgotten-god.onrender.com"}/admin/getProducts`)
+            const response = await fetch(`${process.env.NEXT_PUBLIC_HOST_DOMAIN}/admin/getProducts`)
             setProductsInfo(await response.json())
         }
         getProducts()

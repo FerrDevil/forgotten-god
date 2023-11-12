@@ -2,7 +2,7 @@
 import { InputWrapper, TextInputLabel, TextInput, TextInputLabelText, InputErrorMessage, PasswordHiddenButton, PasswordHiddenButtonSVG, PasswordShownButtonSVG } from "./styles"
 import { useState } from "react"
 
-const InputField = ({ name, onChange, type="text", placeholder="", isValid=true, errorMessage="" }) => {
+const InputField = ({ name, onChange, type="text", placeholder="", isValid=true, errorMessage="", required=true }) => {
     const [inputType, setInputType] = useState(type)
     if (type === "password"){
         const changeInputType =  (event : React.MouseEvent<HTMLButtonElement>) => {
@@ -12,7 +12,7 @@ const InputField = ({ name, onChange, type="text", placeholder="", isValid=true,
         return (
             <InputWrapper>
                 <TextInputLabel>
-                    <TextInput type={inputType} id={name} name={name}  onChange={onChange} placeholder=" " $isValid={isValid}/>
+                    <TextInput required type={inputType} id={name} name={name}  onChange={onChange} placeholder=" " $isValid={isValid}/>
                     <TextInputLabelText>{placeholder}</TextInputLabelText>
                     <PasswordHiddenButton onClick={changeInputType}>
                         { inputType === "password" ?

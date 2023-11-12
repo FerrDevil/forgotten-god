@@ -26,7 +26,7 @@ export const AdminLinks = styled.nav`
     padding: 5px 20px;
     position: sticky;
     top: 0;
-    background-color: #111;
+    background-color: var(--main-color-black);
     z-index: 1000;
 `
 
@@ -116,7 +116,7 @@ export const AdminPagesLinkDescription = styled.span`
     pointer-events: none;
     user-select: none;
     transition: opacity 0.2s;
-    border: 1px solid #111;
+    border: 1px solid var(--main-color-black);
 
     &::after{
         content: "";

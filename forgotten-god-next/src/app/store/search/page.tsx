@@ -1,148 +1,57 @@
-"use client"
+import React, {Suspense, useEffect, useState } from 'react'
+import { SearchContainer } from './styles'
+import { Metadata } from 'next'
+import SearchStateHandler from './components/SearchStateHandler/SearchStateHandler'
 
-import React, {useEffect, useState } from 'react'
-import { SearchContainer, SearchPanel, SearchFilters, SearchFiltersContainer, SearchInputWrapper, SearchInputImage, SearchInput, SearchControls, SearchControlsHeader, SearchControlsHeaderTitle, SearchControlsClose, SearchControlsContent, SearchPrices, SearchPricesTitle, SearchPricesRangeWrapper, SearchPricesRange, SearchPricesRangeHint, SearchTags, SearchTagsTitle,SearchTagsWrapper, SearchTag, SearchTagName, SearchTagIncludeCheckboxWrapper, SearchTagIncludeCheckboxSVG, SearchTagIncludeCheckbox, SearchTagExcludeCheckboxWrapper, SearchTagExcludeCheckbox, SearchTagExcludeCheckboxSVG, } from '@/services/store/styles/searchPage'
-import { useSearchParams } from 'next/navigation'
-import SearchProducts from '@/services/store/components/SearchPage/SearchProducts/SearchProducts'
-
-interface ISearchParams {
-    price: number
-    title: string | undefined
-    includedTags: number[]
-    excludedTags: number[]
+export const metadata: Metadata = {
+    title: "Поиск | Forgotten God"
 }
 
-const SearchPage = () => {
+async function getTags() {
+    const response = await fetch(`${process.env.NEXT_PUBLIC_HOST_DOMAIN}/store/getTags`, {method: "GET"})
+    const allTags = await response.json()
+    return allTags
+}
 
-
-    const title = useSearchParams().get('title') || ""
-    
-    
-    const [searchParams, setSearchParams] = useState<ISearchParams>({
-        price: 2200,
-        title: title,
-        includedTags: [],
-        excludedTags: [],
+async function getProducts(searchParams) {
+    const response = await fetch(`${process.env.NEXT_PUBLIC_HOST_DOMAIN}/store/getProducts`, {
+        method: "POST",
+        body: JSON.stringify(searchParams),
+        next: {revalidate: 1000}
     })
-    
-    const [areFiltersOpen, setFiltersOpen] = useState(false)
-    const [products, setProducts] = useState([])
+    const filteredProducts =  response.json()
+    return filteredProducts
+}
 
-    const [tags, setTags] = useState([])
+const SearchPage = async ({params, searchParams}) => {
 
-    const addIncludedTags = (event : React.ChangeEvent<HTMLInputElement>, id : number) => {
-        if (searchParams.excludedTags.includes(id)){
-            event.target.checked = false
-            return
-        }
-        if(event.target.checked){
-            setSearchParams(prev => ({...prev, includedTags: [...prev.includedTags, id]}))
-        }
-        else{
-            setSearchParams(prev => ({...prev, includedTags: prev.includedTags.filter(tags => tags !== id)}))
-        }
+    /* console.log(searchParams) */
+    const searchQueryParams = {
+        price: searchParams.price || 2200,
+        title: searchParams.title || "",
+        includedTags: searchParams.includedTags || "",
+        excludedTags: searchParams.excludedTags || "",
     }
+    /* console.log(searchQueryParams) */
+    const tags = await getTags()
 
-    const addExcludedTags = (event : React.ChangeEvent<HTMLInputElement>, id: number) => {
-        if (searchParams.includedTags.includes(id)){
-            event.target.checked = false
-            return
-        } 
-        
-        if(event.target.checked){
-            setSearchParams(prev => ({...prev, excludedTags: [...prev.excludedTags, id]}))
-        }
-        else{
-            setSearchParams(prev => ({...prev, excludedTags: prev.excludedTags.filter(tags => tags !== id)}))
-            
-            
-        }   
+    const queryParams = {
+        price: parseInt(searchQueryParams.price),
+        title: searchQueryParams.title,
+        includedTags: searchQueryParams.includedTags.split(",").filter(tag => tag !== "").map((tag) => Number(tag)), // makes a number array from 1,2,3 string
+        excludedTags: searchQueryParams.excludedTags.split(",").filter(tag => tag !== "").map((tag) => Number(tag)),
     }
-
-    useEffect(() => {
-        const getTags = async () => { //https://forgotten-god.onrender.com
-            const response = await fetch(`${process.env.PUBLIC_NEXT_HOST_DOMAIN || "https://forgotten-god.onrender.com"}/store/getTags`, {method: "GET"})
-            const allTags = await response.json()
-            allTags && setTags(allTags)
-        }
-        getTags()
-        
-    }, [])
-
-    useEffect(() => {
-        const updateProducts = async () => { //https://forgotten-god.onrender.com
-            const response = await fetch(`${process.env.PUBLIC_NEXT_HOST_DOMAIN || "https://forgotten-god.onrender.com"}/store/getProducts`, {method: "POST", body: JSON.stringify(searchParams)})
-            const filteredProducts = await response.json()
-            filteredProducts && setProducts(filteredProducts)
-        }
-        updateProducts()
-        
-    }, [searchParams])
-
-
+    const products = await getProducts(queryParams)
+    console.log(products)
      
 
     return(
         <>
             <SearchContainer>
-                <SearchPanel>
-                    <SearchInputWrapper>
-                        <SearchInputImage/>
-                        <SearchInput onChange={(event => {setSearchParams(prev => ({...prev, title: event.target.value}))})} value={ searchParams.title } placeholder='Поиск по названию'/>
-                    </SearchInputWrapper>
-                    <SearchFiltersContainer>
-                        <SearchFilters onClick={() => {setFiltersOpen(prev => !prev)}}/>
-                        <SearchControls $isVisible={areFiltersOpen}>
-                            <SearchControlsHeader>
-                                <SearchControlsHeaderTitle>Фильтры</SearchControlsHeaderTitle>
-                                <SearchControlsClose onClick={() => {setFiltersOpen(prev => !prev)}}/>
-                            </SearchControlsHeader>
-                            <SearchControlsContent>
-                                <SearchPrices>
-                                    <SearchPricesTitle>Цены</SearchPricesTitle>
-                                    <SearchPricesRangeWrapper>
-                                        <SearchPricesRange type="range" min={0} max={2200} step={200} value={searchParams.price} onInput={(event: React.ChangeEvent<HTMLInputElement>) => {setSearchParams(prev => ({...prev, price: parseInt(event.target.value)}))}} />
-                                        <SearchPricesRangeHint>{ searchParams.price === 0 ? "Бесплатно" : searchParams.price === 2200 ? "Любая цена" : `До ${searchParams.price}`}</SearchPricesRangeHint>
-                                    </SearchPricesRangeWrapper>
-                                </SearchPrices>
-                                <SearchTags>
-                                    <SearchTagsTitle>Тэги</SearchTagsTitle>
-                                    <SearchTagsWrapper>
-                                        {tags.map((tag, tagIndex) => (
-                                            <SearchTag key={tagIndex}>
-                                                <SearchTagName>{tag.name}</SearchTagName>
-                                                <SearchTagIncludeCheckboxWrapper>
-                                                    <SearchTagIncludeCheckbox onChange={
-                                                        (event : React.ChangeEvent<HTMLInputElement>) => {
-                                                            addIncludedTags(event, tag.id)
-                                                        }
-                                                        }
-                                                        />
-                                                    <SearchTagIncludeCheckboxSVG/>
-                                                </SearchTagIncludeCheckboxWrapper>
-                                                
-                                                <SearchTagExcludeCheckboxWrapper>
-                                                    <SearchTagExcludeCheckbox onChange={
-                                                        (event : React.ChangeEvent<HTMLInputElement>) => {
-                                                            addExcludedTags(event, tag.id)
-                                                        }}
-                                                        />
-                                                    <SearchTagExcludeCheckboxSVG/>
-                                                </SearchTagExcludeCheckboxWrapper>
-                                            
-                                            </SearchTag>
-                                        ))}
-                                        
-                                    </SearchTagsWrapper>
-                                </SearchTags>
-                            </SearchControlsContent>
-                            
-                            
-                        </SearchControls>
-                    </SearchFiltersContainer>
-                    
-                </SearchPanel>
-                <SearchProducts products={products}/>
+                <Suspense fallback={<>...Loading</>}>
+                    <SearchStateHandler products={products} searchQueryParams={searchQueryParams} tags={tags}/>
+                </Suspense>
+                
             </SearchContainer>
         </>
     )

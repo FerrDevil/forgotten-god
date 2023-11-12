@@ -240,7 +240,7 @@ export const ProductFormWishlistButton = styled.div`
     height: 40px;
     text-align: center;
     text-transform: uppercase;
-    background-color: #111;
+    background-color: var(--main-color-black);
     border: 1px solid #ccc;
     transition: border-color, color, background-color 0.3s ease-in-out ;
 `

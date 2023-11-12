@@ -2,6 +2,7 @@
 import { useRef, useState } from "react";
 import { AdminMenuToggleSVG, AdminProductImage, AdminProductImageWrapper, AdminProductInfoWrapper, AdminProductMenuButton, AdminProductMenuContainer, AdminProductMenuLink, AdminProductMenuToggleButton, AdminProductMenuWrapper, AdminProductTitle, AdminProductWrapper } from "./styles";
 import { IAdminProduct } from "./types";
+import { imageLoader } from "@/imageHelper";
 
 export default function AdminProduct({product, productIndex, setDeleteProductIndex} : IAdminProduct) {
     const [isMenuShown, setMenuShown] = useState(false)
@@ -13,12 +14,11 @@ export default function AdminProduct({product, productIndex, setDeleteProductInd
         }
         setMenuShown(prev => !prev)
     }
-    console.log(product)
 
     return (
         <AdminProductWrapper>
             <AdminProductImageWrapper>
-                {product.image && <AdminProductImage src={`https://forgotten-god.onrender.com/image/${product.image}`}/>}
+                {product.image && <AdminProductImage loader={imageLoader} src={`${product.image}`}/>}
             </AdminProductImageWrapper>
             <AdminProductInfoWrapper>
                 <AdminProductTitle>

@@ -1,6 +1,7 @@
 "use client"
 import { useState } from "react"
 import { Carousel, CarouselTitle, CarouselWrapper, CarouselContent, CarouselBlock, CarouselImage, CarouselArrowWrapper, CarouselLeftArrow, CarouselRightArrow, CarouselBottomButtons, CarouselBottomButton } from "./styles"
+import { imageLoader } from "@/imageHelper"
 
 
 interface IRecommendedCarousel{
@@ -37,7 +38,7 @@ const RecommendationCarousel = ({products} : IRecommendedCarousel) => {
                     {endlessSliderProducts.map((product, productIndex) => (
                         <CarouselBlock key={productIndex} href={`/store/product/${product.id}`}>
                             
-                            <CarouselImage src={`${"https://forgotten-god.onrender.com"}/image/${product.image}`}/>
+                            <CarouselImage loader={imageLoader} src={`${product.image}`}/>
                         </CarouselBlock>
                     ))}
                 </CarouselContent>

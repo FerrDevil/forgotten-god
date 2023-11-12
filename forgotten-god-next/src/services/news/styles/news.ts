@@ -10,7 +10,7 @@ export const NewsNavigation = styled.nav`
     align-items: center;
     column-gap: 30px;
     width: 100%;
-    background-color: #111;
+    background-color: var(--main-color-black);
     padding: 25px;
     justify-content: center;
     position: sticky;
