@@ -9,10 +9,19 @@ const VideoPlayer = ({src, autoPlay=true} : IVideoPlayerProps) => {
     const videoContainer = useRef(null)
     const [videoStatus, setVideoStatus] = useState({
         isPlaying: true,
-        volume: localStorage.getItem("videoPlayerVolume") !== null ? parseInt(localStorage.getItem("videoPlayerVolume") ) : 20,
-        isMuted: localStorage.getItem("isVideoPlayerMuted") !== null ? localStorage.getItem("isVideoPlayerMuted") === "true" : true,
+        volume: 20,
+        isMuted: true,
         isFullScreen: false
     })
+
+    useEffect(() => {
+        setVideoStatus({
+            isPlaying: true,
+            volume: localStorage.getItem("videoPlayerVolume") !== null ? parseInt(localStorage.getItem("videoPlayerVolume") ) : 20,
+            isMuted: localStorage.getItem("isVideoPlayerMuted") !== null ? localStorage.getItem("isVideoPlayerMuted") === "true" : true,
+            isFullScreen: false
+        })
+    }, [])
 
     
 
