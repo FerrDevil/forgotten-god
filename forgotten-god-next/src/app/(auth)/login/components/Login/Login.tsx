@@ -4,7 +4,6 @@ import { LoginWrapper, LoginHeader, LoginMethods, LoginForm, LoginFormHeader, Lo
 import { useEffect, useState } from "react"
 import { useRouter } from "next/navigation"
 import InputField from "@/services/auth/components/InputField/InputField"
-import ErrorMessage from "@/services/auth/components/ErrorMessage/ErrorMessage"
 
 
 export default function Login(){
@@ -91,7 +90,6 @@ export default function Login(){
                         <LoginFormLinkWrapper>У вас еще нет аккаунта? <LoginFormLink href='/register'>Зарегистрироваться</LoginFormLink></LoginFormLinkWrapper>
                     </LoginForm>
                 </LoginMethods>
-                <ErrorMessage text={errorMessageText} setText={setErrorMessageText} delay={3000} />
             </LoginWrapper>
         </>
     )
