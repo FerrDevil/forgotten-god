@@ -17,7 +17,6 @@ export default function RootLayout({children,}: {children: React.ReactNode}) {
       <body>
         <Providers>
           <StyledComponentsRegistry>
-            {/* @ts-expect-error Async Server Component */}
             <BasePageLayout>
               {children}
               <ToastMessage/>
