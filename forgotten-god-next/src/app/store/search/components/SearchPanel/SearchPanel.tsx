@@ -1,47 +1,70 @@
 "use client"
 import { ITag } from "@/app/admin/tags/components/AdminTagsHandler/types"
 import { SearchControls, SearchControlsClose, SearchControlsContent, SearchControlsHeader, SearchControlsHeaderTitle, SearchFilters, SearchFiltersContainer, SearchInput, SearchInputImage, SearchInputWrapper, SearchPanelWrapper, SearchPrices, SearchPricesRange, SearchPricesRangeHint, SearchPricesRangeWrapper, SearchPricesTitle, SearchTag, SearchTagExcludeCheckbox, SearchTagExcludeCheckboxSVG, SearchTagExcludeCheckboxWrapper, SearchTagIncludeCheckbox, SearchTagIncludeCheckboxSVG, SearchTagIncludeCheckboxWrapper, SearchTagName, SearchTags, SearchTagsTitle, SearchTagsWrapper } from "./styles"
-import { useState } from "react"
+import { memo, useEffect, useState } from "react"
+import { ISearchParams } from "../../types"
+import { useRouter, useSearchParams } from "next/navigation"
 
-export default function SearchPanel({searchParams, setSearchParams, tags} : {searchParams, setSearchParams, tags: ITag[]}){
+export default memo(function SearchPanel({ tags} : {tags: ITag[]}){
 
     const [areFiltersOpen, setFiltersOpen] = useState(false)
+    const searchParams = useSearchParams()
+    
+    const [queryParams, setQueryParams] = useState<ISearchParams>({
+        price: parseInt(searchParams.get("price")) || 2200,
+        title: searchParams.get("title") || "",
+        includedTags: searchParams.get("includedTags")?.split(",").filter((tagIndex: string) => tagIndex !== "").map((tagIndex: string) => Number(tagIndex)) || [], // makes a number array from 1,2,3 string
+        excludedTags: searchParams.get("excludedTags")?.split(",").filter((tagIndex: string) => tagIndex !== "").map((tagIndex: string) => Number(tagIndex)) || [],
+        page: parseInt(searchParams.get("page")) || 1
+    })
+    const {replace, push} = useRouter()
 
+    const titleChangeHandle = (event) => {
+        setQueryParams(prev => ({...prev, page: 1, title: event.target.value}))
+    }
 
     const addIncludedTags = (event : React.ChangeEvent<HTMLInputElement>, id : number) => {
-        if (searchParams.excludedTags.includes(id)){
+        if (queryParams.excludedTags.includes(id)){
             event.target.checked = false
             return
         }
         if(event.target.checked){
-            setSearchParams(prev => ({...prev, includedTags: [...prev.includedTags, id]}))
+            setQueryParams(prev => ({...prev, page: 1, includedTags: [...prev.includedTags, id]}))
         }
         else{
-            setSearchParams(prev => ({...prev, includedTags: prev.includedTags.filter(tags => tags !== id)}))
+            setQueryParams(prev => ({...prev, page: 1, includedTags: prev.includedTags.filter(tags => tags !== id)}))
         }
     }
+        
 
     const addExcludedTags = (event : React.ChangeEvent<HTMLInputElement>, id: number) => {
-        if (searchParams.includedTags.includes(id)){
+        if (queryParams.includedTags.includes(id)){
             event.target.checked = false
             return
         } 
         
         if(event.target.checked){
-            setSearchParams(prev => ({...prev, excludedTags: [...prev.excludedTags, id]}))
+            setQueryParams(prev => ({...prev, excludedTags: [...prev.excludedTags, id]}))
         }
         else{
-            setSearchParams(prev => ({...prev, excludedTags: prev.excludedTags.filter(tags => tags !== id)}))
-            
-            
-        }   
+            setQueryParams(prev => ({...prev, excludedTags: prev.excludedTags.filter(tags => tags !== id)}))
+        } 
+        
     }
+    useEffect(() => {
+        replace(`?page=${queryParams.page}&price=${queryParams.price}&title=${queryParams.title}&includedTags=${queryParams.includedTags.join(",")}&excludedTags=${queryParams.excludedTags.join(",")}`)
+        
+    }, [queryParams])
+    useEffect(() => {
+       push(`?page=${queryParams.page}&price=${queryParams.price}&title=${queryParams.title}&includedTags=${queryParams.includedTags.join(",")}&excludedTags=${queryParams.excludedTags.join(",")}`)
+    }, [queryParams.page])
+
     
     return (
         <SearchPanelWrapper>
              <SearchInputWrapper>
                 <SearchInputImage/>
-                <SearchInput onChange={(event => {setSearchParams(prev => ({...prev, title: event.target.value}))})} value={ searchParams.title } placeholder='Поиск по названию'/>
+                <SearchInput onChange={titleChangeHandle} value={ queryParams.title } placeholder='Поиск по названию'/>
             </SearchInputWrapper>
             <SearchFiltersContainer>
                 <SearchFilters onClick={() => {setFiltersOpen(prev => !prev)}}/>
@@ -54,18 +77,20 @@ export default function SearchPanel({searchParams, setSearchParams, tags} : {sea
                         {<SearchPrices>
                             <SearchPricesTitle>Цены</SearchPricesTitle>
                             <SearchPricesRangeWrapper>
-                                <SearchPricesRange type="range" min={0} max={2200} step={200} value={searchParams.price} onInput={(event: React.ChangeEvent<HTMLInputElement>) => {setSearchParams(prev => ({...prev, price: parseInt(event.target.value)}))}} />
-                                <SearchPricesRangeHint>{ searchParams.price === 0 ? "Бесплатно" : searchParams.price === 2200 ? "Любая цена" : `До ${searchParams.price}`}</SearchPricesRangeHint>
+                                <SearchPricesRange type="range" min={0} max={2200} step={200} value={queryParams.price} onInput={(event: React.ChangeEvent<HTMLInputElement>) => {setQueryParams(prev => ({...prev, price: parseInt(event.target.value)}))}} />
+                                <SearchPricesRangeHint>{ queryParams.price === 0 ? "Бесплатно" : queryParams.price === 2200 ? "Любая цена" : `До ${queryParams.price}`}</SearchPricesRangeHint>
                             </SearchPricesRangeWrapper>
                         </SearchPrices> }
                         <SearchTags>
                             <SearchTagsTitle>Тэги</SearchTagsTitle>
                             <SearchTagsWrapper>
-                                {tags.sort((a, b) => a.name.localeCompare(b.name)).map((tag, tagIndex) => (
+                                {tags.map((tag, tagIndex) => (
                                     <SearchTag key={tagIndex}>
                                         <SearchTagName>{tag.name}</SearchTagName>
                                         <SearchTagIncludeCheckboxWrapper>
-                                            <SearchTagIncludeCheckbox onChange={
+                                            <SearchTagIncludeCheckbox
+                                                checked={queryParams.includedTags.includes(tag.id)}
+                                                onChange={
                                                 (event : React.ChangeEvent<HTMLInputElement>) => {
                                                     addIncludedTags(event, tag.id)
                                                 }
@@ -75,7 +100,9 @@ export default function SearchPanel({searchParams, setSearchParams, tags} : {sea
                                         </SearchTagIncludeCheckboxWrapper>
                                         
                                         <SearchTagExcludeCheckboxWrapper>
-                                            <SearchTagExcludeCheckbox onChange={
+                                            <SearchTagExcludeCheckbox
+                                                checked={queryParams.excludedTags.includes(tag.id)}
+                                                onChange={
                                                 (event : React.ChangeEvent<HTMLInputElement>) => {
                                                     addExcludedTags(event, tag.id)
                                                 }}
@@ -96,4 +123,4 @@ export default function SearchPanel({searchParams, setSearchParams, tags} : {sea
         
         </SearchPanelWrapper>
     )
-}
+})

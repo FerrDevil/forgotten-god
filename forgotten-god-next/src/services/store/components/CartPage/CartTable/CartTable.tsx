@@ -12,8 +12,8 @@ const CartTable = ({cart, setCart} : ICartTable) => {
 
     const deleteCartItem = (cartItemId: number) => {
         return async () => {
-            const refreshResponse = await fetch("https://forgotten-god.onrender.com/auth/refresh", {method: "POST", credentials: "include"})
-            const response = await fetch(`https://forgotten-god.onrender.com/store/removeCartItem/${cartItemId}`, {method: "DELETE", credentials: "include"})
+            const refreshResponse = await fetch(`${process.env.NEXT_PUBLIC_HOST_DOMAIN}/auth/refresh`, {method: "POST", credentials: "include"})
+            const response = await fetch(`${process.env.NEXT_PUBLIC_HOST_DOMAIN}/store/removeCartItem/${cartItemId}`, {method: "DELETE", credentials: "include"})
             const message = await response.json()
             if (response.ok && !message.error && !message.msg){
                 setCart(prev => prev.filter(cartItem => cartItem.productId !== cartItemId))
@@ -26,7 +26,7 @@ const CartTable = ({cart, setCart} : ICartTable) => {
         cartItem => (
             <CartItem key={cartItem.productId}>
                 <Link href={`/store/product/${cartItem.productId}`}>
-                    <CartItemImage src={cartItem?.logo && `https://forgotten-god.onrender.com/image/${cartItem?.logo}`}/>
+                    <CartItemImage src={cartItem?.logo && `${process.env.NEXT_PUBLIC_HOST_DOMAIN}/image/${cartItem?.logo}`}/>
                 </Link>
                 <CartItemTitle>{cartItem.title}</CartItemTitle>
                 <CartItemPrice>{cartItem.price} ₽</CartItemPrice>

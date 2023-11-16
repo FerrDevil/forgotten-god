@@ -16,7 +16,7 @@ def check_admin_role(func):
         if not user:
             return jsonify({"error": "No such user found"}), 403
         if user.role != "admin":
-            return jsonify({"error": "Given user is not admin"}), 403
+            return jsonify({"error": "Given user is not an admin"}), 403
         response = func(*args, **kwargs)
         return response
     wrap.__name__ = func.__name__

@@ -38,13 +38,12 @@ const CartPage =  () => {
     const [cart, setCart] = useState([])
     useEffect(() => {
         const getCart = async () => {
-            const refreshResponse = await fetch(`${"https://forgotten-god.onrender.com"}/auth/refresh`, {method: "POST", credentials: "include"})
+            const refreshResponse = await fetch(`${process.env.NEXT_PUBLIC_HOST_DOMAIN}/auth/refresh`, {method: "POST", credentials: "include"})
             if (!refreshResponse.ok) {
-                throw new Error("Login to see this page")
+                throw Error("Login to see this page")
             }
-            const request = await fetch(`${"https://forgotten-god.onrender.com"}/store/getCart`, {credentials: "include"})
+            const request = await fetch(`${process.env.NEXT_PUBLIC_HOST_DOMAIN}/store/getCart`, {credentials: "include"})
             const cartItems : CartItemType[] = await request.json()
-            console.log(cartItems)
             setCart(cartItems)
         }
         getCart()

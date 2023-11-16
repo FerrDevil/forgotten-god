@@ -105,6 +105,8 @@ def get_products():
         response.headers.add('Content-Type', 'application/json')
         return response
 
+    MAX_ELEMENTS_PER_PAGE = 10
+
     products = [
         product for product in products
         if form_data["title"].lower() in product["title"].lower()
@@ -117,6 +119,95 @@ def get_products():
     ]
 
     response = jsonify(products)
+    response.headers.add('Content-Type', 'application/json')
+    return response
+
+
+@store.route('/getExtendedSearchProducts', methods=['GET'])
+def get_extended_search_products():
+    MAX_ELEMENTS_PER_PAGE = 2
+
+    price = request.args.get('price')
+    try:
+        price = int(price if price is not None else 2200)
+    except ValueError:
+        return jsonify({"error": "Incorrect price value type passed. Expected value is int"}), 400
+
+    title = request.args.get('title')
+    title = title if title is not None else ""
+
+    includedTags = request.args.get('includedTags')
+    try:
+        includedTags = [int(tag) for tag in includedTags.split(",")] if includedTags is not None and includedTags != "" else []
+    except ValueError:
+        return jsonify({"error": "Incorrect excluded tags value type passed. Expected value is int array"}), 400
+    except AttributeError:
+        return jsonify({"error": "Incorrect excluded tags value type passed. Expected value is int array"}), 400
+
+    excludedTags = request.args.get('excludedTags')
+    try:
+        excludedTags = [int(tag) for tag in excludedTags.split(",")] if excludedTags is not None and excludedTags != "" else []
+    except ValueError:
+        return jsonify({"error": "Incorrect excluded tags value type passed. Expected value is int array"}), 400
+    except AttributeError:
+        return jsonify({"error": "Incorrect excluded tags value type passed. Expected value is int array"}), 400
+
+    page = request.args.get('page')
+    try:
+        page = int(page if page is not None else 0)
+    except ValueError:
+        return jsonify({"error": "Incorrect page value type passed. Expected value is int "}), 400
+    if page <= 0:
+        return jsonify({"error": "Incorrect page number value"}), 400
+
+    sorted_products = [
+        {
+            'id': product.id,
+            'title': product.title,
+            'logo': product.logo,
+
+            'tags': [
+                {
+                    "id": product_tag.tag_id,
+                    "name": Tag.query.filter_by(id=product_tag.tag_id).first().name
+                } for product_tag in ProductTag.query.filter_by(product_id=product.id).all()
+            ],
+            'price': product.price
+        }
+        for product in Product.query.all()
+    ]
+
+    sorted_products = [
+        product for product in sorted_products
+        if title.lower() in title.lower()
+        and (price == 2200 or price >= int(price))
+        and (len(includedTags) == 0
+             or set([tag.get("id") for tag in product["tags"]])
+             .union(set(includedTags)) == set([tag.get("id") for tag in product["tags"]]))
+        and (len(excludedTags) == 0 or set([tag.get("id") for tag in product["tags"]])
+             .isdisjoint(set(excludedTags)))
+
+    ]
+
+    product_length = len(sorted_products)
+    MAX_PAGE_COUNT = product_length // MAX_ELEMENTS_PER_PAGE + (1 if product_length % MAX_ELEMENTS_PER_PAGE > 0 else 0)
+
+    print("dadadadadad", page, MAX_PAGE_COUNT)
+
+    if page > MAX_PAGE_COUNT and product_length != 0:
+        return jsonify({"error": "Page number value exceeds its maximum value"}), 400
+
+    sorted_products = [
+        product for (productIndex, product) in enumerate(sorted_products)
+        if (MAX_ELEMENTS_PER_PAGE * page) - MAX_ELEMENTS_PER_PAGE <= productIndex < MAX_ELEMENTS_PER_PAGE * page
+    ]
+
+
+
+    response = jsonify({
+        "products": sorted_products,
+        "maxPageCount": MAX_PAGE_COUNT
+    })
     response.headers.add('Content-Type', 'application/json')
     return response
 

@@ -8,9 +8,10 @@ async function getUserInfo() {
     try {
         const refreshCookie = cookies().get("refresh-fg-cookie");
         if(!refreshCookie?.value){
+            console.log(refreshCookie)
             return null
         }
-        const refreshAccess = await fetch(`${process.env.HOST_DOMAIN}/auth/refresh`, {method: "POST", credentials: "include", headers: {
+        const refreshAccess = await fetch(`${process.env.HOST_DOMAIN}/auth/refresh`, { method: "POST", credentials: "include", headers: {
             Authorization: `Bearer ${refreshCookie.value}`
         }})
         /* console.log(new Headers(refreshAccess.headers) ) */
@@ -24,6 +25,7 @@ async function getUserInfo() {
         }) */
         
         if (!response.ok){
+            
           return null
         }
             
@@ -37,12 +39,13 @@ async function getUserInfo() {
 }
 
 
-export default  async function ServerSideUserPreloader() {
+export default  async function ServerSideUserPreloader({children}: {children?: React.ReactNode}) {
     const userInfo : UserInfo = await getUserInfo()
-    
+    console.log(userInfo)
     return (
-        <>
-        <UserPreloader userInfo={userInfo}/>
-        </>
+        <UserPreloader userInfo={userInfo}>
+            {children}
+        </UserPreloader>
+       
     )
 }

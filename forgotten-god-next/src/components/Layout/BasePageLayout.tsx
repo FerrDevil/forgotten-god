@@ -17,6 +17,7 @@ const BasePageLayout = async ({ children }) => {
             <ColoredAlignedFlexMain>
                 {children}
             </ColoredAlignedFlexMain>
+            
         </>
        
     )

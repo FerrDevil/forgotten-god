@@ -5,12 +5,15 @@ import { useEffect, useState } from "react"
 import { useRouter } from "next/navigation"
 import InputField from "@/services/auth/components/InputField/InputField"
 import { useToastMessage } from "@/components/ToastMessage/ToastMessageProvider"
+import { useDispatch } from "react-redux"
+import { setUser } from "@/store/store"
 
 
 const LoginPage = () => {
 
     const router = useRouter()
     const setToastMessage = useToastMessage()
+    const dispatch = useDispatch()
 
     const [loginInfo, setLoginInfo] = useState({
         login : ' ',
@@ -53,9 +56,15 @@ const LoginPage = () => {
     
             const json = await data.json() 
            
-            json.access_token ? 
-                router.back() :
+            if (json.access_token) {
+                const response = await fetch(`${process.env.NEXT_PUBLIC_HOST_DOMAIN}/auth/getUser`, { credentials: "include"})
+                console.log(response)
+                dispatch(setUser(await response.json()))
+                router.back()
+            }
+            else{
                 setToastMessage("Такого пользователя не существует", true, 2000)
+            }
         
         }
         catch (error) {

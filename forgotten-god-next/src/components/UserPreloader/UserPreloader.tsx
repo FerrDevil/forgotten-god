@@ -5,14 +5,14 @@ import { UserInfo } from "@/store/types"
 import { useEffect } from "react"
 import { useDispatch } from "react-redux"
 
-const UserPreloader = ({userInfo}: {userInfo: UserInfo}) => {
+const UserPreloader = ({userInfo, children}: {userInfo: UserInfo, children?: React.ReactNode}) => {
    
     const dispatch = useDispatch()
     useEffect(() => {
         dispatch(setUser(userInfo))
     }, [])
 
-    return <></>
+    return <>{children}</>
 }
 
 export default UserPreloader
