@@ -12,8 +12,7 @@ export const AdminWrapper = styled.div`
     display: flex;
     flex-direction: column;
     width: 100%;
-    height: 100%;
-    padding: 10px 30px;
+    padding: 30px 30px;
     gap: 10px;
 `
 

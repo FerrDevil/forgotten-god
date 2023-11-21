@@ -1,33 +1,18 @@
-"use client"
 
 import {AdminPanelSVG, SupportLinkSVG, HeaderNavigationButton, LogoutButtonSVG, HeaderWrapper, HeaderNavigation, HeaderNavigationList, HeaderNavigationItem, HeaderNavigationItemTitle, LogoImage, LoginLinkSVG, HeaderNavigationLink, DownloadLinkSVG, HeaderMobileNavigation, HeaderMobileNavigationList, HeaderMobileNavigationLink, HeaderMobileNavigationItem, ShopLinkSVG, HeaderMobileNavigationLinkText, NewsLinkSVG, AccountLinkSVG } from "./styles"
-import { memo } from "react"
-import { usePathname } from "next/navigation"
-import { deleteUser, useUserSelector } from "@/store/store"
-import { useDispatch } from "react-redux"
+import HeaderLinkItem from "./HeaderLinkItem"
+import { getUserInfo } from "../UserPreloader/ServerSideUserPreloader"
+import LogoutButton from "./LogoutButton"
 
-const Header = () => {
-    const pathname = usePathname()
-    const dispatch = useDispatch()
-    const {userInfo} = useUserSelector()
 
-    /* console.log(userInfo) */
-    const activeLinks = {
-        store: pathname === '/' || pathname === '/store' || pathname === '/store/browse' || pathname === '/store/cart' || pathname.includes( '/store/product'),
-        news: pathname === '/news',
-        support: pathname === '/support',
-        login: pathname === '/login' || pathname === '/register',
-        profile: pathname === `/user/${userInfo?.userId}` 
+const Header = async () => {
+   
+    const userInfo = await getUserInfo()
 
-    }
-
-    const logout = async () => {
-        await fetch(`${process.env.NEXT_PUBLIC_HOST_DOMAIN}/auth/refresh`, {method: "POST", credentials: "include"})
-        const response = await fetch(`${process.env.NEXT_PUBLIC_HOST_DOMAIN}/auth/logout`, {method: "POST", credentials: "include"})
-        response.ok && dispatch(deleteUser())
-        const message = await response.json()
+   
+    /* 
         
-    } 
+    }  */
     
 
     return (
@@ -35,24 +20,25 @@ const Header = () => {
             <LogoImage/>
             <HeaderNavigation>
                 <HeaderNavigationList>
-                    <HeaderNavigationItem>
-                        <HeaderNavigationLink $isActive={activeLinks.store} href="/">
-                            <ShopLinkSVG/>
-                            <HeaderNavigationItemTitle>Магазин</HeaderNavigationItemTitle>
-                        </HeaderNavigationLink>
-                    </HeaderNavigationItem>
-                    <HeaderNavigationItem>
-                        <HeaderNavigationLink $isActive={activeLinks.news} href="/news">
-                            <NewsLinkSVG/>
-                            <HeaderNavigationItemTitle>Новости</HeaderNavigationItemTitle>
-                        </HeaderNavigationLink>
-                    </HeaderNavigationItem>
-                    <HeaderNavigationItem>
-                        <HeaderNavigationLink $isActive={activeLinks.support} href="/support">
-                            <SupportLinkSVG/>
-                            <HeaderNavigationItemTitle>Поддержка</HeaderNavigationItemTitle>
-                        </HeaderNavigationLink>
-                    </HeaderNavigationItem>
+                    <HeaderLinkItem
+                        href="/"
+                        title="Магазин"
+                        svgIcon={<ShopLinkSVG/>}
+                        includedPagesPaths={["/", "/store/search", "/store/product", "/store/cart"]}
+                    />
+                    <HeaderLinkItem
+                        href="/news"
+                        title="Новости"
+                        svgIcon={ <NewsLinkSVG/>}
+                        includedPagesPaths={["/news"]}
+                    />
+                    <HeaderLinkItem
+                        href="/support"
+                        title="Поддержка"
+                        svgIcon={<SupportLinkSVG/>}
+                        includedPagesPaths={["/support"]}
+                    />
+                    
                 </HeaderNavigationList>
             
                 <HeaderNavigationList>
@@ -81,12 +67,7 @@ const Header = () => {
                                     <HeaderNavigationItemTitle>Профиль</HeaderNavigationItemTitle>
                                 </HeaderNavigationLink>
                             </HeaderNavigationItem>
-                             <HeaderNavigationItem>
-                                <HeaderNavigationButton $isActive={false} onClick={logout}>
-                                    <LogoutButtonSVG/>
-                                    <HeaderNavigationItemTitle>Выйти</HeaderNavigationItemTitle>
-                                </HeaderNavigationButton>
-                            </HeaderNavigationItem>
+                            <LogoutButton/>
                         </>
                     }
                     
@@ -101,7 +82,7 @@ const Header = () => {
             </HeaderNavigation>
 
 
-            <HeaderMobileNavigation>
+           {/*  <HeaderMobileNavigation>
                 <HeaderMobileNavigationList>
                     <HeaderMobileNavigationItem>
                         <HeaderMobileNavigationLink $isActive={activeLinks.store} href="/">
@@ -134,10 +115,10 @@ const Header = () => {
                     
                 </HeaderMobileNavigationList>
             </HeaderMobileNavigation>
-
+ */}
             
         </HeaderWrapper>
     )
 }
 
-export default memo(Header)
+export default Header

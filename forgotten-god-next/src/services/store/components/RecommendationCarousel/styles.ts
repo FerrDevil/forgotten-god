@@ -9,6 +9,7 @@ export const Carousel = styled.div`
     flex-direction: column;
     align-items: flex-start;
     gap: 20px;
+    user-select: none;
 `
 
 export const CarouselTitle = styled.h2`
@@ -22,29 +23,39 @@ export const CarouselTitle = styled.h2`
 `
 
 export const CarouselContent = styled.div<{$index: number}>`
-    display: flex;
+    display: grid;
     flex-direction: row;
+    grid-auto-flow: column;
+    grid-auto-columns: 50%;
     align-items: center;
     width: 100%;
     transition: transform 0.3s ease-in-out;
     transform: translateX(${props => -50 * props.$index - 25 + "%"  });
+
+    @media (max-width: 650px) {
+        grid-auto-columns: 100%;
+        transform: translateX(${props => -100 * (props.$index + 1) + "%"  });
+    }
     
 `
 
 export const CarouselBlock = styled(Link)`
     padding: 0 5px;
     flex: 0 0 50%; 
+    width: 100%;
+    height: 100%;
+    user-select: all;
 `
 
 
 
-export const CarouselImage = styled(Image).attrs(props => (
+export const CarouselImage = styled(Image).attrs(
     {
-       width: 760,
-       height: 429,
+       width: 920,
+       height: 517,
        alt: "carouselImage",
     }
-))`
+)`
     display: inline-block;
     width: 100%;
     max-width: 100%;
@@ -120,7 +131,7 @@ export const CarouselWrapper = styled.div`
 export const CarouselBottomButtons = styled.div`
     position: absolute;
     left: 50%;
-    bottom: min(30px, 5%);
+    bottom: clamp(5px, 1vw, 10px);
     transform: translate(-50%, 0);
     display: flex;
     flex-direction: row;

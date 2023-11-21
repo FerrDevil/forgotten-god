@@ -4,7 +4,7 @@ import UserPreloader from "./UserPreloader"
 import { cookies } from "next/dist/client/components/headers";
 
 
-async function getUserInfo() {
+export async function getUserInfo() {
     try {
         const refreshCookie = cookies().get("refresh-fg-cookie");
         if(!refreshCookie?.value){

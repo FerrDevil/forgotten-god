@@ -3,31 +3,16 @@
   <component name="ChangeListManager">
     <list default="true" id="a0fb916a-e9df-4660-b11e-6a27362ce634" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/admin.py" beforeDir="false" afterPath="$PROJECT_DIR$/admin.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/instance/project.db" beforeDir="false" afterPath="$PROJECT_DIR$/instance/project.db" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/store.py" beforeDir="false" afterPath="$PROJECT_DIR$/store.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../forgotten-god-next/src/app/(auth)/login/components/Login/Login.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../forgotten-god-next/src/app/(auth)/login/components/Login/Login.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../forgotten-god-next/src/app/(auth)/login/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../forgotten-god-next/src/app/(auth)/login/page.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../forgotten-god-next/src/app/store/cart/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../forgotten-god-next/src/app/store/cart/page.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../forgotten-god-next/src/app/store/product/[id]/components/OrderButtons/OrderButtons.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../forgotten-god-next/src/app/store/product/[id]/components/OrderButtons/OrderButtons.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../forgotten-god-next/src/app/store/search/components/SearchStateHandler/SearchPanel/SearchPanel.tsx" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../forgotten-god-next/src/app/store/search/components/SearchStateHandler/SearchPanel/public/close.svg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../forgotten-god-next/src/app/store/search/components/SearchStateHandler/SearchPanel/public/done.svg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../forgotten-god-next/src/app/store/search/components/SearchStateHandler/SearchPanel/public/filter.svg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../forgotten-god-next/src/app/store/search/components/SearchStateHandler/SearchPanel/public/search.svg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../forgotten-god-next/src/app/store/search/components/SearchStateHandler/SearchPanel/styles.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../forgotten-god-next/src/app/store/search/components/SearchStateHandler/SearchProducts/SearchProducts.tsx" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../forgotten-god-next/src/app/store/search/components/SearchStateHandler/SearchProducts/styles.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../forgotten-god-next/src/app/store/search/components/SearchStateHandler/SearchProducts/types.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../forgotten-god-next/src/app/store/search/components/SearchStateHandler/SearchStateHandler.tsx" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../forgotten-god-next/src/app/store/search/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../forgotten-god-next/src/app/store/search/page.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../forgotten-god-next/src/app/store/search/styles.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../forgotten-god-next/src/app/store/search/styles.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../forgotten-god-next/src/app/store/search/types.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../forgotten-god-next/src/app/store/search/types.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../forgotten-god-next/src/components/Layout/BasePageLayout.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../forgotten-god-next/src/components/Layout/BasePageLayout.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../forgotten-god-next/src/components/UserPreloader/ServerSideUserPreloader.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../forgotten-god-next/src/components/UserPreloader/ServerSideUserPreloader.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../forgotten-god-next/src/components/UserPreloader/UserPreloader.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../forgotten-god-next/src/components/UserPreloader/UserPreloader.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../forgotten-god-next/src/services/store/components/CartPage/CartTable/CartTable.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../forgotten-god-next/src/services/store/components/CartPage/CartTable/CartTable.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../forgotten-god-next/next.config.js" beforeDir="false" afterPath="$PROJECT_DIR$/../forgotten-god-next/next.config.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../forgotten-god-next/src/app/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../forgotten-god-next/src/app/page.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../forgotten-god-next/src/app/store/product/[id]/components/MediaSlider/MediaSlider.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../forgotten-god-next/src/app/store/product/[id]/components/MediaSlider/MediaSlider.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../forgotten-god-next/src/app/store/search/components/SearchProducts/SearchProduct.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../forgotten-god-next/src/app/store/search/components/SearchProducts/SearchProduct.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../forgotten-god-next/src/imageHelper.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../forgotten-god-next/src/services/store/components/RecommendationCarousel/RecommendationCarousel.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../forgotten-god-next/src/services/store/components/RecommendationCarousel/RecommendationCarousel.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../forgotten-god-next/src/services/store/components/RecommendationCarousel/styles.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../forgotten-god-next/src/services/store/components/RecommendationCarousel/styles.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../forgotten-god-next/src/services/store/components/StoreNavigation/StoreNavigation.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../forgotten-god-next/src/services/store/components/StoreNavigation/StoreNavigation.tsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />

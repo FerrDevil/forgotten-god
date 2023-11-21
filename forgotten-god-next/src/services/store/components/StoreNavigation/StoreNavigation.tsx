@@ -7,7 +7,7 @@ const StoreNavigation = () => {
 
     return(
         <StoreBrowsePanel>
-            <WishlistLink href='/user/wishlist'>
+            <WishlistLink href='/store/wishlist'>
                 <WishlistLinkSVG/>
             </WishlistLink>
             <CartLink href="/store/cart"><CartLinkSVG/></CartLink>

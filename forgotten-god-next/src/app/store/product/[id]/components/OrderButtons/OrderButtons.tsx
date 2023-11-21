@@ -13,6 +13,7 @@ const OrderButtons = ({product}) => {
     const orderProduct = async () => {
         await addToCartHandle()
         router.push("/store/cart")
+        router.refresh()
     }
 
     return(

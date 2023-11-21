@@ -6,7 +6,16 @@ import { IModal } from "./types"
 const Modal = ({children, isOpen, setOpen}: IModal) => {
   const modal = useRef(null)
   useEffect(() => {
-    isOpen ? modal.current.showModal() : modal.current.close()
+    if(isOpen){
+      modal.current.inert = true
+      modal.current.showModal()
+      modal.current.inert = false
+      document.body.style.overflowY = "hidden"
+    }
+    else{
+      modal.current.close()
+      document.body.style.overflowY = "auto"
+    }
   }, [isOpen])
 
   const closeModal = (event : React.MouseEvent<HTMLDialogElement>) => {

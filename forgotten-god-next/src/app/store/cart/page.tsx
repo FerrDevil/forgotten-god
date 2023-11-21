@@ -1,11 +1,10 @@
-"use client"
+
 import StoreNavigation from "@/services/store/components/StoreNavigation/StoreNavigation"
 import {CartPageWrapper} from "@/services/store/styles/cartPage"
 import { CartItemType } from "@/services/store/components/CartPage/types/types"
 import CartPageClientHandler from "@/services/store/components/CartPage/CartPageClientHandler/CartPageClientHandler"
 
 import { cookies } from "next/dist/client/components/headers"
-import { useEffect, useState } from "react"
 
 
 const getUserCart = async () => {
@@ -33,21 +32,9 @@ const getUserCart = async () => {
     
 }
 
-const CartPage =  () => {
+const CartPage =  async () => {
     
-    const [cart, setCart] = useState([])
-    useEffect(() => {
-        const getCart = async () => {
-            const refreshResponse = await fetch(`${process.env.NEXT_PUBLIC_HOST_DOMAIN}/auth/refresh`, {method: "POST", credentials: "include"})
-            if (!refreshResponse.ok) {
-                throw Error("Login to see this page")
-            }
-            const request = await fetch(`${process.env.NEXT_PUBLIC_HOST_DOMAIN}/store/getCart`, {credentials: "include"})
-            const cartItems : CartItemType[] = await request.json()
-            setCart(cartItems)
-        }
-        getCart()
-    }, [])
+    const cart = await getUserCart()
     
     
 
@@ -55,7 +42,7 @@ const CartPage =  () => {
             <>
                 <StoreNavigation/>
                 <CartPageWrapper>
-                    <CartPageClientHandler cart={cart} setCart={setCart}/>
+                    <CartPageClientHandler cart={cart} />
                 </CartPageWrapper>
             </>
     )

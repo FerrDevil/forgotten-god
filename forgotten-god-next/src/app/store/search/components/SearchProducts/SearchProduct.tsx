@@ -1,7 +1,7 @@
 "use client"
 import { Suspense } from "react"
 import { SearchingProduct } from "./types"
-import { imageLoader } from "@/imageHelper"
+import { imageLoader } from "@/components/ui/ImageLoader/ImageLoader"
 import { AddToCartButton, AddToCartSVG, SearchProductImage, SearchProductImageWrapper, SearchProductInfo, SearchProductPrice, SearchProductTitle, SearchProductWrapper } from "./styles"
 
 const SearchProduct = ({product} : {product: SearchingProduct}) => {

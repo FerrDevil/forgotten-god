@@ -6,12 +6,12 @@ import CartTable from "../CartTable/CartTable"
 import { CartItemType } from "../types/types"
 
 
-const CartPageClientHandler = ({cart, setCart} : {cart: CartItemType[], setCart: Dispatch<SetStateAction<CartItemType[]>>}) => {
-    /* const [cartItems, setCartItems] = useState(cart) */
+const CartPageClientHandler = ({cart} : {cart: CartItemType[]}) => {
+    const [cartItems, setCartItems] = useState(cart)
     return (
         <>
-            <CartTable cart={cart} setCart={setCart}/>
-            <CartOrder cart={cart}/>
+            <CartTable cart={cartItems} setCart={setCartItems}/>
+            <CartOrder cart={cartItems}/>
         </>
     )
 }

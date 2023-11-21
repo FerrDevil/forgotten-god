@@ -2,7 +2,7 @@
 import { MediaWrapper, MediaContainer, MediaImage, SliderWrapper, SliderLeftArrow, SliderContentWrapper, SliderContent, SliderRightArrow, SliderImageWrapper, SliderImage, SliderVideoMark, SliderArrowButton } from "./mediaStyles"
 import { useMemo, useState } from "react"
 import VideoPlayer from "@/components/VideoPlayer/VideoPlayer"
-import { imageLoader } from "@/imageHelper"
+import { imageLoader } from "@/components/ui/ImageLoader/ImageLoader"
 
 const MediaSlider = ({ mediaElements=[] }) => {
 

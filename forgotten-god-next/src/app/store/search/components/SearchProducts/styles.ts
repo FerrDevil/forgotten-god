@@ -32,20 +32,26 @@ export const AddToCartSVG = styled(CartSVG)`
     
 `
 export const AddToCartButton = styled.button`
-    all: unset;
+    border: none;
     position: absolute;
     right: 10px;
     top: 10px;
     cursor: pointer;
-    transition: background-color 0.25s ease-in-out;
+    transition: 
+        background-color 0.25s ease-in-out,
+        opacity 0.2s ease-in-out;
     background-color: #780c0c;
     display: grid;
     padding: 5px;
     border-radius: 4px;
-    &:hover{
+    opacity: 0;
+    &:hover, &:focus{
+        outline: 1px solid transparent;
         background-color: #ccc;
+        opacity: 1;
     }
-    &:hover > ${AddToCartSVG}{
+    &:hover > svg, &:focus > svg{
+        
         fill: #780c0c;
     }
 `
@@ -60,6 +66,10 @@ export const SearchProductWrapper = styled(Link)`
     outline: 1px solid transparent;
     overflow: hidden;
     z-index: 1;
+    transition: outline-color 0.2s ease-in-out;
+    &:hover > ${AddToCartButton}, &:focus-visible > ${AddToCartButton}{
+        opacity: 1;
+    }
     
     &:hover, &:focus-visible{
         
@@ -99,7 +109,7 @@ export const SearchProductInfo = styled.div`
 
 export const SearchProductTitle = styled.span`
     color: #ccc;
-    font-size: 18px;
+    font-size: clamp(14px, 7px + 1vw, 18px);
     white-space: nowrap;
     text-overflow: ellipsis;
     overflow: hidden;
@@ -108,12 +118,12 @@ export const SearchProductTitle = styled.span`
 
 export const SearchProductPrice = styled.span`
     color: #ccc;
-    font-size: 18px;
+    font-size: clamp(14px, 7px + 1vw, 18px);
     white-space: nowrap;
     
 `
 export const SearchNoSuchProductsFound = styled.span`
-    font-size: 20px;
+    font-size: clamp(14px, 7px + 1vw, 20px);
     padding: 20px;
     color: #ccc;
     width: 100%;
