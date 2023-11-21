@@ -2,7 +2,7 @@
 import { useRef, useState } from "react";
 import { AdminMenuToggleSVG, AdminProductImage, AdminProductImageWrapper, AdminProductInfoWrapper, AdminProductMenuButton, AdminProductMenuContainer, AdminProductMenuLink, AdminProductMenuToggleButton, AdminProductMenuWrapper, AdminProductTitle, AdminProductWrapper } from "./styles";
 import { IAdminProduct } from "./types";
-import { imageLoader } from "@/imageHelper";
+import { imageLoader } from "@/components/ui/ImageLoader/ImageLoader";
 
 export default function AdminProduct({product, productIndex, setDeleteProductIndex} : IAdminProduct) {
     const [isMenuShown, setMenuShown] = useState(false)
