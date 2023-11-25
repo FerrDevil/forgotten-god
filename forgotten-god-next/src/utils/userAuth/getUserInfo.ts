@@ -5,7 +5,7 @@ export async function getUserInfo() {
     try {
         const refreshCookie = cookies().get("refresh-fg-cookie");
         if(!refreshCookie?.value){
-
+            console.log(cookies())
             return null
         }
         const refreshAccess = await fetch(`${process.env.HOST_DOMAIN}/auth/refresh`, { method: "POST", credentials: "include", headers: {
