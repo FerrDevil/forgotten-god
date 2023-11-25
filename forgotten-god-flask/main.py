@@ -17,8 +17,8 @@ app.config.from_object(ApplicationConfig)
 def after_request(response):
 
     if not response.headers.get("Access-Control-Allow-Origin"):
-        # response.headers.add('Access-Control-Allow-Origin', 'https://forgotten-god.vercel.app')
-        response.headers.add('Access-Control-Allow-Origin', 'http://localhost:3000')
+        response.headers.add('Access-Control-Allow-Origin', 'https://forgotten-god.vercel.app')
+        # response.headers.add('Access-Control-Allow-Origin', 'http://localhost:3000')
         
     response.headers.add('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE,OPTIONS')
     response.headers.add('Access-Control-Allow-Credentials', 'true')
