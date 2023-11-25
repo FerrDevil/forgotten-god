@@ -8,8 +8,8 @@ const SalesTable = () => {
 
     useEffect(() => {
         const getSalesInfo = async () => {
-            await fetch(`${process.env.NEXT_PUBLIC_HOST_DOMAIN || "https://forgotten-god.onrender.com"}/auth/refresh`, {method: "POST", credentials: "include"})
-            const response = await fetch(`${process.env.NEXT_PUBLIC_HOST_DOMAIN || "https://forgotten-god.onrender.com"}/admin/getSalesInfo`, { credentials: "include"})
+            await fetch(`${process.env.NEXT_PUBLIC_HOST_DOMAIN}/auth/refresh`, {method: "POST", credentials: "include"})
+            const response = await fetch(`${process.env.NEXT_PUBLIC_HOST_DOMAIN}/admin/getSalesInfo`, { credentials: "include"})
             const sales = await response.json()
             setSalesInfo(sales)
         }

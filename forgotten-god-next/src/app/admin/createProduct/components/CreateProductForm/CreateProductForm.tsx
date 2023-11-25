@@ -3,25 +3,24 @@
 import { useState, useEffect } from "react"
 
 import { ProductButton, ProductForm, ProductFormHeader, ProductFormContent, ProductFormMainInfoWrapper, ProductFormMainInfo, ProductFormMainInfoSidebar, ProductFormBriefGameInfo, ProductFormGameLogoWrapper, ProductFormGameLogo, ProductFormWishlistButton, ProductFormOrderButtonWrapper, ProductFormOrderButton, ProductFormCartButton, ProductFormCartSVG, ProductFormGameDetails, ProductFormGameDetail, ProductFormGameDetailName, ProductFormGameDetailValueWrapper, ProductFormGameDetailValue, ProductFormGameTagsWrapper, ProductFormGameTagsHeader, ProductFormGameTagsContainer, ProductFormGameSynopsis, ProductFormGameSynopsisHeader, ProductFormGameLogoFileInput, ProductFormGameLogoFileInputWrapper, ProductFormGameLogoFileInputDescriptionWrapper, ProductFormGameLogoFileInputDescription, ProductImagePlaceholderSVG, ProductFormGameTagsAddButton, ProductFormGameTagsAddButtonSVG, ProductFormGameTagWrapper, ProductFormGameTagName, ProductFormGameTagDeleteButton, ProductFormGameTagsDeleteButtonSVG } from "./styles"
-import { useSelector } from "react-redux"
-import { ITag } from "@/app/admin/tags/components/AdminTagsHandler/types"
+
 import TitleField from "./TitleField/TitleField"
 import SynopsisField from "./SynopsisField/SynopsisField"
 import MediaSlider from "@/app/admin/createProduct/components/CreateProductForm/MediaSlider/MediaSlider"
 import PriceField from "./PriceField/PriceField"
 import AddTagModal from "./AddTagModal/AddTagModal"
-import { useUserSelector } from "@/store/store"
+import { TTag } from "@/types/store/types"
 
 export type IProductInfo = {
     title: string,
     logo: File | null,
     price: string,
     synopsis: string,
-    tags: ITag[]
+    tags: TTag[]
     media: File[]
 }
 
-const CreateProductForm = ({tags}) => {
+const CreateProductForm = ({tags, userInfo}) => {
    
     const [productInfo, setProductInfo] = useState<IProductInfo>({
         title: "Название",
@@ -32,7 +31,6 @@ const CreateProductForm = ({tags}) => {
         media: []
     })
 
-    const {userInfo} = useUserSelector()
 
     const [isSubmitButtonDisabled, setSubmitButtonDisabled] = useState(true)
 
@@ -83,7 +81,7 @@ const CreateProductForm = ({tags}) => {
 
 
     const setTags = async (id : number) => {
-        const setTagsResponse = await fetch(`${process.env.PUBLIC_ENV_HOST_DOMAIN  || "https://forgotten-god.onrender.com"}/admin/setGameTags/${id}`, {
+        const setTagsResponse = await fetch(`${process.env.NEXT_PUBLIC_HOST_DOMAIN}/admin/setGameTags/${id}`, {
             method: "POST",
             body: JSON.stringify(productInfo.tags),
             credentials: "include"
@@ -95,7 +93,7 @@ const CreateProductForm = ({tags}) => {
     const setLogo = async (id : number) => {
         const fileData = new FormData()
         fileData.append("file", productInfo.logo,  productInfo.logo.name)
-        const uploadLogoResponse = await fetch(`${process.env.PUBLIC_ENV_HOST_DOMAIN  || "https://forgotten-god.onrender.com"}/admin/setGameLogo/${id}`, {
+        const uploadLogoResponse = await fetch(`${process.env.NEXT_PUBLIC_HOST_DOMAIN}/admin/setGameLogo/${id}`, {
             method: "POST",
             body: fileData,
             credentials: "include"
@@ -110,7 +108,7 @@ const CreateProductForm = ({tags}) => {
             mediaData.append(`file${index}`, mediaItem,  mediaItem.name)
         })
         
-        const uploadMediaResponse = await fetch(`${process.env.PUBLIC_ENV_HOST_DOMAIN  || "https://forgotten-god.onrender.com"}/admin/setGameMedia/${id}`, {
+        const uploadMediaResponse = await fetch(`${process.env.NEXT_PUBLIC_HOST_DOMAIN}/admin/setGameMedia/${id}`, {
             method: "POST",
             body: mediaData,
             credentials: "include"
@@ -122,10 +120,9 @@ const CreateProductForm = ({tags}) => {
 
     const createNewProduct = async (event : React.MouseEvent<HTMLButtonElement>) => {
         event.preventDefault()
-        const refreshResponse = await fetch(`${process.env.PUBLIC_ENV_HOST_DOMAIN || "https://forgotten-god.onrender.com"}/auth/refresh`, {method: "POST", credentials: "include"})
-        const response = await fetch(`${process.env.PUBLIC_ENV_HOST_DOMAIN  || "https://forgotten-god.onrender.com"}/admin/createGame`, {method: "POST", credentials: "include", body: JSON.stringify(productInfo)})
+        const refreshResponse = await fetch(`${process.env.NEXT_PUBLIC_HOST_DOMAIN}/auth/refresh`, {method: "POST", credentials: "include"})
+        const response = await fetch(`${process.env.NEXT_PUBLIC_HOST_DOMAIN}/admin/createGame`, {method: "POST", credentials: "include", body: JSON.stringify(productInfo)})
         const product = await response.json()
-        console.log(product)
         
         const logoResponse = await setLogo(product.id)
         const tagsResponse = await setTags(product.id)

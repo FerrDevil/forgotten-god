@@ -1,6 +1,6 @@
 "use client"
 import { MediaWrapper, MediaContainer, MediaImage, SliderWrapper, SliderLeftArrow, SliderContentWrapper, SliderContent, SliderRightArrow, SliderVideoMark, SliderArrowButton, ProductFormMediaWrapper, ProductFormMediaFileInputWrapper, ProductFormMediaFileInput, ProductFormMediaFileInputDescriptionWrapper, ProductFormMediaFileInputDescription, ProductFormMediaPlaceholderSVG, ProductFormMedia } from "./mediaStyles"
-import { Dispatch, SetStateAction, useMemo, useState } from "react"
+import { Dispatch, SetStateAction, memo, useMemo, useState } from "react"
 import VideoPlayer from "@/components/VideoPlayer/VideoPlayer"
 import { IProductInfo } from "../CreateProductForm"
 import MediaSliderCanvas from "./MediaSliderCanvas"
@@ -33,8 +33,6 @@ const MediaSlider = ({ mediaElements=[], setProductInfo } : {mediaElements: File
 
 
 const ImageSlider = ({elements=[], sliderParams, setSliderParams, setProductInfo}: IImageSlider) => {
-    console.log(sliderParams.selectedMediaIndex)
-
     const getPagesLength = useMemo(() => Math.ceil((elements.length + 1 )/ 4), [elements] )
 
     const movePageLeft = () => {
@@ -120,4 +118,4 @@ const ImageSlider = ({elements=[], sliderParams, setSliderParams, setProductInfo
 
 
 
-export default MediaSlider
+export default memo(MediaSlider)

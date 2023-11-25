@@ -15,11 +15,8 @@ export const UserTableContent = styled.div`
     flex-direction: column;
     gap: 1px;
 `
-interface IIsHeader{
-    $isHeader: boolean
-}
 
-export const UserTableRow = styled.div<IIsHeader>`
+export const UserTableRow = styled.div<{$isHeader: boolean}>`
     display: grid;
     grid-template-columns: repeat(6, 1fr);
     

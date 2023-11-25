@@ -1,10 +1,10 @@
-import { ITag } from "@/app/admin/tags/components/AdminTagsHandler/types"
+import { TTag } from "@/types/store/types"
 import { Dispatch, SetStateAction } from "react"
 import { IProductInfo } from "../CreateProductForm"
 
 export interface IAddTagModal{
     isOpen: boolean
     setOpen : Dispatch<SetStateAction<boolean>>
-    tags: ITag[]
+    tags: TTag[]
     setProductsInfo: Dispatch<SetStateAction<IProductInfo>>
 }

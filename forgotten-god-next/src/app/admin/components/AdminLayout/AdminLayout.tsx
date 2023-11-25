@@ -1,10 +1,13 @@
-"use client"
-import { useUserSelector } from "@/store/store";
+import { getUserInfo } from "@/utils/userAuth/getUserInfo";
 import { AdminCreateProductSVG, AdminLinks, AdminPagesLink, AdminPagesLinkDescription, AdminPanel, AdminProductsSVG, AdminSalesSVG, AdminTagsSVG, AdminUsersSVG, AdminWrapper } from "../../styles";
 import { notFound } from "next/navigation";
 
-export default function AdminLayout({children} : {children: React.ReactNode}){
-    const {userInfo} = useUserSelector()
+
+
+
+
+export default async function AdminLayout({children} : {children: React.ReactNode}){
+    const userInfo = await getUserInfo()
     userInfo?.userRole !== "admin" && notFound()
 
     return(

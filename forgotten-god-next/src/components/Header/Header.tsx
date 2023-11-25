@@ -1,19 +1,15 @@
 
 import {AdminPanelSVG, SupportLinkSVG, HeaderNavigationButton, LogoutButtonSVG, HeaderWrapper, HeaderNavigation, HeaderNavigationList, HeaderNavigationItem, HeaderNavigationItemTitle, LogoImage, LoginLinkSVG, HeaderNavigationLink, DownloadLinkSVG, HeaderMobileNavigation, HeaderMobileNavigationList, HeaderMobileNavigationLink, HeaderMobileNavigationItem, ShopLinkSVG, HeaderMobileNavigationLinkText, NewsLinkSVG, AccountLinkSVG } from "./styles"
 import HeaderLinkItem from "./HeaderLinkItem"
-import { getUserInfo } from "../UserPreloader/ServerSideUserPreloader"
+
 import LogoutButton from "./LogoutButton"
+import { getUserInfo } from "@/utils/userAuth/getUserInfo"
 
 
 const Header = async () => {
    
     const userInfo = await getUserInfo()
-
-   
-    /* 
-        
-    }  */
-    
+    console.log(userInfo)
 
     return (
         <HeaderWrapper>

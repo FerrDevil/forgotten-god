@@ -1,6 +1,8 @@
 /* "use client" */
 import CreateProductForm from "@/app/admin/createProduct/components/CreateProductForm/CreateProductForm"
-import { ITag } from "../tags/components/AdminTagsHandler/types"
+
+import { TTag } from "@/types/store/types"
+import { getUserInfo } from "@/utils/userAuth/getUserInfo"
 
 
 async function getTags() {
@@ -10,9 +12,10 @@ async function getTags() {
 
 
 export default async function AdminCreateProductPage (){
-    const tags: ITag[] = await getTags()  
+    const tags: TTag[] = await getTags()  
+    const userInfo = await getUserInfo()
 
     return(
-        <CreateProductForm tags={tags}/>
+        <CreateProductForm userInfo={userInfo} tags={tags}/>
     )
 }

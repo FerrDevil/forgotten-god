@@ -5,17 +5,6 @@ import { useUserSelector } from "@/store/store"
 
 
 export default function AdminUsersPage()  {
-
-
-    const {userInfo} = useUserSelector()
-    if (userInfo?.userRole !== "admin") {
-        return (
-            <>
-                <div>user is not admin</div>
-            </>
-        )
-    }
-
     return(
         <>
            <UserTable/>

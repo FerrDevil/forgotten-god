@@ -37,10 +37,6 @@ const LoginPage = () => {
             setSubmitButtonDisabled(false) 
         }, [loginInfo]
     )
-
-
-
-    
     
     const formSubmit = async (event : React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
         event.preventDefault()
@@ -55,9 +51,10 @@ const LoginPage = () => {
             const json = await data.json() 
            
             if (json.access_token) {
-                const response = await fetch(`${process.env.NEXT_PUBLIC_HOST_DOMAIN}/auth/getUser`, { credentials: "include"})
-                router.back()
+                router.push("/")
                 router.refresh()
+                
+                
             }
             else{
                 setToastMessage("Такого пользователя не существует", true, 2000)

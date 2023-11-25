@@ -3,11 +3,12 @@
 import { AdminCreateTagSVG, AdminProductsWrapper, AdminTagButton, AdminTagButtonDescription } from "./styles"
 import { useState } from "react"
 import AdminTags from "@/app/admin/tags/components/AdminTagsHandler/AdminTags/AdminTags"
-import { ITag } from "./types"
+
 import DeleteTagModal from "./DeleteTagsModal/DeleteTagModal"
 import AddTagModal from "./AddTagModal/AddTagModal"
+import { TTag } from "@/types/store/types"
 
-export default function AdminTagsHandler({tags} : {tags: ITag[]}) {
+export default function AdminTagsHandler({tags} : {tags: TTag[]}) {
     const [tagsInfo, setTagsInfo] = useState(tags)
 
     const [deleteTagIndex, setDeleteTagIndex] = useState(-1)

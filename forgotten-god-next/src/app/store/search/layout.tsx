@@ -1,11 +1,11 @@
-import { ITag } from "@/app/admin/tags/components/AdminTagsHandler/types";
 import { SearchContainer } from "./styles";
 import SearchPanel from "./components/SearchPanel/SearchPanel";
+import { TTag } from "@/types/store/types";
 
 
 async function getTags() {
     const response = await fetch(`${process.env.HOST_DOMAIN}/store/getTags`, {method: "GET"})
-    const allTags = (await response.json()).sort((a: ITag, b: ITag) => a.name.localeCompare(b.name))
+    const allTags = (await response.json() as TTag[] | null).sort((a, b) => a.name.localeCompare(b.name))
     return allTags
 }
 

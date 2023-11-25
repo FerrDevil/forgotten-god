@@ -1,11 +1,11 @@
 "use client"
-import { ITag } from "@/app/admin/tags/components/AdminTagsHandler/types"
 import { SearchControls, SearchControlsClose, SearchControlsContent, SearchControlsHeader, SearchControlsHeaderTitle, SearchFilters, SearchFiltersContainer, SearchInput, SearchInputImage, SearchInputWrapper, SearchPanelWrapper, SearchPrices, SearchPricesRange, SearchPricesRangeHint, SearchPricesRangeWrapper, SearchPricesTitle, SearchTag, SearchTagExcludeCheckbox, SearchTagExcludeCheckboxSVG, SearchTagExcludeCheckboxWrapper, SearchTagIncludeCheckbox, SearchTagIncludeCheckboxSVG, SearchTagIncludeCheckboxWrapper, SearchTagName, SearchTags, SearchTagsTitle, SearchTagsWrapper } from "./styles"
 import { memo, useEffect, useState } from "react"
 import { ISearchParams } from "../../types"
 import { useRouter, useSearchParams } from "next/navigation"
+import { TTag } from "@/types/store/types"
 
-export default memo(function SearchPanel({ tags} : {tags: ITag[]}){
+export default memo(function SearchPanel({ tags} : {tags: TTag[]}){
 
     const [areFiltersOpen, setFiltersOpen] = useState(false)
     const searchParams = useSearchParams()
