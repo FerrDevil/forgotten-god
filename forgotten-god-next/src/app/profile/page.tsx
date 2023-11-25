@@ -1,7 +1,7 @@
 
 import { notFound } from "next/navigation";
 import { UserPageWrapper, UserPanel, UserPanelLibrary, UserPanelProduct, UserPanelProductImage, UserPanelProductImageWrapper, UserPanelTitle} from "./styles"
-import { cookies } from "next/dist/client/components/headers";
+import { cookies } from "next/headers";
 
 
 type ILibrary = {

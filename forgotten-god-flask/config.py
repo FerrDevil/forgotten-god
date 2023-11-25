@@ -3,15 +3,13 @@ from datetime import timedelta
 
 class ApplicationConfig:
     SQLALCHEMY_TRACK_MODIFICATIONS = False
-    SQLALCHEMY_ECHO = True
+    SQLALCHEMY_ECHO = False
     SQLALCHEMY_DATABASE_URI = "sqlite:///project.db"
     SECRET_KEY = 'Afz-_ysgX1-mQSvSFMEKql8pUTo9Emlp'
     JWT_TOKEN_LOCATION = ['cookies', "headers"]
     JWT_COOKIE_SECURE = True
-    JWT_COOKIE_SAMESITE = "None"
+    JWT_COOKIE_SAMESITE = "Strict"
     JWT_SESSION_COOKIE = False
-    JWT_ACCESS_COOKIE_PATH = '/'
-    JWT_REFRESH_COOKIE_PATH = '/'
     JWT_ACCESS_COOKIE_NAME = "access-fg-cookie"
     JWT_REFRESH_COOKIE_NAME = "refresh-fg-cookie"
     JWT_COOKIE_CSRF_PROTECT = False

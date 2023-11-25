@@ -1,0 +1,32 @@
+version: '3.9'
+services:
+  frontend:
+    container_name: fg-next
+    build: ./forgotten-god-next
+    ports:
+      - 3000:3000
+  backend:
+    container_name: fg-flask
+    build: ./forgotten-god-flask
+    ports:
+      - 5000:5000
+  nginx:
+    container_name: nginx
+    build: ./nginx
+    volumes:
+      - ./nginx/conf/:/etc/nginx/conf.d/:rw
+      - ./certbot/www:/var/www/certbot/:rw
+      - ./certbot/conf/:/etc/letsencrypt/:rw
+      - ./certbot/conf/:/etc/nginx/ssl/:rw
+    ports:
+      - "80:80"
+      - "443:443"
+    command: nginx -g "daemon off;"
+    
+  certbot:
+    image: certbot/certbot:latest
+    volumes:
+      - ./certbot/www/:/var/www/certbot/:rw
+      - ./certbot/conf/:/etc/letsencrypt/:rw
+    command: renew 
+ 
