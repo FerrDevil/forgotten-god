@@ -9,7 +9,7 @@ import { getUserInfo } from "@/utils/userAuth/getUserInfo"
 const Header = async () => {
    
     const userInfo = await getUserInfo()
-    console.log(userInfo)
+    console.log("userInfo: ", userInfo)
 
     return (
         <HeaderWrapper>
