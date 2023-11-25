@@ -23,10 +23,5 @@ services:
       - "443:443"
     command: nginx -g "daemon off;"
     
-  certbot:
-    image: certbot/certbot:latest
-    volumes:
-      - ./certbot/www/:/var/www/certbot/:rw
-      - ./certbot/conf/:/etc/letsencrypt/:rw
-    command: renew 
+  
  
