@@ -1,14 +1,16 @@
 "use client"
 
-import { createContext, useCallback, useContext, useState } from "react"
+import { createContext, useContext, useState } from "react"
 import { Message } from "./types"
 
 export const errorMessageContext = createContext(null)
 
+const MAX_MASSAGES_COUNT = 1
+
 export function useToastMessage () {
     const [messages, setMessages] = useContext(errorMessageContext)
     const setNewMessage = (message="", isError=true, timeout=2000) => {
-        setMessages(prev => prev.length >= 3 ? prev:
+        setMessages((prev: Message[]) => prev.length >= MAX_MASSAGES_COUNT ? prev:
             [...prev, {
                 message: message,
                 isError: isError,

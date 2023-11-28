@@ -1,11 +1,12 @@
 "use client"
 
-import { createContext, useContext, useEffect, useState } from "react"
+import { useContext, useEffect } from "react"
 import { ToastMessageErrorIcon, ToastMessageIconWrapper, ToastMessageSuccessIcon, ToastMessageText, ToastMessageWrapper, ToastWrapper } from "./styles"
 import { errorMessageContext } from "./ToastMessageProvider"
+import { MessageContext, MessageItemProps } from "./types"
 
 export default function ToastMessage() {
-    const [messages, setMessages] = useContext(errorMessageContext)
+    const [messages, setMessages] = useContext<MessageContext>(errorMessageContext)
     return(
         <ToastWrapper>
             {
@@ -18,7 +19,7 @@ export default function ToastMessage() {
     )
 }
 
-const ToastMessageItem = ({message=null, setMessages}) => {
+const ToastMessageItem = ({message=null, setMessages}: MessageItemProps) => {
 
     useEffect(() => {
         setTimeout(() => {

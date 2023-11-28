@@ -23,6 +23,17 @@ export const PaginationPageLink = styled(Link)`
     cursor: pointer;
 `
 
+export const PaginationCurrentPage = styled.div`
+    display: grid;
+    place-items: center;
+    width: 40px;
+    height: 40px;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    color: #ccc;
+`
+
 export const PaginationPageLoader = styled.div`
     display: grid;
     place-items: center;

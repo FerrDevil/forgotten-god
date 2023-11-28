@@ -7,8 +7,7 @@ import PaginationModule from "../PaginationModule/PaginationModule"
 
 
 async function getExtendedSearchProducts(searchParams) {
-    console.log(`${process.env.NEXT_PUBLIC_HOST_DOMAIN}/store/getExtendedSearchProducts?page=${searchParams.page}&price=${searchParams.price}&title=${searchParams.title}&includedTags=${searchParams.includedTags.join(",")}&excludedTags=${searchParams.excludedTags.join(",")}`)
-    const response = await fetch(`${process.env.NEXT_PUBLIC_HOST_DOMAIN}/store/getExtendedSearchProducts?page=${searchParams.page}&price=${searchParams.price}&title=${searchParams.title}&includedTags=${searchParams.includedTags.join(",")}&excludedTags=${searchParams.excludedTags.join(",")}`, {
+    const response = await fetch(`${process.env.HOST_DOMAIN}/store/getExtendedSearchProducts?page=${searchParams.page}&price=${searchParams.price}&title=${searchParams.title}&includedTags=${searchParams.includedTags.join(",")}&excludedTags=${searchParams.excludedTags.join(",")}`, {
         cache: "no-store"
     })
     /* if(!response.ok)
@@ -20,16 +19,14 @@ async function getExtendedSearchProducts(searchParams) {
     
     return extendedSearchProducts
 }
-//{products} : {products: SearchingProduct[]}
 
 const SearchProducts = async ({searchQueryParams}) => {
     
     const {products, maxPageCount} = await getExtendedSearchProducts(searchQueryParams)
-    console.log(products)
     return(
         <SearchContentWrapper>
             {
-                products.length > 0 ?
+                products?.length > 0 ?
                 <>
                 <SearchContent>
                     {

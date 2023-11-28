@@ -53,7 +53,8 @@ export const NotFoundByGodTextMessage = styled.span`
     text-align: center;
     transform: translateY(-200%);
     opacity: 0;
-    animation: text-move-in 1.2s 1.2s ease-in-out forwards;
+    animation: text-move-in 1.2s ease-in-out forwards;
+    animation-delay: 1.2s;
     @keyframes text-move-in {
         from{
             transform: translateY(-200%);
@@ -79,7 +80,8 @@ export const NotFoundByGodReturnButton = styled.button`
     cursor: pointer;
     transform: translateY(200%);
     opacity: 0;
-    animation: button-move-in 1.2s 2.4s ease-in-out forwards;
+    animation: button-move-in 1.2s ease-in-out forwards;
+    animation-delay: 2.4s;
 
     @keyframes button-move-in {
         from{

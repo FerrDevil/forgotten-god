@@ -1,3 +1,4 @@
+"use client"
 import styled from "styled-components"
 import Link from "next/link"
 import CartSVG from "../../public/cart.svg";
@@ -30,9 +31,8 @@ export const StoreBrowsePanel = styled.div`
 
 
 export const WishlistLinkSVG = styled(WishlistSVG)`
-    width: 40px;
-    height: 40px;
-    padding: 5px;
+    width: 100%;
+    height: 100%;
     object-fit: contain;
     fill: #ccc;
     transition: fill 0.3s ease-in-out;
@@ -44,6 +44,8 @@ export const WishlistLinkSVG = styled(WishlistSVG)`
 `
 
 export const WishlistLink = styled(Link)`
+    width: 30px;
+    height: 30px;
     &:hover, &:focus{
         outline: 1px solid transparent;
     }
@@ -55,9 +57,8 @@ export const WishlistLink = styled(Link)`
 
 
 export const CartLinkSVG = styled(CartSVG)`
-    width: 40px;
-    height: 40px;
-    padding: 5px;
+    width: 100%;
+    height: 100%;
     object-fit: contain;
     fill: #ccc;
     transition: fill 0.3s ease-in-out;
@@ -69,7 +70,8 @@ export const CartLinkSVG = styled(CartSVG)`
 `
 
 export const CartLink = styled(Link)`
-    
+    width: 30px;
+    height: 30px;
     border-radius: 10px;
     &:hover, &:focus{
         outline: 1px solid transparent;

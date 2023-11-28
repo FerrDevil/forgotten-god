@@ -55,7 +55,7 @@ export const SearchInput = styled.input`
     }
 `
 
-export const SearchResults = styled.div`
+export const SearchResults = styled.div<{$isVisible: boolean}>`
     display: flex;
     flex-direction: column;
     align-items: center;

@@ -1,7 +1,7 @@
 "use client"
 
 import Link from "next/link"
-import { SearchInput, SearchInputSVG, SearchResults, SearchResult, SearchResultBlock, SearchResultPrice, SearchResultTitle, SearchResultImage, SearchInputWrapper } from "./searchByTitle"
+import { SearchInput, SearchInputSVG, SearchResults, SearchResult, SearchResultBlock, SearchResultPrice, SearchResultTitle, SearchResultImage, SearchInputWrapper } from "./styles"
 import { useRouter } from "next/navigation"
 import { useState, useEffect } from "react"
 
@@ -14,7 +14,7 @@ const SearchByTitle = () => {
     
     const router = useRouter()
 
-    const onSearchInputKeyUp = (event) => {
+    const onSearchInputKeyUp = (event: React.KeyboardEvent<HTMLInputElement>) => {
         if (event.key === 'Enter'){
             router.push(`/store/search?${event.target.value ? `title=${event.target.value}` : ''}`)
         }
@@ -23,11 +23,11 @@ const SearchByTitle = () => {
     useEffect(() => {
         if (!title){
             setProducts([])
-             return
+            return
         }
 
         const setFilteredProducts = async () => {
-            const response = await fetch(`https://forgotten-god.onrender.com/store/searchProductsByTitle/${title}`)
+            const response = await fetch(`${process.env.NEXT_PUBLIC_HOST_DOMAIN}/store/searchProductsByTitle/${title}`)
             const filteredProducts = await response.json()
             setProducts(filteredProducts)
         }
@@ -38,10 +38,10 @@ const SearchByTitle = () => {
     return (
         <SearchInputWrapper>
             <SearchResults $isVisible={areResultsVisible}>
-                {products.map((product, productIndex) => (
-                    <SearchResult href={`/store/product/${product?.id}`} key={productIndex}>
+                {products.map(product => (
+                    <SearchResult href={`/store/product/${product?.id}`} key={product?.id}>
                         <SearchResultBlock>
-                            <SearchResultImage src={product?.logo ? `/image/${product?.logo}` : ""}/>
+                            <SearchResultImage src={product?.logo ? `${process.env.NEXT_PUBLIC_HOST_DOMAIN}/image/${product?.logo}` : ""}/>
                             <SearchResultTitle>{product?.title}</SearchResultTitle>
                         </SearchResultBlock>
                         <SearchResultPrice>{product?.price} ₽</SearchResultPrice>
@@ -49,7 +49,7 @@ const SearchByTitle = () => {
                     </SearchResult>
                 ))}
             </SearchResults>
-            <SearchInput onChange={(event) => {setTitle(event.target.value)}} onKeyUp={onSearchInputKeyUp} placeholder='Поиск по названию' value={title}/>
+            <SearchInput onChange={(event: React.ChangeEvent<HTMLInputElement>) => {setTitle(event.target.value)}} onKeyUp={onSearchInputKeyUp} placeholder='Поиск по названию' value={title}/>
             <Link href="/store/search">
                 <SearchInputSVG/>
             </Link>

@@ -7,6 +7,7 @@ import { IProduct, IProductPageProps } from "./types"
 import { ProductFormGameTagName, ProductFormGameTagWrapper, ProductFormGameTagsHeader } from "@/app/admin/createProduct/components/CreateProductForm/styles"
 import { notFound } from "next/navigation"
 import { Metadata } from "next"
+import ImageLoader from "@/components/ui/ImageLoader/ImageLoader"
 
 
 export async function generateMetadata ({params}: IProductPageProps) {
@@ -52,7 +53,7 @@ const ProductPage = async ({params} : IProductPageProps) => {
                     <BriefGameInfo>
                         <GameTitle>{product.title}</GameTitle>
                         <GameLogoWrapper>
-                            <GameLogo  src={`${process.env.HOST_DOMAIN}/image/${product.logo}`} />
+                            <ImageLoader src={`${product.logo}`} width={1600} height={900} sizes="100vw" alt="gameLogo" priority={true}/>
                         </GameLogoWrapper>
                         <GameCost>{`${product.price} ₽`}</GameCost>
                         <OrderButtons product={product}/>

@@ -1,7 +1,7 @@
 "use client"
 import { Suspense } from "react"
 import { SearchingProduct } from "./types"
-import { imageLoader } from "@/components/ui/ImageLoader/ImageLoader"
+import ImageLoader, { imageLoader } from "@/components/ui/ImageLoader/ImageLoader"
 import { AddToCartButton, AddToCartSVG, SearchProductImage, SearchProductImageWrapper, SearchProductInfo, SearchProductPrice, SearchProductTitle, SearchProductWrapper } from "./styles"
 
 const SearchProduct = ({product} : {product: SearchingProduct}) => {
@@ -18,7 +18,7 @@ const SearchProduct = ({product} : {product: SearchingProduct}) => {
                 <AddToCartSVG/>
             </AddToCartButton>
             <SearchProductImageWrapper>
-                <SearchProductImage loader={imageLoader} src={`${product.logo}`}/>
+                <ImageLoader src={`${product.logo}`} width={1920} height={1280} sizes="100vw" alt="gameLogo" priority={true}/>
             </SearchProductImageWrapper>
             
             <SearchProductInfo>

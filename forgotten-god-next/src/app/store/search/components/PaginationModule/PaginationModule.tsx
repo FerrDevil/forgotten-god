@@ -1,6 +1,6 @@
 "use client"
 import { memo } from "react";
-import { PaginationPageLink, PaginationWrapper } from "./styles";
+import { PaginationCurrentPage, PaginationPageLink, PaginationWrapper } from "./styles";
 import { useRouter, useSearchParams } from "next/navigation";
 
 
@@ -13,6 +13,8 @@ export default memo(function PaginationModule({currentPage, maxPageCount}: {curr
         <PaginationWrapper>
             { maxPageCount > 1 &&
                 pages.map(page => (
+                    page === currentPage ?
+                    <PaginationCurrentPage key={page}>{page}</PaginationCurrentPage> :
                     <PaginationPageLink href={`/store/search?page=${page}&price=${searchParams.get("price")}&title=${searchParams.get("title")}&includedTags=${searchParams.get("includedTags")}&excludedTags=${searchParams.get("excludedTags")}`} key={page}>{page}</PaginationPageLink>
                 ))
             }

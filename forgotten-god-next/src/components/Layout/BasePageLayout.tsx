@@ -10,7 +10,6 @@ const BasePageLayout = async ({ children }) => {
     
     return(
         <>
-            {/* <ServerSideUserPreloader/> */}
             <Header/>
             <ColoredAlignedFlexMain>
                 {children}

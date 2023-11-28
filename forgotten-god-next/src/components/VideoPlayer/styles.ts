@@ -50,8 +50,8 @@ export const VideoContainer = styled.div`
     max-width: 100%;
     aspect-ratio: 16/9;
     position: relative;
-    display: flex;
-    justify-content: center;
+    align-items: center;
+    display: grid;
     margin-inline: auto;
     &:hover ${VideoControls}{
         opacity: 1;

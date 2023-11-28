@@ -1,8 +1,8 @@
 "use client"
-import { MediaWrapper, MediaContainer, MediaImage, SliderWrapper, SliderLeftArrow, SliderContentWrapper, SliderContent, SliderRightArrow, SliderImageWrapper, SliderImage, SliderVideoMark, SliderArrowButton } from "./mediaStyles"
+import { MediaWrapper, MediaContainer, SliderWrapper, SliderLeftArrow, SliderContentWrapper, SliderContent, SliderRightArrow, SliderImageWrapper, SliderVideoMark, SliderArrowButton } from "./mediaStyles"
 import { useMemo, useState } from "react"
 import VideoPlayer from "@/components/VideoPlayer/VideoPlayer"
-import { imageLoader } from "@/components/ui/ImageLoader/ImageLoader"
+import ImageLoader from "@/components/ui/ImageLoader/ImageLoader"
 
 const MediaSlider = ({ mediaElements=[] }) => {
 
@@ -14,22 +14,22 @@ const MediaSlider = ({ mediaElements=[] }) => {
     const elements = mediaElements
 
 
-    const getPagesLength = useMemo(() => Math.ceil(elements.length / 4), [elements] )
+    const pagesLength = useMemo(() => Math.ceil(elements.length / 4), [elements] )
 
 
     const movePageLeft = () => {
         setSliderParams(prev => {
-            return{...prev, pageIndex: prev.pageIndex > 0 ? prev.pageIndex - 1 : getPagesLength-1}
+            return{...prev, pageIndex: prev.pageIndex > 0 ? prev.pageIndex - 1 : pagesLength-1}
         })
     }
 
     const movePageRight = () => {
         setSliderParams(prev => {
-            return {...prev, pageIndex: prev.pageIndex < getPagesLength-1 ? prev.pageIndex + 1 : 0}
+            return {...prev, pageIndex: prev.pageIndex < pagesLength-1 ? prev.pageIndex + 1 : 0}
         })
     }
 
-    const selectMedia = (index) => {
+    const selectMedia = (index: number) => {
         setSliderParams(prev => {
             return {...prev, selectedMediaIndex: index }
         })
@@ -41,12 +41,12 @@ const MediaSlider = ({ mediaElements=[] }) => {
 
                 {mediaElements[sliderParams.selectedMediaIndex]?.type === 'video' ?
                     <VideoPlayer src={`${process.env.NEXT_PUBLIC_HOST_DOMAIN}/image/${mediaElements[sliderParams.selectedMediaIndex]?.src}`}/> :
-                    <MediaImage loader={imageLoader} src={`${mediaElements[sliderParams.selectedMediaIndex]?.src}`}/>
+                    <ImageLoader width={1600} height={900} sizes="100vw" alt="sliderImage" priority={true} src={`${mediaElements[sliderParams.selectedMediaIndex]?.src}`} />
                 }
             </MediaContainer>
             <SliderWrapper>
             {
-                getPagesLength > 1 &&
+                pagesLength > 1 &&
                 <SliderArrowButton onClick={movePageLeft}>
                     <SliderLeftArrow/>
                 </SliderArrowButton>
@@ -64,7 +64,7 @@ const MediaSlider = ({ mediaElements=[] }) => {
                                         {
                                             element.type === 'video' ?
                                             <SliderVideoMark src="/images/video-mark.svg" alt="video-mark"/> :
-                                            <SliderImage loader={imageLoader} src={`${element.type === 'video' ? `/img1.jpg` : element.src}`}/>
+                                            <ImageLoader width={1600} height={900} sizes="100vw" alt="sliderImage" priority={true} src={`${element.src}`} />
                                         }
                                         
                                     </SliderImageWrapper>
@@ -75,7 +75,7 @@ const MediaSlider = ({ mediaElements=[] }) => {
                 </SliderContentWrapper>
                 
                 {
-                    getPagesLength > 1 &&
+                    pagesLength > 1 &&
                     <SliderArrowButton onClick={movePageRight}>
                         <SliderRightArrow />
                     </SliderArrowButton>

@@ -29,12 +29,12 @@ export const HeaderWrapper = styled.header`
     font-size: 16px;
     
     background-color: var(--main-color-black);
-    width: 50px;
+    width: var(--header-width);
     transition: width 300ms;
     padding: 20px 0;
-    &:hover{
+    &:hover, &:focus-within{
         width: calc(50px + var(--_link-title-width) + 20px);
-        &:hover span {
+        &:hover span, &:focus-within span {
             transition: opacity 200ms 300ms, transform 200ms 300ms;
             opacity: 1;
             transform: translate(0);

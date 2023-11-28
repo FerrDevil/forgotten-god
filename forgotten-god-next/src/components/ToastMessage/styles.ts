@@ -29,6 +29,7 @@ export const ToastMessageWrapper = styled.div<IToastMessageWrapper>`
     align-items: center;
     gap: 10px;
     padding: 10px;
+    margin-left: calc(var(--header-width) + 20px);
     background-color: ${props => props.$isError? "#CE5250" : "#60BF8C"};
     border-radius: 8px;
     overflow: hidden;

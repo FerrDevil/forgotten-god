@@ -1,5 +1,5 @@
 "use client"
-import  {VideoContainer, Video, VideoControls, VideoPlayButton, VideoPauseButton, VideoRestartButton, VideoVolumeWrapper, VideoVolumeUpButton, VideoVolumeOffButton, VideoVolumeRangeWrapper, VideoVolumeRange, VideoTimelineRangeWrapper, VideoTimelineRange, VideoTimer, VideoTimerText, VideoTimelineRangeProgress, VideoControlsSideContainer, VideoFullscreenButton, VideoFullscreenEnterSVG, VideoFullscreenExitSVG} from "./style"
+import  {VideoContainer, Video, VideoControls, VideoPlayButton, VideoPauseButton, VideoRestartButton, VideoVolumeWrapper, VideoVolumeUpButton, VideoVolumeOffButton, VideoVolumeRangeWrapper, VideoVolumeRange, VideoTimelineRangeWrapper, VideoTimelineRange, VideoTimer, VideoTimerText, VideoTimelineRangeProgress, VideoControlsSideContainer, VideoFullscreenButton, VideoFullscreenEnterSVG, VideoFullscreenExitSVG} from "./styles"
 import { useState, memo, useRef, useEffect } from "react"
 
 

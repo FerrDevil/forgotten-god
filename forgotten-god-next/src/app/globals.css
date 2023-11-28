@@ -12,6 +12,7 @@
 :root{
   --main-color-black: #111;
   --main-color-red: #780c0c;
+  --header-width: 50px;
 }
 
 html{

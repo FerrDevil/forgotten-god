@@ -15,7 +15,6 @@ export const MediaWrapper = styled.div`
 
 export const MediaContainer = styled.div`
     width: 100%; 
-    aspect-ratio: 16/9;
     margin-inline: auto;
     background-color: #2e2e2e;
     border-radius: 10px;
