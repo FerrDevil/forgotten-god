@@ -1,20 +1,23 @@
 import StoreNavigation from "@/services/store/components/StoreNavigation/StoreNavigation"
 import RecommendationCarousel from "@/services/store/components/RecommendationCarousel/RecommendationCarousel"
 import { Metadata } from "next"
+import { cache } from "react"
+import prisma from "@/lib/prisma/prisma"
 
 
 export const metadata: Metadata = {
   title: "Forgotten God"
 }
 
-async function getRecommendedProducts() {
-  const response = await fetch(`${process.env.HOST_DOMAIN}/store/getRecommendedProducts`, {
-  })
-  if (!response.ok){
-    throw Error("Network error: could not access the given origin")
-  }
-  return response.json() 
-}
+  const getRecommendedProducts = cache(async () => {
+  
+    const products = await prisma.product.findMany()
+    return products.map(product => ({
+      id: product.id,
+      image: product.logo
+    }))
+  
+})
 
 export default async function StorePage() {
 

@@ -1,9 +1,9 @@
-export interface IImageLoader {
+export type TImageLoaderProps = {
     src: string
-    width: number
-    height: number
-    sizes: string
-    alt: string,
-    priority?: boolean,
-    
+    width?: number
+    height?: number
+    sizes?: string
+    alt: string
+    priority?: boolean
+    fill?: boolean | undefined
 }

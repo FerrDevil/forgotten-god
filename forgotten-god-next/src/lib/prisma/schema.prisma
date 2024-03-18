@@ -1,0 +1,111 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url = env("MYSQL_PRISMA_URL") 
+}
+
+
+model User {
+  id            String      @default(cuid())    @id  @unique
+  username      String      @db.VarChar(16)     @unique
+  email         String      @db.VarChar(55)     @unique
+  password      String      @db.Text
+  role          String      @default("user")
+
+
+  developer     Product[]    @relation("developer") 
+  publisher     Product[]    @relation("publisher") 
+  cart          Cart[]       @relation("cart") 
+  sales         Sales?      @relation("sales")
+}
+
+model Product {
+    id   Int      @default(autoincrement()) @id
+    title    String      @db.VarChar(50) @unique
+    logo  String  @db.Text 
+    price String @db.VarChar(15)
+
+    developer   User @relation( fields: [developerId], references: [id], name: "developer")
+    developerId  String   
+
+    publisher   User @relation( fields: [publisherId], references: [id], name: "publisher")
+    publisherId String   
+
+    publishDate DateTime @default(now())
+    synopsis String  @db.Text 
+
+
+    productTag ProductTag[] @relation("productTag")
+    productMedia ProductMedia[] @relation("productMedia")
+    cart Cart[] @relation("cart")
+    sales Sales[] @relation("sales")
+}
+
+model Tag {
+    id   Int      @default(autoincrement()) @id
+    name String @db.VarChar(32) @unique
+
+    productTag ProductTag[] @relation("productTag")
+}
+
+model ProductTag {
+    tagId   Int   
+    tag Tag @relation(fields: [tagId], references: [id], name: "productTag")
+
+    productId Int
+    product Product @relation(fields: [productId], references: [id], name: "productTag")
+
+    @@id([tagId, productId])
+}
+
+model ProductMedia {
+   
+    productId  Int 
+    product Product @relation(fields: [productId], references: [id], name: "productMedia")
+
+    mediaId Int @unique
+    media Media @relation(fields: [mediaId], references: [id], name: "productMedia")
+    
+    @@id([productId, mediaId])
+}
+
+
+model Media {
+    id  Int @default(autoincrement()) @id
+    type  String @db.VarChar(5)
+    src String @db.Text
+
+    media ProductMedia? @relation("productMedia")
+
+}
+
+
+model Cart {
+    userId   String   
+    user User @relation(fields: [userId], references: [id], name: "cart")
+
+    productId Int
+    product Product @relation(fields: [productId], references: [id], name: "cart")
+
+    @@id([userId, productId])
+}
+
+
+model Sales {
+    userId   String   @unique 
+    user User @relation(fields: [userId], references: [id], name: "sales")
+
+    productId Int @unique 
+    product Product @relation(fields: [productId], references: [id], name: "sales")
+
+    payment_date DateTime @default(now())
+    payment_price Int
+    payment_method String @db.Text
+    payment_data String? @db.Text
+
+    @@id([userId, productId])
+}
+

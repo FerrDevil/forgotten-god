@@ -111,6 +111,7 @@ export const ProductFormMediaFileInputWrapper = styled.div<{$notMediaSet: boolea
 `
 
 export const ProductFormMediaFileInput = styled.input.attrs({type: "file"})`
+    inset: 0;
     position: absolute;
     appearance: none;
     visibility: hidden;
@@ -144,13 +145,15 @@ export const ProductFormMediaPlaceholderSVG = styled(ImagePlaceholderSVG)`
     fill: #ccc;
 `
 
-export const ProductFormMedia = styled(Image).attrs(
+export const ProductFormMedia = styled(Image).attrs(props => (
     {
         width: 0,
         height: 0,
         alt: "sliderImage",
         sizes: "100vw"
     }
+)
+    
 )`
     display: block;
     background-color: #333;

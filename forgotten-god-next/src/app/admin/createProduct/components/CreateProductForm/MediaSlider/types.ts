@@ -6,8 +6,9 @@ export type ISliderParams = {
     selectedMediaIndex: number
 }
 
-export interface IImageSlider {
+export type ImageSliderProps = {
     elements: File[],
+    setElements: Dispatch<SetStateAction<File[]>>
     sliderParams : ISliderParams
     setSliderParams : Dispatch<SetStateAction<ISliderParams>>,
     setProductInfo:  Dispatch<SetStateAction<IProductInfo>>

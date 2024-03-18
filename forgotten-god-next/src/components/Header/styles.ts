@@ -16,6 +16,7 @@ import AccountSVG from "@/public/account.svg"
 
 export const HeaderWrapper = styled.header`
     --_link-title-width: 250px;
+    --_max_header-menu-width: calc(50px + var(--_link-title-width) + 20px);
 
     display: flex;
     flex-direction: column;
@@ -32,24 +33,33 @@ export const HeaderWrapper = styled.header`
     width: var(--header-width);
     transition: width 300ms;
     padding: 20px 0;
-    &:hover, &:focus-within{
-        width: calc(50px + var(--_link-title-width) + 20px);
-        &:hover span, &:focus-within span {
+    border-right: 0.5px solid #383838;
+    &:hover, &:has(:focus){
+        width: var(--_max_header-menu-width);
+        span {
             transition: opacity 200ms 300ms, transform 200ms 300ms;
             opacity: 1;
             transform: translate(0);
         }
-    }
-
-    @media (min-width: 600px) {
         
-        border-right: 0.5px solid #383838;
     }
     
-    @media (max-width: 600px) {
-        padding: 10px 40px;
-        position: static;
-        flex-direction: row;
+    @media (max-width: 768px) {
+        display: none;
+        --_max_header-menu-width: calc( 100% - 70px);
+        overflow: unset;
+        transform: translateX(-100%);
+        transition: transform 0.2s linear;
+
+        &:hover, &:has(:focus){
+            transform: translateX(0);
+           /*  nav {
+                transform: translate(0);
+                height: auto;
+                pointer-events: all;
+                user-select: unset;
+            } */
+        }
     }
 `
 
@@ -59,9 +69,14 @@ export const HeaderNavigation = styled.nav`
     justify-content: space-between;
     flex-grow: 1;
     
+    
     padding: 20px 0;
-    @media (max-width: 600px) {
-        display: none;
+    @media (max-width: 768px) {
+        position: absolute;
+        top: 0;
+        left: 0;
+        bottom: 0;
+        
     }
 `
 
@@ -92,11 +107,8 @@ export const HeaderNavigationItem = styled.li`
     
 `
 
-interface IIsActive{
-    $isActive: boolean
-}
 
-export const HeaderNavigationLink = styled(Link)<IIsActive>`
+export const HeaderNavigationLink = styled(Link)<{$isActive: boolean}>`
     display: grid;
     align-items: center;
     grid-template-columns: 30px 1fr;
@@ -119,7 +131,7 @@ export const HeaderNavigationLink = styled(Link)<IIsActive>`
 
 `
 
-export const HeaderNavigationButton = styled.button<IIsActive>`
+export const HeaderNavigationButton = styled.button`
     all: unset;
     display: grid;
     align-items: center;
@@ -141,20 +153,11 @@ export const HeaderNavigationButton = styled.button<IIsActive>`
         fill: #780c0c;
     }
     & > svg{
-        fill: ${props => props.$isActive? "#780c0c" : "#ccc"};
+       
         
     }
 
 `
-interface ILogoImage{
-    width: number,
-    height: number,
-    sizes: string,
-    alt: string,
-    src: string,
-    loading: string,
-    priority: boolean
-}
 
 export const LogoImage = styled(Image).attrs({
     width: 0,
@@ -166,11 +169,23 @@ export const LogoImage = styled(Image).attrs({
     priority: true
 })
 `
-    width: clamp(30px, 3vw, 40px);
-    height: clamp(40px, 3vw, 50px);
+    width: 100%;
+    height: 100%;
     object-fit: contain;
+`
+
+export const LogoImageWrapper = styled.div`
+    width: clamp(50px, 3vw, 60px);
+    height: clamp(60px, 3vw, 70px);
     color: #fff;
-    align-self: center;
+    padding: 10px;
+    @media (min-width: 768px) {
+        padding: unset;
+        width: 40px;
+        height: 40px;
+        margin-left: 5px;
+    }
+    
 `
 
 
@@ -296,7 +311,7 @@ export const NewsLinkSVG = styled(NewsSVG)`
     }
 `
 
-export const HeaderMobileNavigationLink = styled(Link)<IIsActive>`
+export const HeaderMobileNavigationLink = styled(Link)<{$isActive: boolean}>`
     display: grid;
     place-items: center;
     width: 100%;
@@ -318,10 +333,6 @@ export const HeaderMobileNavigationLink = styled(Link)<IIsActive>`
     }
  
 `
-export const HeaderMobileNavigationLinkText = styled.span`
-    font-size: clamp(10px, 5px + 2vw, 16px);
-    white-space: nowrap;
-`
 
 
 export const AdminPanelSVG = styled(AdminSVG)`
@@ -333,5 +344,6 @@ export const AdminPanelSVG = styled(AdminSVG)`
         fill: #780c0c;
     }
 `
+
 
 

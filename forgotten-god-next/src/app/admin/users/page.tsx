@@ -1,13 +1,21 @@
-"use client"
-
 import UserTable from "@/app/admin/users/components/UserTable/UserTable"
-import { useUserSelector } from "@/store/store"
+import prisma from "@/lib/prisma/prisma"
+import { cache } from "react"
+
+const getUsersInfo = cache(async () => {
+    const usersInfo = await prisma.user.findMany()
+    return usersInfo
+})
 
 
-export default function AdminUsersPage()  {
+export default async function AdminUsersPage()  {
+
+    const usersInfo = await getUsersInfo()
+    
+
     return(
         <>
-           <UserTable/>
+           <UserTable usersInfo={usersInfo}/>
         </>
     )
 }

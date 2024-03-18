@@ -2,6 +2,7 @@
 import { notFound } from "next/navigation";
 import { UserPageWrapper, UserPanel, UserPanelLibrary, UserPanelProduct, UserPanelProductImage, UserPanelProductImageWrapper, UserPanelTitle} from "./styles"
 import { cookies } from "next/headers";
+import ImageLoader from "@/components/ui/ImageLoader/ImageLoader";
 
 
 type ILibrary = {
@@ -67,7 +68,7 @@ export default async function UserPage () {
                             library.map(product => (
                                 <UserPanelProduct key={product.id}>
                                     <UserPanelProductImageWrapper>
-                                        <UserPanelProductImage src={`${process.env.HOST_DOMAIN}/image/${product.logo}`}/>
+                                        <ImageLoader src={`${product.logo}`} alt="productImage" width={1600} height={900} sizes="100vw" priority={true}/>
                                     </UserPanelProductImageWrapper>
                                     <span>{product.title}</span>
                                 </UserPanelProduct>

@@ -50,6 +50,7 @@ export const MainInfoSidebar = styled.aside`
     margin-right: 50px;
     row-gap: clamp(15px, 2vw, 40px);
     flex-basis: 40%;
+    padding-bottom: 20px;
     @media (max-width: 1000px) {
         position: static;
         width: 100%;

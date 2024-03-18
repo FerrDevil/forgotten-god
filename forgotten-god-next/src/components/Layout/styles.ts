@@ -9,8 +9,8 @@ export const ColoredAlignedFlexMain = styled.main`
     background-color: var(--main-color-black);
     row-gap: 24px;
     padding-left: 60px;
-    @media (max-width: 600px) {
-        padding-bottom: 70px;
+    @media (max-width: 768px) {
         padding-left: 0;
+        padding-top: 60px;
     }
 `

@@ -1,23 +1,34 @@
 "use client"
 
 import { useRouter } from "next/navigation"
-import { GodImage, GodImageWrapper, NotFoundByGodReturnButton, NotFoundByGodTextMessage, NotFoundByGodWrapper } from "./style"
+import { GodImage, GodImageWrapper, NotFoundByGodTextMessage, NotFoundByGodWrapper } from "./style"
+import { useEffect, useState } from "react"
 
 export default function NotFoundByGod({message}) {
     const router = useRouter()
+    const ANIMATION_TIMING = 3600
+    const [isAnimationEnded, setAnimationEnded] = useState(false)
+    useEffect(() => {
+        setTimeout(() => {
+            setAnimationEnded(true)
+        }, ANIMATION_TIMING)
+    }, [])
 
     return(
-        <NotFoundByGodWrapper>
+        <NotFoundByGodWrapper onClick={() => {isAnimationEnded && router.back()}}>
             <GodImageWrapper>
-                <GodImage/>
+                <GodImage src="/images/logo.png" 
+                    alt="God Image"
+                    sizes="100vw"
+                    width={0}
+                    height={0}
+                    priority={true}
+                />
             </GodImageWrapper>
            
             <NotFoundByGodTextMessage>
                 {message}
             </NotFoundByGodTextMessage>
-            <NotFoundByGodReturnButton onClick={() => {router.back()}}>
-                Return to safety
-            </NotFoundByGodReturnButton>
         </NotFoundByGodWrapper>
     )
 }

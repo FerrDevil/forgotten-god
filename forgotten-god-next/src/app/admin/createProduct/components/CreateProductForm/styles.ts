@@ -4,11 +4,12 @@ import styled from "styled-components"
 
 import CartSVG from "@/services/store/public/cart.svg";
 import ImagePlaceholderSVG from "@/app/admin/createProduct/public/image-placeholder.svg";
-import AddTagSVG from "@/app/admin/createProduct/public/add.svg";
+
 import DeleteTagSVG from "@/app/admin/createProduct/public/delete.svg";
+import Link from "next/link";
 
 
-export const ProductForm = styled.div`
+export const ProductForm = styled.form`
     display: flex;
     flex-direction: column;
     align-items: flex-start;
@@ -312,13 +313,17 @@ export const ProductFormGameTagsContainer = styled.div`
     gap: 5px;
 `
 
-export const ProductFormGameTagWrapper = styled.div`
+export const ProductFormGameTagWrapper = styled(Link)`
     display: flex;
     flex-direction: row;
     gap: 5px;
     background-color: #333;
     padding: 0 5px;
     border-radius: 2px;
+    transition: background-color 0.2s ease-in-out;
+    &:hover{
+        background-color: #242424;
+    }
 `
 
 export const ProductFormGameTagName = styled.span`
@@ -351,28 +356,7 @@ export const ProductFormGameTagsDeleteButtonSVG = styled(DeleteTagSVG)`
     transition: fill 0.3s;
 `
 
-export const ProductFormGameTagsAddButton = styled.button`
-    display: block;
-    width: 25px;
-    aspect-ratio: 1;
-    border: 1px solid transparent;
-    background-color: transparent;
-    cursor: pointer;
 
-    &:focus-visible > svg, &:hover > svg, &:active > svg{
-        fill: #780c0c;
-    }
-`
-
-
-export const ProductFormGameTagsAddButtonSVG = styled(AddTagSVG)`
-    display: block;
-    width: 100%;
-    height: 100%;
-    object-fit: contain;
-    fill: #ccc;
-    transition: fill 0.3s;
-`
 
 export const ProductFormGameSynopsis = styled.div`
     display: flex;
@@ -392,7 +376,7 @@ export const ProductFormGameSynopsisHeader = styled.h2`
 
 
 
-export const ProductButton = styled.button`
+export const ProductButton = styled.button.attrs({type: "submit"})`
     font-size: 18px;
     color: #ccc;
     background-color: #282828;

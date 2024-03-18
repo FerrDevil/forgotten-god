@@ -5,19 +5,26 @@ import { useEffect, useState } from "react"
 import { AdminDeleteProductsBody, AdminDeleteProductsCancelButton, AdminDeleteProductsCaution, AdminDeleteProductsHeader, AdminDeleteProductsProcedeButton, AdminDeleteProductsProcedeButtons, AdminDeleteProductsWrapper } from "./styles"
 import { IAddTagModal } from "./types"
 import InputField from "@/services/auth/components/InputField/InputField"
+import { createTag } from "./actions"
 
 export default function AddTagModal({isOpen, setOpen, setTags} : IAddTagModal) {
     
     const [name, setName ] = useState("")
+    const createTagByName = createTag.bind(null, name)
 
-    const createTag = async () => {
-        const refreshResponse = await fetch(`https://forgotten-god.onrender.com/auth/refresh`, {method: "POST", credentials: "include"})
-        const response = await fetch(`https://forgotten-god.onrender.com/admin/createTag`, {method: "POST", credentials: "include", body: JSON.stringify({name : name})})
-        if (response.ok){
-            const tag = await response.json()
-            setTags(prev => [...prev, tag])
-            setOpen(false) 
+    const createNewTag = async () => {
+        try{
+            const tag = await createTagByName()
+            if (tag){
+                setTags(prev => [...prev, tag])
+                setName("")
+            }
         }
+        catch(error){
+            console.error(error)
+        }
+        
+        setOpen(false) 
     }
     return(
         <Modal isOpen={isOpen} setOpen={setOpen}>
@@ -31,7 +38,7 @@ export default function AddTagModal({isOpen, setOpen, setTags} : IAddTagModal) {
                         onChange={(event) => {setName(event.target.value)}}
                     />
                     <AdminDeleteProductsProcedeButtons>
-                        <AdminDeleteProductsProcedeButton onClick={createTag}>Создать</AdminDeleteProductsProcedeButton>
+                        <AdminDeleteProductsProcedeButton onClick={createNewTag}>Создать</AdminDeleteProductsProcedeButton>
                         <AdminDeleteProductsCancelButton onClick={() => {setOpen(false)}}>Закрыть</AdminDeleteProductsCancelButton>
                     </AdminDeleteProductsProcedeButtons>
                 </AdminDeleteProductsBody>

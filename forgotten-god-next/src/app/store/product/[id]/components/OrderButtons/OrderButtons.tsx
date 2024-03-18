@@ -1,27 +1,60 @@
 "use client"
-import { OrderButtonWrapper, OrderButton, CartButtonWrapper, CartButton } from "./styles"
-import { useRouter } from "next/navigation"
+import { addToCart } from "./actions"
+import { OrderButtonWrapper, OrderButton, CartButton, SuccessButtonSVG, CartButtonSVG, UnauthorizedCartLink } from "./styles"
 
-const OrderButtons = ({product}) => {
-    const router = useRouter()
+const OrderButtons = ({product, userId}) => {
 
-    const addToCartHandle = async () => {
-        const refreshResponse = await fetch(`${process.env.NEXT_PUBLIC_HOST_DOMAIN}/auth/refresh`, {method: "POST", credentials: "include"})
-        const response = await fetch(`${process.env.NEXT_PUBLIC_HOST_DOMAIN}/store/addToCart`, {method: "POST", credentials: "include", body: JSON.stringify({productId: product.id})})
-    }
+    const addToCartHandle = addToCart.bind(null, product.id, false)
+    const orderProductHandle = addToCart.bind(null, product.id, true)
 
-    const orderProduct = async () => {
-        await addToCartHandle()
-        router.push("/store/cart")
-        router.refresh()
-    }
+
+
+    const autorizedCartButtons = (
+        <>
+         {
+                product.isInCart ?
+                    <>
+                        <OrderButton onClick={() => { orderProductHandle() }}>Оформить</OrderButton>
+                        <CartButton >
+                            <SuccessButtonSVG/>
+                        </CartButton>
+                    </>
+                
+                :
+                    <>
+                        <OrderButton onClick={() => { orderProductHandle() }}>Оформить</OrderButton>
+                        <CartButton onClick={() => { addToCartHandle() }}>
+                            <CartButtonSVG/>
+                        </CartButton>
+                    </>
+                    
+            }</>
+    )
+    const unautorizedCartButton = (
+        <>
+            <UnauthorizedCartLink href="/signIn">Оформить</UnauthorizedCartLink>
+            <UnauthorizedCartLink href="/signIn">
+                <CartButtonSVG/>
+            </UnauthorizedCartLink>
+        </>
+        
+    )
+
+    const addToCartButtons = (
+        <>
+            {
+                userId ?
+                autorizedCartButtons :
+                unautorizedCartButton
+            }
+        </>
+        
+        
+    )
 
     return(
         <OrderButtonWrapper>
-            <OrderButton onClick={orderProduct}>Оформить</OrderButton>
-            <CartButtonWrapper tabIndex={0} onClick={addToCartHandle}>
-                <CartButton/>
-            </CartButtonWrapper>
+            {addToCartButtons}
         </OrderButtonWrapper>
     )
 }

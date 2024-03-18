@@ -1,18 +1,19 @@
-import { getUserInfo } from '@/utils/userAuth/getUserInfo'
-import {StoreBrowsePanel, WishlistLink, CartLink, CartLinkSVG, WishlistLinkSVG } from './styles'
+
+import { StoreBrowsePanel, WishlistLink, CartLink, CartLinkSVG, WishlistLinkSVG } from './styles'
 import SearchByTitle from "@/services/store/components/SearchByTitle/SearchByTitle"
+import { auth } from '@/utils/userAuth/auth'
 
 
 const StoreNavigation = async () => {
 
-    const userInfo = await getUserInfo()
+    const userInfo = (await auth())?.user
 
     return(
         <StoreBrowsePanel>
-            <WishlistLink href={`${userInfo?.userId ? "/store/wishlist": "/login"}`}>
+            <WishlistLink href={`${userInfo?.id ? "/store/wishlist": "/signIn"}`}>
                 <WishlistLinkSVG/>
             </WishlistLink>
-            <CartLink href={`${userInfo?.userId ? "/store/cart": "/login"}`}>
+            <CartLink href={`${userInfo?.id ? "/store/cart": "/signIn"}`}>
                 <CartLinkSVG/>
             </CartLink>
             <SearchByTitle/>

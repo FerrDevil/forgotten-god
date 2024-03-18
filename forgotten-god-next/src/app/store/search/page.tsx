@@ -1,38 +1,52 @@
-import { Suspense } from 'react'
+
 import { Metadata } from 'next'
-import SearchProducts from './components/SearchProducts/SearchProducts'
-import SearchProductLoading from './components/SearchProducts/loading'
+import { TSearchPageSearchParams, TSearchPageValidatedSearchParams } from './types'
+
+import PaginationModule from './components/PaginationModule/PaginationModule'
+import { SearchContent, SearchContentWrapper, SearchNoSuchProductsFound } from './styles'
+import SearchProduct from './components/SearchProducts/SearchProduct'
+import { getExtendedSearchProducts } from './requests'
 
 
 export const metadata: Metadata = {
     title: "Поиск | Forgotten God"
 }
 
-const SearchPage = async ({ searchParams }) => {
 
-    const searchQueryParams = {
-        price: searchParams.price || 2200,
+const SearchPage = async ({ searchParams }: { searchParams: TSearchPageSearchParams }) => {
+
+    const searchQueryParams : TSearchPageValidatedSearchParams = {
+        price: parseInt(searchParams.price) || 2200,
         title: searchParams.title || "",
-        includedTags: searchParams.includedTags || "",
-        excludedTags: searchParams.excludedTags || "",
-        page: searchParams.page || 1
+        includedTags: searchParams.includedTags?.split(",").filter(tag => tag !== "").map((tag) => Number(tag)) || [],
+        excludedTags: searchParams.excludedTags?.split(",").filter(tag => tag !== "").map((tag) => Number(tag)) || [],
+        page: parseInt(searchParams.page) || 1
     }
-    
 
-    const queryParams = {
-        price: parseInt(searchQueryParams.price),
-        title: searchQueryParams.title,
-        includedTags: searchQueryParams.includedTags.split(",").filter(tag => tag !== "").map((tag) => Number(tag)), // makes a number array from 1,2,3 string
-        excludedTags: searchQueryParams.excludedTags.split(",").filter(tag => tag !== "").map((tag) => Number(tag)),
-        page: parseInt(searchQueryParams.page)
-    }
+    const [products, maxPageCount] = await getExtendedSearchProducts(searchQueryParams)
      
 
     return(
         <>
-            <Suspense key={searchParams.page} fallback={<SearchProductLoading/>}>
-                <SearchProducts searchQueryParams={queryParams} /* products={products} *//>
-            </Suspense>
+            
+        <SearchContentWrapper>
+            {
+                products?.length > 0 ?
+                <>
+                <SearchContent>
+                    {
+                    products.map((product) => 
+                        <SearchProduct key={product.id} product={product}/>
+                    )
+
+                    }  </SearchContent>
+                <PaginationModule currentPage={searchQueryParams.page} maxPageCount={maxPageCount}/>
+                </> :
+                <SearchNoSuchProductsFound>По вашему запросу ничего не найдено</SearchNoSuchProductsFound>     
+            }
+            
+        </SearchContentWrapper>
+            
         </>
     )
 }

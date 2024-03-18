@@ -12,13 +12,18 @@ interface IRecommendedCarousel{
 }
 
 const RecommendationCarousel = ({products} : IRecommendedCarousel) => {
-
-    const endlessSliderProducts = [products[products.length-2], products[products.length-1], ...products, products[0], products[1]]
+    
+    const endlessSliderProducts = !!products?.length && [products[products.length-2], products[products.length-1], ...products, products[0], products[1]]
 
     const [currentImageIndex, setCurrentImageIndex] = useState(1)
 
     const carouselContentRef = useRef<HTMLDivElement | null>(null)
     const carouselToggleButtonsRef = useRef<HTMLDivElement | null>(null)
+
+    if (products === null){
+        return <></>
+    }
+
 
     const moveForward = () => {
         carouselContentRef?.current && (carouselContentRef.current.style.transitionDuration = "0.3s")
@@ -37,21 +42,28 @@ const RecommendationCarousel = ({products} : IRecommendedCarousel) => {
     useEffect(() => {
 
         const handleTransition = () => {
+            
             if (currentImageIndex === 0 ){
                 carouselContentRef?.current && (carouselContentRef.current.style.transitionDuration = "0s")
+                carouselToggleButtonsRef?.current && (carouselToggleButtonsRef.current.style.transitionDuration = "0s")
                 setCurrentImageIndex(endlessSliderProducts.length-4)
             }
             else if (currentImageIndex + 3 === endlessSliderProducts.length ){
                 carouselContentRef?.current && (carouselContentRef.current.style.transitionDuration = "0s")
+                carouselToggleButtonsRef?.current && (carouselToggleButtonsRef.current.style.transitionDuration = "0s")
                 setCurrentImageIndex(1)
             }
         }
+        
         carouselContentRef?.current  && carouselContentRef?.current?.addEventListener("transitionend", handleTransition)
+        carouselToggleButtonsRef?.current  && carouselToggleButtonsRef?.current?.addEventListener("transitionend", handleTransition)
 
         return () => {
             carouselContentRef?.current  && carouselContentRef?.current?.removeEventListener("transitionend", handleTransition)
+            carouselToggleButtonsRef?.current  && carouselToggleButtonsRef?.current?.removeEventListener("transitionend", handleTransition)
         }
     }, [currentImageIndex])
+    
 
     return (
         <Carousel>
@@ -61,16 +73,16 @@ const RecommendationCarousel = ({products} : IRecommendedCarousel) => {
                     <CarouselLeftArrow/>
                 </CarouselArrowWrapper>
                 <CarouselContent ref={carouselContentRef} $index={currentImageIndex}>
-                    {endlessSliderProducts.map((product, productIndex) => (
+                    {endlessSliderProducts?.map((product, productIndex) => (
                         <CarouselBlock key={productIndex} href={`/store/product/${product.id}`}>
-                            <ImageLoader src={`${product.image}`}  width={920} height={517} alt="carouselImage" sizes="100vw" priority={true}/>
+                            <ImageLoader src={`${product.image}`}  width={920} height={527} alt="carouselImage" sizes="100vw" priority={true}/>
                         </CarouselBlock>
                     ))}
                 </CarouselContent>
                 <CarouselArrowWrapper onClick={moveForward} $direction="right">
                     <CarouselRightArrow/>
                 </CarouselArrowWrapper>
-                <CarouselBottomButtons>
+                <CarouselBottomButtons ref={carouselToggleButtonsRef}>
                     {
                         products.map((product, productIndex) => (
                             <CarouselBottomButton key={product.id} $isActive={currentImageIndex-1 === productIndex} onClick={() => {setCurrentImageIndex(productIndex+1)}}/>

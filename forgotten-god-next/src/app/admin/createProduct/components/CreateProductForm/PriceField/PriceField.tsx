@@ -11,9 +11,12 @@ export default function PriceField({price, setPrice} : IPriceField) {
         <TitleFieldWrapper>
             <TitleFieldInputWrapper $isInputShown={isEdit}>
                 <ProductFormGamePrice  onDoubleClick={() => {setEdit(prev => !prev)}}>{price} ₽</ProductFormGamePrice>
-                <TitleFieldInput type="number"  onChange={setPrice}/>
+                <TitleFieldInput type="number" id="price" name="price" onChange={setPrice}/>
             </TitleFieldInputWrapper>
-            <TitleFieldEditButton onClick={() => {setEdit(prev => !prev)}}>
+            <TitleFieldEditButton onClick={(event) => {
+                event.preventDefault()
+                setEdit(prev => !prev)
+                }}>
                 {
                     isEdit ?
                     <TitleFieldSaveButtonSVG/> :

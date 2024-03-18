@@ -1,25 +1,27 @@
 "use client"
 import { SearchControls, SearchControlsClose, SearchControlsContent, SearchControlsHeader, SearchControlsHeaderTitle, SearchFilters, SearchFiltersContainer, SearchInput, SearchInputImage, SearchInputWrapper, SearchPanelWrapper, SearchPrices, SearchPricesRange, SearchPricesRangeHint, SearchPricesRangeWrapper, SearchPricesTitle, SearchTag, SearchTagExcludeCheckbox, SearchTagExcludeCheckboxSVG, SearchTagExcludeCheckboxWrapper, SearchTagIncludeCheckbox, SearchTagIncludeCheckboxSVG, SearchTagIncludeCheckboxWrapper, SearchTagName, SearchTags, SearchTagsTitle, SearchTagsWrapper } from "./styles"
 import { memo, useEffect, useState } from "react"
-import { ISearchParams } from "../../types"
+import { TSearchPageValidatedSearchParams } from "../../types"
 import { useRouter, useSearchParams } from "next/navigation"
-import { TTag } from "@/types/store/types"
+import useDeferedEffect from "@/hooks/useDeferedEffect"
+import { Tag } from "@prisma/client"
 
-export default memo(function SearchPanel({ tags} : {tags: TTag[]}){
+
+export default memo(function SearchPanel({ tags} : {tags: Tag[]}){
 
     const [areFiltersOpen, setFiltersOpen] = useState(false)
     const searchParams = useSearchParams()
     
-    const [queryParams, setQueryParams] = useState<ISearchParams>({
+    const [queryParams, setQueryParams] = useState<TSearchPageValidatedSearchParams>({
         price: parseInt(searchParams.get("price")) || 2200,
         title: searchParams.get("title") || "",
-        includedTags: searchParams.get("includedTags")?.split(",").filter((tagIndex: string) => tagIndex !== "").map((tagIndex: string) => Number(tagIndex)) || [], // makes a number array from 1,2,3 string
+        includedTags: searchParams.get("includedTags")?.split(",").filter((tagIndex: string) => tagIndex !== "").map((tagIndex: string) => Number(tagIndex)) || [],
         excludedTags: searchParams.get("excludedTags")?.split(",").filter((tagIndex: string) => tagIndex !== "").map((tagIndex: string) => Number(tagIndex)) || [],
         page: parseInt(searchParams.get("page")) || 1
     })
-    const {replace, push} = useRouter()
+    const { replace, push } = useRouter()
 
-    const titleChangeHandle = (event) => {
+    const titleChangeHandle: React.ChangeEventHandler<HTMLInputElement> = (event) => {
         setQueryParams(prev => ({...prev, page: 1, title: event.target.value}))
     }
 
@@ -52,11 +54,23 @@ export default memo(function SearchPanel({ tags} : {tags: TTag[]}){
         
     }
     useEffect(() => {
-        replace(`?page=${queryParams.page}&price=${queryParams.price}&title=${queryParams.title}&includedTags=${queryParams.includedTags.join(",")}&excludedTags=${queryParams.excludedTags.join(",")}`)
+        const newSearchParams = new URLSearchParams(searchParams)
+        newSearchParams.set("page", queryParams.page.toString())
+        newSearchParams.set("price", queryParams.price.toString())
+        newSearchParams.set("title", queryParams.title)
+        newSearchParams.set("includedTags", queryParams.includedTags.join(","))
+        newSearchParams.set("excludedTags", queryParams.excludedTags.join(","))
+        replace(`/store/search?${newSearchParams}`)
         
     }, [queryParams])
-    useEffect(() => {
-       push(`?page=${queryParams.page}&price=${queryParams.price}&title=${queryParams.title}&includedTags=${queryParams.includedTags.join(",")}&excludedTags=${queryParams.excludedTags.join(",")}`)
+    useDeferedEffect(() => {
+       const newSearchParams = new URLSearchParams(searchParams)
+       newSearchParams.set("page", queryParams.page.toString())
+       newSearchParams.set("price", queryParams.price.toString())
+       newSearchParams.set("title", queryParams.title)
+       newSearchParams.set("includedTags", queryParams.includedTags.join(","))
+       newSearchParams.set("excludedTags", queryParams.excludedTags.join(","))
+       push(`/store/search?${newSearchParams}`)
     }, [queryParams.page])
 
     

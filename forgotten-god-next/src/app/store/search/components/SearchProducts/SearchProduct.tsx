@@ -1,14 +1,12 @@
 "use client"
-import { Suspense } from "react"
 import { SearchingProduct } from "./types"
-import ImageLoader, { imageLoader } from "@/components/ui/ImageLoader/ImageLoader"
-import { AddToCartButton, AddToCartSVG, SearchProductImage, SearchProductImageWrapper, SearchProductInfo, SearchProductPrice, SearchProductTitle, SearchProductWrapper } from "./styles"
+import ImageLoader from "@/components/ui/ImageLoader/ImageLoader"
+import { AddToCartButton, AddToCartSVG, SearchProductImageWrapper, SearchProductInfo, SearchProductPrice, SearchProductTitle, SearchProductWrapper } from "./styles"
 
 const SearchProduct = ({product} : {product: SearchingProduct}) => {
 
     const addToCart = async (productIndex : number) => {
-        const refreshResponse = await fetch(`${process.env.NEXT_PUBLIC_HOST_DOMAIN}/auth/refresh`, {method: "POST", credentials: "include"})
-        const response = await fetch(`${process.env.NEXT_PUBLIC_HOST_DOMAIN}/store/addToCart`, {method: "POST", credentials: "include", body: JSON.stringify({productId: productIndex})})
+        
     }
 
     return(

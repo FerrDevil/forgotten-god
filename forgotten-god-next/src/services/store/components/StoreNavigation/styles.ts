@@ -17,13 +17,14 @@ export const StoreBrowsePanel = styled.div`
     z-index: 1999;
     top: 0;
     column-gap: 20px;
-    @media (max-width: 600px) {
+    @media (max-width: 768px) {
         justify-content: flex-start;
         padding: 10px 20px;
         max-width: 100svw;
         column-gap: 15px;
         row-gap: 10px;
         flex-wrap: wrap;
+        top: 60px;
     }
     
     

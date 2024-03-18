@@ -3,7 +3,8 @@
 import Link from "next/link"
 import { SearchInput, SearchInputSVG, SearchResults, SearchResult, SearchResultBlock, SearchResultPrice, SearchResultTitle, SearchResultImage, SearchInputWrapper } from "./styles"
 import { useRouter } from "next/navigation"
-import { useState, useEffect } from "react"
+import { useState, useEffect, useRef } from "react"
+import ImageLoader from "@/components/ui/ImageLoader/ImageLoader"
 
 
 const SearchByTitle = () => {
@@ -13,10 +14,11 @@ const SearchByTitle = () => {
 
     
     const router = useRouter()
+    const inputRef = useRef(null)
 
     const onSearchInputKeyUp = (event: React.KeyboardEvent<HTMLInputElement>) => {
         if (event.key === 'Enter'){
-            router.push(`/store/search?${event.target.value ? `title=${event.target.value}` : ''}`)
+            router.push(`/store/search?${inputRef.current.value ? `title=${inputRef.current.value}` : ''}`)
         }
     } 
     
@@ -41,7 +43,8 @@ const SearchByTitle = () => {
                 {products.map(product => (
                     <SearchResult href={`/store/product/${product?.id}`} key={product?.id}>
                         <SearchResultBlock>
-                            <SearchResultImage src={product?.logo ? `${process.env.NEXT_PUBLIC_HOST_DOMAIN}/image/${product?.logo}` : ""}/>
+                            src={`${process.env.HOST_DOMAIN}/image/${product.logo}`}
+                            <ImageLoader src={`${product.logo}`} alt="productImage" width={1600} height={900} sizes="100vw" priority={true}/>
                             <SearchResultTitle>{product?.title}</SearchResultTitle>
                         </SearchResultBlock>
                         <SearchResultPrice>{product?.price} ₽</SearchResultPrice>
@@ -49,7 +52,7 @@ const SearchByTitle = () => {
                     </SearchResult>
                 ))}
             </SearchResults>
-            <SearchInput onChange={(event: React.ChangeEvent<HTMLInputElement>) => {setTitle(event.target.value)}} onKeyUp={onSearchInputKeyUp} placeholder='Поиск по названию' value={title}/>
+            <SearchInput ref={inputRef} onChange={(event: React.ChangeEvent<HTMLInputElement>) => {setTitle(event.target.value)}} onKeyUp={onSearchInputKeyUp} placeholder='Поиск по названию' value={title}/>
             <Link href="/store/search">
                 <SearchInputSVG/>
             </Link>

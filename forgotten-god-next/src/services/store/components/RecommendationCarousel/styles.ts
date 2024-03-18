@@ -102,6 +102,7 @@ export const CarouselArrowWrapper = styled.div<{$direction: string}>`
     cursor: pointer;
     transition: opacity 0.3s ease-in-out;
     opacity: 0;
+    clip-path: ${props => props.$direction === "left"? "ellipse(95% 85% at 0% 45%)": "ellipse(95% 100% at 100% 50%);"}; 
 
     &:hover ${CarouselLeftArrow}, &:hover ${CarouselRightArrow} {
         fill: #780c0c;
@@ -136,6 +137,7 @@ export const CarouselBottomButtons = styled.div`
     display: flex;
     flex-direction: row;
     align-items: center;
+    transition: background-color 0.2s ease-in-out;
     column-gap: clamp(5px, 5px + 1%, 20px);
     
 `
@@ -147,6 +149,6 @@ export const CarouselBottomButton = styled.button<{$isActive: boolean}>`
     background-color: ${props => props.$isActive? "#780c0c": "#ccc"};
     border-radius: 100vh;
     border: 1px solid #000;
-    transition: background-color 0.2s ease-in-out;
+    transition: inherit;
     cursor: pointer;
 `

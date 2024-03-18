@@ -40,7 +40,7 @@ const MediaSlider = ({ mediaElements=[] }) => {
             <MediaContainer>
 
                 {mediaElements[sliderParams.selectedMediaIndex]?.type === 'video' ?
-                    <VideoPlayer src={`${process.env.NEXT_PUBLIC_HOST_DOMAIN}/image/${mediaElements[sliderParams.selectedMediaIndex]?.src}`}/> :
+                    <VideoPlayer src={`${mediaElements[sliderParams.selectedMediaIndex]?.src}`}/> :
                     <ImageLoader width={1600} height={900} sizes="100vw" alt="sliderImage" priority={true} src={`${mediaElements[sliderParams.selectedMediaIndex]?.src}`} />
                 }
             </MediaContainer>

@@ -37,7 +37,6 @@ export const GodImage = styled(Image).attrs({
     width: 0,
     height: 0,
     priority: true,
-    loading: "eager"
 })`
     display: block;
     width: 100%;
@@ -51,15 +50,16 @@ export const NotFoundByGodTextMessage = styled.span`
     font-size: clamp(16px, 8px + 1vw, 20px);
     color: #ccc;
     text-align: center;
-    transform: translateY(-200%);
     opacity: 0;
-    animation: text-move-in 1.2s ease-in-out forwards;
-    animation-delay: 1.2s;
+    animation: text-move-in 1200ms 1200ms forwards;
+    text-wrap: balance;
+    
     @keyframes text-move-in {
         from{
             transform: translateY(-200%);
             opacity: 0;
         }
+        
         to{
             opacity: 1;
             transform: translateY(0);
@@ -78,13 +78,15 @@ export const NotFoundByGodReturnButton = styled.button`
     border-radius: 20px;
     font-size: clamp(16px, 8px + 1vw, 20px);
     cursor: pointer;
-    transform: translateY(200%);
-    opacity: 0;
-    animation: button-move-in 1.2s ease-in-out forwards;
-    animation-delay: 2.4s;
+    animation: button-move-in 3.6s;
+
 
     @keyframes button-move-in {
         from{
+            transform: translateY(200%);
+            opacity: 0;
+        }
+        33%{
             transform: translateY(200%);
             opacity: 0;
         }

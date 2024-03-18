@@ -1,150 +1,89 @@
 
-import {AdminPanelSVG, SupportLinkSVG, HeaderNavigationButton, LogoutButtonSVG, HeaderWrapper, HeaderNavigation, HeaderNavigationList, HeaderNavigationItem, HeaderNavigationItemTitle, LogoImage, LoginLinkSVG, HeaderNavigationLink, DownloadLinkSVG, HeaderMobileNavigation, HeaderMobileNavigationList, HeaderMobileNavigationLink, HeaderMobileNavigationItem, ShopLinkSVG, HeaderMobileNavigationLinkText, NewsLinkSVG, AccountLinkSVG } from "./styles"
+import {AdminPanelSVG, SupportLinkSVG, HeaderWrapper, HeaderNavigation, HeaderNavigationList, HeaderNavigationItem, HeaderNavigationItemTitle, LogoImage, HeaderNavigationLink, DownloadLinkSVG, HeaderMobileNavigation, HeaderMobileNavigationList, HeaderMobileNavigationLink, HeaderMobileNavigationItem, ShopLinkSVG, NewsLinkSVG, AccountLinkSVG, LogoImageWrapper } from "./styles"
 import HeaderLinkItem from "./HeaderLinkItem"
 
 import LogoutButton from "./LogoutButton"
-import { cookies } from "next/headers";
-/* import { getUserInfo } from "@/utils/userAuth/getUserInfo" */
+import { auth } from "@/utils/userAuth/auth";
+import SignInLink from "./SignInLink";
+import MobileHeader from "./MobileHeader/MobileHeader";
 
-async function getUserInfo() {
-    
-        const refreshCookie = cookies().get("refresh-fg-cookie");
-        if(!refreshCookie?.value){
-            console.log(cookies())
-            return null
-        }
-        const refreshAccess = await fetch(`${process.env.HOST_DOMAIN}/auth/refresh`, { method: "POST", credentials: "include", headers: {
-            Authorization: `Bearer ${refreshCookie.value}`
-        }})
-        /* console.log(new Headers(refreshAccess.headers) ) */
-        const response = await fetch(`${process.env.HOST_DOMAIN}/auth/getUser`, { credentials: "include", headers: {
-            cookie: refreshAccess.headers.get("set-cookie")
-        }})
-        /* const refreshCookie = cookies().get("refresh-fg-cookie")
-        const response = await fetch(`${process.env.CURRENT_DOMAIN}/api/getUser`, {method: "GET", credentials: "include", headers: {
-            cookie : `${refreshCookie.name}=${refreshCookie.value}`
-        }
-        }) */
-        
-        if (!response.ok){
-            
-          return null
-        }
-            
-        const userData = await response.json()
-        return userData
-    
-}
+
+
 
 
 const Header = async () => {
    
-    const userInfo = await getUserInfo()
+    const userInfo = (await auth())?.user || null
     console.log("userInfo: ", userInfo)
 
     return (
-        <HeaderWrapper>
-            <LogoImage/>
-            <HeaderNavigation>
-                <HeaderNavigationList>
-                    <HeaderLinkItem
-                        href="/"
-                        title="Магазин"
-                        svgIcon={<ShopLinkSVG/>}
-                        includedPagesPaths={["/", "/store/search", "/store/product", "/store/cart"]}
-                    />
-                    <HeaderLinkItem
-                        href="/news"
-                        title="Новости"
-                        svgIcon={ <NewsLinkSVG/>}
-                        includedPagesPaths={["/news"]}
-                    />
-                    <HeaderLinkItem
-                        href="/support"
-                        title="Поддержка"
-                        svgIcon={<SupportLinkSVG/>}
-                        includedPagesPaths={["/support"]}
-                    />
-                    
-                </HeaderNavigationList>
-            
-                <HeaderNavigationList>
-                    {
-                    !userInfo?.userId ?
-                        <HeaderNavigationItem>
-                            <HeaderNavigationLink $isActive={false} href="/login">
-                                <LoginLinkSVG/>
-                                <HeaderNavigationItemTitle>Войти</HeaderNavigationItemTitle>
-                            </HeaderNavigationLink>
-                        </HeaderNavigationItem> :
-                        <>
-                            {
-                                userInfo?.userRole === "admin" && 
-                                <HeaderNavigationItem>
-                                    <HeaderNavigationLink $isActive={false} href="/admin/users">
-                                        <AdminPanelSVG/>
-                                        <HeaderNavigationItemTitle>Панель администратора</HeaderNavigationItemTitle>
-                                    </HeaderNavigationLink>
-                                </HeaderNavigationItem>
-                               
-                            }
-                             <HeaderNavigationItem>
-                                <HeaderNavigationLink $isActive={false} href={`/profile/`}>
-                                    <AccountLinkSVG/>
-                                    <HeaderNavigationItemTitle>Профиль</HeaderNavigationItemTitle>
-                                </HeaderNavigationLink>
-                            </HeaderNavigationItem>
-                            <LogoutButton/>
-                        </>
-                    }
-                    
+        <>
+            <HeaderWrapper>
+                <LogoImageWrapper>
+                    <LogoImage src={"/images/logo.png"} alt="logo"/>
+                </LogoImageWrapper>
+                <HeaderNavigation>
+                    <HeaderNavigationList>
+                        <HeaderLinkItem
+                            href="/"
+                            title="Магазин"
+                            svgIcon={<ShopLinkSVG/>}
+                            includedPagesPaths={["/", "/store/search", "/store/product", "/store/cart"]}
+                        />
+                        <HeaderLinkItem
+                            href="/news"
+                            title="Новости"
+                            svgIcon={ <NewsLinkSVG/>}
+                            includedPagesPaths={["/news"]}
+                        />
+                        <HeaderLinkItem
+                            href="/support"
+                            title="Поддержка"
+                            svgIcon={<SupportLinkSVG/>}
+                            includedPagesPaths={["/support"]}
+                        />
+                        
+                    </HeaderNavigationList>
+                
+                    <HeaderNavigationList>
+                        {
+                        !userInfo?.id ?
+                        <SignInLink/> :
+                            <>
+                                {
+                                    userInfo?.role === "admin" && 
 
-                    <HeaderNavigationItem>
-                        <HeaderNavigationLink $isActive={false} href="/support/downloads">
-                            <DownloadLinkSVG/>
-                            <HeaderNavigationItemTitle>Загрузка</HeaderNavigationItemTitle>
-                        </HeaderNavigationLink>
-                    </HeaderNavigationItem>
-                </HeaderNavigationList>
-            </HeaderNavigation>
+                                    <HeaderLinkItem
+                                        href="/admin/users"
+                                        title="Панель администратора"
+                                        svgIcon={<AdminPanelSVG/>}
+                                        includedPagesPaths={["/admin"]}
+                                    />
+                                
+                                }
+                                <HeaderLinkItem
+                                    href="/profile/"
+                                    title="Профиль"
+                                    svgIcon={<AccountLinkSVG/>}
+                                    includedPagesPaths={["/profile/"]}
+                                />
+                                <LogoutButton/>
+                            </>
+                        }
+                        
+                        <HeaderLinkItem
+                            href="/support/downloads/"
+                            title="Загрузка"
+                            svgIcon={<DownloadLinkSVG/>}
+                            includedPagesPaths={["/support/downloads"]}
+                        />
+                        </HeaderNavigationList>
+                </HeaderNavigation>   
+            </HeaderWrapper>
 
-
-           {/*  <HeaderMobileNavigation>
-                <HeaderMobileNavigationList>
-                    <HeaderMobileNavigationItem>
-                        <HeaderMobileNavigationLink $isActive={activeLinks.store} href="/">
-                            <ShopLinkSVG/>
-                            <HeaderMobileNavigationLinkText>Магазин</HeaderMobileNavigationLinkText>
-                        </HeaderMobileNavigationLink>
-                    </HeaderMobileNavigationItem>
-                    <HeaderMobileNavigationItem>
-                        <HeaderMobileNavigationLink $isActive={activeLinks.news} href="/news">
-                            <NewsLinkSVG/>
-                            <HeaderMobileNavigationLinkText>Новости</HeaderMobileNavigationLinkText>
-                        </HeaderMobileNavigationLink>
-                    </HeaderMobileNavigationItem>
-
-                    {
-                   !userInfo?.userId?
-                    <HeaderMobileNavigationItem>
-                        <HeaderMobileNavigationLink $isActive={activeLinks.login} href="/login">
-                            <LoginLinkSVG/>
-                            <HeaderMobileNavigationLinkText>Войти</HeaderMobileNavigationLinkText>
-                        </HeaderMobileNavigationLink>
-                    </HeaderMobileNavigationItem> :
-                    <HeaderMobileNavigationItem>
-                        <HeaderMobileNavigationLink $isActive={activeLinks.profile} href={`/user/`}>
-                            <AccountLinkSVG/>
-                            <HeaderMobileNavigationLinkText>Профиль</HeaderMobileNavigationLinkText>
-                        </HeaderMobileNavigationLink>
-                    </HeaderMobileNavigationItem>
-                    }
-                    
-                </HeaderMobileNavigationList>
-            </HeaderMobileNavigation>
- */}
-            
-        </HeaderWrapper>
+           <MobileHeader userInfo={userInfo}/>
+        </>
+        
     )
 }
 

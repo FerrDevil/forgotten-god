@@ -6,9 +6,9 @@ import AdminTags from "@/app/admin/tags/components/AdminTagsHandler/AdminTags/Ad
 
 import DeleteTagModal from "./DeleteTagsModal/DeleteTagModal"
 import AddTagModal from "./AddTagModal/AddTagModal"
-import { TTag } from "@/types/store/types"
 
-export default function AdminTagsHandler({tags} : {tags: TTag[]}) {
+
+export default function AdminTagsHandler({tags} ) {
     const [tagsInfo, setTagsInfo] = useState(tags)
 
     const [deleteTagIndex, setDeleteTagIndex] = useState(-1)

@@ -11,9 +11,12 @@ export default function TitleField({title, setTitle} : ITitleField) {
         <TitleFieldWrapper>
             <TitleFieldInputWrapper $isInputShown={isEdit}>
                 <ProductFormGameTitle onDoubleClick={() => {setEdit(prev => !prev)}}>{title}</ProductFormGameTitle>
-                <TitleFieldInput  onChange={setTitle}/>
+                <TitleFieldInput id="title" name="title" onChange={setTitle}/>
             </TitleFieldInputWrapper>
-            <TitleFieldEditButton onClick={() => {setEdit(prev => !prev)}}>
+            <TitleFieldEditButton onClick={(event) => {
+                event.preventDefault()
+                setEdit(prev => !prev)
+                }}>
                 {
                     isEdit ?
                     <TitleFieldSaveButtonSVG/> :

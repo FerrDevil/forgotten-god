@@ -50,17 +50,18 @@ export const SearchPanelWrapper = styled.div`
     
 `
 
-interface ISearchControls {
-    $isVisible: boolean
-}
 
-export const SearchControls = styled.aside<ISearchControls>`
+
+export const SearchControls = styled.aside<{
+    $isVisible: boolean
+}>`
     display: flex;
     flex-direction: column;
     justify-content: center;
 
     position: fixed;
-    left: 50px;
+    right: 0;
+    bottom: 0;
     top: 70px;
     
     background-color: var(--main-color-black);
@@ -69,12 +70,12 @@ export const SearchControls = styled.aside<ISearchControls>`
     z-index: 1000;
 
     pointer-events: ${props => !props.$isVisible ? "none" : "all"};
-    transform: translateY(${props => !props.$isVisible ? "-100%" : "0" });
-    opacity: ${props => !props.$isVisible ? "0" :  "1"};
-    transition: transform 0.5s ease-in-out, opacity 0.2s ease-in-out;
+    transform: translateX(${props => !props.$isVisible ? "100%" : "0" });
+    transition: transform 0.5s ease-in-out;
 
-    @media (max-width: 600px) {
-        left: 0;
+    @media (max-width: 768px) {
+        top: 70px;
+        
     }
 
 `
@@ -113,8 +114,8 @@ export const SearchControlsClose = styled(CloseSVG)`
 export const SearchControlsContent = styled.div`
     display: flex;
     flex-direction: column;
-    justify-content: center;
     
+    height: 100%;
     overflow-y: auto;
     padding: 20px clamp(30px, 3vw, 70px);
     width: 100%;

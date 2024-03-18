@@ -16,14 +16,14 @@ export const SearchProductLoader = styled.div`
    
 `
 
-export const ImageLoaderImagePlaceholder = styled.div<{$aspectRatio: string}>`
+export const ImageLoaderImagePlaceholder = styled.div<{$width: number | undefined, $height: number | undefined}>`
     display: block;
     width: 100%;
     height: 100%;
     object-fit: cover;
     background-color: #2e2e2e;
     animation: pulse 2s infinite ease-in-out;
-    ${props => props.$aspectRatio && `aspect-ratio: ${props.$aspectRatio};`}
+    ${props => props.$width && props.$height && `aspect-ratio: ${props.$width} / ${props.$height};`}
 
     @keyframes pulse {
         from{

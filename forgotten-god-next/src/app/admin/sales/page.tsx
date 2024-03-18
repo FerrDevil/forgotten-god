@@ -1,10 +1,18 @@
-import SalesTable from "@/services/admin/components/SalesTable/SalesTable"
+import prisma from "@/lib/prisma/prisma"
+import SalesTable from "./components/SalesTable/SalesTable"
+import { cache } from "react"
 
-export default function AdminSalesPage  ()  {
+const getSalesInfo = cache(async () => {
+    const salesInfo = await prisma.sales.findMany()
+    return salesInfo
+})
+
+export default async function AdminSalesPage  ()  {
+    const salesInfo = await getSalesInfo()
 
     return(
         
-           <SalesTable/>
+           <SalesTable salesInfo={salesInfo}/>
         
     )
 }

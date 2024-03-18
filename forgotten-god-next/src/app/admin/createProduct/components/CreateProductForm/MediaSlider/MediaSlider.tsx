@@ -1,19 +1,19 @@
 "use client"
 import { MediaWrapper, MediaContainer, MediaImage, SliderWrapper, SliderLeftArrow, SliderContentWrapper, SliderContent, SliderRightArrow, SliderVideoMark, SliderArrowButton, ProductFormMediaWrapper, ProductFormMediaFileInputWrapper, ProductFormMediaFileInput, ProductFormMediaFileInputDescriptionWrapper, ProductFormMediaFileInputDescription, ProductFormMediaPlaceholderSVG, ProductFormMedia } from "./mediaStyles"
-import { Dispatch, SetStateAction, memo, useMemo, useState } from "react"
+import { Dispatch, SetStateAction, memo, useEffect, useMemo, useRef, useState } from "react"
 import VideoPlayer from "@/components/VideoPlayer/VideoPlayer"
 import { IProductInfo } from "../CreateProductForm"
 import MediaSliderCanvas from "./MediaSliderCanvas"
-import { IImageSlider, ISliderParams } from "./types"
+import { ImageSliderProps, ISliderParams } from "./types"
 
-const MediaSlider = ({ mediaElements=[], setProductInfo } : {mediaElements: File[], setProductInfo : Dispatch<SetStateAction<IProductInfo>>}) => {
+const MediaSlider = memo(({ mediaElements=[], setProductInfo } : {mediaElements: File[], setProductInfo : Dispatch<SetStateAction<IProductInfo>>}) => {
 
     const [sliderParams, setSliderParams] = useState<ISliderParams>({
         pageIndex: 0,
         selectedMediaIndex: 0
     })
 
-    const elements: File[] = mediaElements
+    const [elements, setElements] = useState<File[]>([])
 
     return(
         <MediaWrapper>
@@ -21,31 +21,48 @@ const MediaSlider = ({ mediaElements=[], setProductInfo } : {mediaElements: File
             { 
                 elements.length !== 0 && (
                     elements[sliderParams.selectedMediaIndex]?.type.startsWith('video')  ?
-                        <VideoPlayer src={URL.createObjectURL(mediaElements[sliderParams.selectedMediaIndex])}/> :
-                        <MediaImage src={URL.createObjectURL(mediaElements[sliderParams.selectedMediaIndex])}/>
+                        <VideoPlayer src={URL.createObjectURL(elements[sliderParams.selectedMediaIndex])}/> :
+                        <MediaImage src={URL.createObjectURL(elements[sliderParams.selectedMediaIndex])} alt="sliderImage"/>
                     )
             }
             </MediaContainer>
-            <ImageSlider elements={elements} sliderParams={sliderParams} setSliderParams={setSliderParams} setProductInfo={setProductInfo}/>
+            <ImageSlider elements={elements} setElements={setElements} sliderParams={sliderParams} setSliderParams={setSliderParams} setProductInfo={setProductInfo}/>
         </MediaWrapper>
     )
-}
+})
 
 
-const ImageSlider = ({elements=[], sliderParams, setSliderParams, setProductInfo}: IImageSlider) => {
+const ImageSlider = memo(({elements=[], setElements, sliderParams, setSliderParams, setProductInfo}: ImageSliderProps) => {
+
+    
     const getPagesLength = useMemo(() => Math.ceil((elements.length + 1 )/ 4), [elements] )
 
-    const movePageLeft = () => {
+    const movePageLeft = (event) => {
+        event.preventDefault()
         setSliderParams(prev => ({...prev, pageIndex: prev.pageIndex > 0 ? prev.pageIndex - 1 : getPagesLength-1}))
     }
 
-    const movePageRight = () => {
-        setSliderParams(prev => ( {...prev, pageIndex: prev.pageIndex !== getPagesLength-1 ? prev.pageIndex + 1 : 0}))
+    const movePageRight = (event) => {
+        event.preventDefault()
+        setSliderParams(prev => ( {...prev, pageIndex: prev.pageIndex !== getPagesLength - 1 ? prev.pageIndex + 1 : 0}))
     }
 
     const selectMedia = (index: number) => {
         setSliderParams(prev =>  ({...prev, selectedMediaIndex: index }))
     }
+
+    const inputRef = useRef(null)
+
+    useEffect(() => {
+        const dataTransfer = new DataTransfer()
+        for (let file of elements){
+            dataTransfer.items.add(file)
+        }
+        console.log(dataTransfer.files)
+        inputRef?.current && (inputRef.current.files = dataTransfer.files )
+    }, [elements])
+
+    
 
     return (
         <SliderWrapper>
@@ -54,7 +71,9 @@ const ImageSlider = ({elements=[], sliderParams, setSliderParams, setProductInfo
                 </SliderArrowButton>
                 
                 <SliderContentWrapper>
+                    <ProductFormMediaFileInput accept="image/*, video/*" name="media" ref={inputRef} multiple/>
                     <SliderContent $currentGroupIndex={sliderParams.pageIndex}>
+                    
                         {
                             elements.map((element, elementIndex ) => (
                                     <ProductFormMediaWrapper key={elementIndex} onClick={() => {selectMedia(elementIndex)}} $isSelected={sliderParams.selectedMediaIndex === elementIndex}>
@@ -64,13 +83,13 @@ const ImageSlider = ({elements=[], sliderParams, setSliderParams, setProductInfo
                                                     <MediaSliderCanvas videoLink={URL.createObjectURL(element)}/>
                                                     <SliderVideoMark src="/images/video-mark.svg" alt="video-mark"/>
                                                 </> :
-                                                <ProductFormMedia src={`${URL.createObjectURL(element)}`}/> 
+                                                <ProductFormMedia src={`${URL.createObjectURL(element)}`} alt="sliderImage"/> 
                                             }
                                         <ProductFormMediaFileInputWrapper $notMediaSet={false}>
-                                            <ProductFormMediaFileInput onChange={
+                                            <ProductFormMediaFileInput accept="image/*, video/*" onChange={
                                                 (event: React.ChangeEvent<HTMLInputElement>) => {
-                                                    setProductInfo(prev => (
-                                                        {...prev, media : prev.media.map((el, index) => index === elementIndex ? event.target.files[0] : el)}
+                                                    setElements(prev => (
+                                                        prev.map((el, index) => index === elementIndex ? event.target.files[0] : el)
                                                     ))
                                                 }
                                             }
@@ -92,9 +111,7 @@ const ImageSlider = ({elements=[], sliderParams, setSliderParams, setProductInfo
                                 <ProductFormMediaFileInput
                                     onChange={
                                         (event: React.ChangeEvent<HTMLInputElement>) => {
-                                            setProductInfo(prev => (
-                                                {...prev, media : [...prev.media, event.target.files[0]]}
-                                            ))
+                                            setElements(prev => [...prev, event.target.files[0]])
                                         }
                                     }
                                 />
@@ -109,12 +126,19 @@ const ImageSlider = ({elements=[], sliderParams, setSliderParams, setProductInfo
                 </SliderContentWrapper>
                 
                 <SliderArrowButton onClick={movePageRight}>
-                <SliderRightArrow />
+                    <SliderRightArrow />
                 </SliderArrowButton>
                 
             </SliderWrapper>
     )
-}
+})
+
+
+/* (event: React.ChangeEvent<HTMLInputElement>) => {
+    setProductInfo(prev => (
+        {...prev, media : [...prev.media, event.target.files[0]]}
+    ))
+} */
 
 
 

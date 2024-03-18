@@ -11,9 +11,12 @@ export default function SynopsisField({synopsis, setSynopsis} : ISynopsisField) 
         <TitleFieldWrapper>
             <TitleFieldInputWrapper $isInputShown={isEdit}>
                 <ProductFormGameSynopsisParagraph onDoubleClick={() => {setEdit(prev => !prev)}}>{synopsis}</ProductFormGameSynopsisParagraph>
-                <TitleFieldInput onChange={setSynopsis}/>
+                <TitleFieldInput id="synopsis" name="synopsis" onChange={setSynopsis}/>
             </TitleFieldInputWrapper>
-            <TitleFieldEditButton onClick={() => {setEdit(prev => !prev)}}>
+            <TitleFieldEditButton onClick={(event) => {
+                event.preventDefault()
+                setEdit(prev => !prev)
+                }}>
                 {
                     isEdit ?
                     <TitleFieldSaveButtonSVG/> :

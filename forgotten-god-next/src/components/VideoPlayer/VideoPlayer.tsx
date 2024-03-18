@@ -1,47 +1,44 @@
 "use client"
+import useDeferedEffect from "@/hooks/useDeferedEffect"
 import  {VideoContainer, Video, VideoControls, VideoPlayButton, VideoPauseButton, VideoRestartButton, VideoVolumeWrapper, VideoVolumeUpButton, VideoVolumeOffButton, VideoVolumeRangeWrapper, VideoVolumeRange, VideoTimelineRangeWrapper, VideoTimelineRange, VideoTimer, VideoTimerText, VideoTimelineRangeProgress, VideoControlsSideContainer, VideoFullscreenButton, VideoFullscreenEnterSVG, VideoFullscreenExitSVG} from "./styles"
 import { useState, memo, useRef, useEffect } from "react"
+import useLocalStorage from "@/hooks/useLocalStorage"
+import type { TStoredVideoOptions, TTime, TVideoPlayerProps } from "./types"
 
 
 
-const VideoPlayer = ({src, autoPlay=true} : IVideoPlayerProps) => {
+const VideoPlayer = ({src, autoPlay=true} : TVideoPlayerProps) => {
     const video = useRef(null)
     const videoContainer = useRef(null)
-    const [videoStatus, setVideoStatus] = useState({
-        isPlaying: true,
+
+    const [storedVideoOptions, setStoredVideoOptions] = useLocalStorage<TStoredVideoOptions>("videoSavedOptions", {
         volume: 20,
         isMuted: true,
-        isFullScreen: false
     })
-
-    useEffect(() => {
-        setVideoStatus({
-            isPlaying: true,
-            volume: localStorage.getItem("videoPlayerVolume") !== null ? parseInt(localStorage.getItem("videoPlayerVolume") ) : 20,
-            isMuted: localStorage.getItem("isVideoPlayerMuted") !== null ? localStorage.getItem("isVideoPlayerMuted") === "true" : true,
-            isFullScreen: false
-        })
-    }, [])
+    const [videoStatus, setVideoStatus] = useState({
+        isPlaying: true,
+        isFullScreen: false,
+    })
 
     
 
     const [currentTime, setCurrentTime] = useState(0)
     
-    const time = {
+    const time: TTime = {
         currentTime: Math.floor(video.current?.currentTime) || 0,
-        duration: Math.floor(video.current?.duration) || 1
+        duration: Math.floor(video.current?.duration) || 0
     }
     
 
     
     const switchVideoVolume = () => {  
-        setVideoStatus(prev => ({...prev, isMuted : !prev.isMuted }))
+        setStoredVideoOptions(prev => ({...prev, isMuted : !prev.isMuted }))
     }
 
     const onChangeVideoVolume = (event : React.ChangeEvent<HTMLInputElement>) => {
         const newVolume = parseInt(event.target.value)
 
-        setVideoStatus(prev => ({...prev,
+        setStoredVideoOptions(prev => ({...prev,
             volume : newVolume === 0 ? 20: newVolume,
             isMuted: newVolume === 0 
         }))
@@ -65,15 +62,13 @@ const VideoPlayer = ({src, autoPlay=true} : IVideoPlayerProps) => {
     }
 
 
-    useEffect(() => {
+    useDeferedEffect(() => {
         videoStatus.isPlaying ? video.current.play() : video.current.pause()
     }, [videoStatus.isPlaying])
 
     useEffect(() => {
-        video.current.volume = !videoStatus.isMuted? videoStatus.volume / 100 :  0
-        localStorage.setItem("isVideoPlayerMuted", videoStatus.isMuted.toString())
-        localStorage.setItem("videoPlayerVolume", videoStatus.volume.toString())
-    }, [videoStatus.volume, videoStatus.isMuted])
+        video.current.volume = !storedVideoOptions.isMuted? storedVideoOptions.volume / 100 :  0
+    }, [storedVideoOptions.volume, storedVideoOptions.isMuted])
 
     useEffect(() => {
         videoStatus.isFullScreen ? 
@@ -86,18 +81,21 @@ const VideoPlayer = ({src, autoPlay=true} : IVideoPlayerProps) => {
         <VideoContainer ref={videoContainer}>
             <Video
                 ref={video}
+                
+                onPlay={() => { setVideoStatus(prev => ({...prev, isPlaying : true}))}}
                 onEnded={() => { setVideoStatus(prev => ({...prev, isPlaying : false}))}}
                 onTimeUpdate={onVideoTimeUpdate}
                 onClick={() => { setVideoStatus(prev => ({...prev, isPlaying : !prev.isPlaying}))}}
                 autoPlay={autoPlay} 
                 playsInline 
                 src={src}
+                muted={storedVideoOptions.isMuted}
             />
             <VideoControls $isPaused={!videoStatus.isPlaying}>
                 <VideoControlsSideContainer>
                     <VideoTimelineRangeWrapper >
                         <VideoTimelineRange onChange={onChangeVideoTime} type='range' min={0} max={time.duration} step={"any"} value={time.currentTime}/>
-                        <VideoTimelineRangeProgress style={{width: `calc(${time.currentTime / time.duration * 100}% + 1px)`}} />
+                        <VideoTimelineRangeProgress $time={time} />
                     </VideoTimelineRangeWrapper>
                     {time.currentTime === time.duration ?
                         <VideoRestartButton onClick={() => { setVideoStatus(prev => ({...prev, isPlaying : true}))}}/> :
@@ -106,13 +104,13 @@ const VideoPlayer = ({src, autoPlay=true} : IVideoPlayerProps) => {
                             <VideoPlayButton onClick={() => { setVideoStatus(prev => ({...prev, isPlaying : true}))}}/>
                     }
                     <VideoVolumeWrapper>
-                        { videoStatus.isMuted ?
+                        { storedVideoOptions.isMuted ?
                             <VideoVolumeOffButton onClick={switchVideoVolume}/> :
                             <VideoVolumeUpButton onClick={switchVideoVolume}/>
                         }
                         
-                        <VideoVolumeRangeWrapper $volume={!videoStatus.isMuted ? videoStatus.volume : 0}>
-                            <VideoVolumeRange onChange={onChangeVideoVolume}  value={ !videoStatus.isMuted ? videoStatus.volume : 0}/>
+                        <VideoVolumeRangeWrapper $volume={!storedVideoOptions.isMuted ? storedVideoOptions.volume : 0}>
+                            <VideoVolumeRange onChange={onChangeVideoVolume}  value={ !storedVideoOptions.isMuted ? storedVideoOptions.volume : 0}/>
                         </VideoVolumeRangeWrapper>
                     </VideoVolumeWrapper>
                     <VideoTimerWrapper time={time}/>
@@ -153,4 +151,4 @@ const VideoTimerWrapper = ({time}) => {
     )
 }
 
-export default VideoPlayer
+export default memo(VideoPlayer)

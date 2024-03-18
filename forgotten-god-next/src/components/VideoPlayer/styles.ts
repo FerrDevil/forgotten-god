@@ -6,6 +6,7 @@ import VolumeUpSVG from "../../public/volume-up.svg"
 import VolumeOffSVG from "../../public/volume-off.svg"
 import FullscreenEnterSVG from "./public/fullscreen_enter.svg"
 import FullscreenExitSVG from "./public/fullscreen_exit.svg"
+import { TTime } from "./types"
 
 export const Video = styled.video`
     width: 100%;
@@ -13,7 +14,7 @@ export const Video = styled.video`
     cursor: pointer;
 `
 
-export const VideoControls = styled.div<IVideoControls>`
+export const VideoControls = styled.div<{$isPaused: boolean}>`
     position: absolute;
     z-index: 2;
     bottom: 0;
@@ -187,8 +188,8 @@ export const VideoTimelineRangeWrapper = styled.div`
     align-items: center;
 `
 
-export const VideoTimelineRangeProgress = styled.div.attrs((props: any) => ({
-    style: props.style
+export const VideoTimelineRangeProgress = styled.div.attrs<{$time: TTime}>((props) => ({
+    style: {width: `calc(${props.$time.currentTime / props.$time.duration * 100}% + 1px)`}
 }))`
     pointer-events: none;
     position: absolute;

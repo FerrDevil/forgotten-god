@@ -1,13 +1,14 @@
+import prisma from "@/lib/prisma/prisma"
 import AdminTagsHandler from "./components/AdminTagsHandler/AdminTagsHandler"
-import { TTag } from "@/types/store/types"
+import { cache } from "react"
 
-async function getTags() {
-    const response = await fetch(`${process.env.HOST_DOMAIN}/admin/getTags`)
-    return await response.json()
-}
+const getTags = cache(async () => {
+    const tags = await prisma.tag.findMany()
+    return tags
+})
 
-export default async function AdminTagsPage  ()  {
-    const tags: TTag[] = await getTags()  
+export default async function AdminTagsPage()  {
+    const tags = await getTags()  
 
     return(
         <AdminTagsHandler tags={tags}/>
